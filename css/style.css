@@ -1,0 +1,282 @@
+
+
+    @import url(/css/variables.css);
+    @import url(/css/fonts.css);
+    .logo{
+      height: auto;
+      width: 60%;
+      
+    }
+    .menubar .sticky {
+      position: fixed;
+      top: 0;
+      width: 100%;
+    }
+    .navbar{
+      padding: 1rem 6rem;
+    }
+    .navbar-nav .nav-item .nav-link{
+      color: var(--colorwhite);
+      font-family: RobotoRegular;
+      padding: 1rem;
+    }
+    .navbar-nav .nav-item .nav-link:hover{
+      color: var(--colorgray);
+    }
+    @media only screen and (max-width: 762px){
+      .navbar, .logo, .nav-item{
+        padding: 2%;
+        margin: 0%;
+      }
+      .banner{
+        text-align: center;
+        
+      }
+      .banner .bannertext h1{
+        font-size: 2rem;
+        text-align: center;
+      }
+      .banner .bannertext p{
+        font-size: 1.2rem;
+        text-align: center;
+      }
+      .banner .primary-button{
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .section2 .sec2txt{
+        padding-top: 50px;
+        padding-left: 0px;
+        padding-right: 0px;          
+      }
+      .section2 .card{
+        margin-top: 15px;
+      }
+      .section2 .btnsec2{
+        margin-bottom: 15px;
+      }
+      .section2 .textp{
+        font-size: 1rem;
+      }
+      .sec3{
+        text-align: center;
+      }
+      .sec3 .listtxt{
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .sec3 .sec3title{
+        padding-top: 0px;
+      }
+      body .sec4{
+        padding-left: 25px;
+        padding-right: 25px;
+      }
+      .sec4 .sec4text{
+        text-align: center;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0px;
+      }
+      .sec4 .sec4text h2{
+        font-size: 2.7rem;
+      }
+      .sec4 .sec4text h3{
+        font-size: 1.5rem;
+      }
+     
+    }
+    .banner{
+        width: 100%;
+        height: auto;
+        background-image: url(/RecursosGraficos/SliderPrincipal.png);
+        background-repeat: no-repeat;
+        position: relative;
+        background-size: cover;
+    }
+    .bannertext h1{
+        font-family: RobotoRegular;
+        padding-top: 15%;
+        font-size: 3rem;
+    }
+    .bannertext .strong{
+      font-family: RobotoBold;
+    }
+    .bannertext p{
+        font-family: RobotoRegular;
+        font-size: 1.5rem;
+    }
+    .bannerimg img{
+        padding-left: 15px;
+    }
+    
+    .button{
+        background: var(--gradiantgreen);
+        color: var(--colorwhite);
+        border-radius: 30px;
+        position: center;
+        padding-left: 30px;
+        padding-right: 30px;
+        font-family: RobotoRegular;
+        font-size: 20px;
+    }
+    .primary-button{
+        margin-top: 20px;;
+    }
+    .section2{
+        text-align: center;
+        padding-top: 30px;
+    }
+    .sec2txt{
+      padding-right: 100px;
+      padding-left: 100px;
+    }
+    .titlesec2{
+        font-family: RobotoBold;
+        font-size: 2.5rem;
+        color: var(--colorgray);
+    }
+    .txtgreen{
+        color: var(--colorgreen);
+    }
+    .txtwhite{
+        color: var(--colorwhite);
+    }
+    .textp{
+        font-family: RobotoRegular;
+        padding: 1rem;
+        color: var(--colorgray);
+        font-size: 20px;
+    }
+    .titleservices{
+        font-family: RobotoBold;
+        font-size: 35px;
+        padding: 10px;
+        color: var(--colorgray);
+    }
+    .card{
+        -webkit-box-shadow: 0px 3px 12px 1px rgba(0,0,0,0.11);
+        -moz-box-shadow: 0px 3px 12px 1px rgba(0,0,0,0.11);
+        box-shadow: 0px 3px 12px 1px rgba(0,0,0,0.11);
+        border-radius: 15px;
+        margin-top:60px;
+        height: auto;
+        transition: 0.3s;
+    }
+     .card:hover{
+        -webkit-box-shadow: 0px 3px 12px 1px rgba(0,0,0,0.35);
+        -moz-box-shadow: 0px 3px 12px 1px rgba(0,0,0,0.35);
+        box-shadow: 0px 3px 12px 1px rgba(0,0,0,0.35);
+    }
+    .cards1{
+      padding-bottom: 30px;
+    }
+    .sec3{
+        background-image: url(/RecursosGraficos/GreenBackground.png);
+        background-repeat: no-repeat;
+        margin-top: -700px;
+        background-size: cover;
+    }
+    .sec3img .imgapp2{
+        padding-top: 800px;
+    }
+    .sec3title{
+        padding-top: 800px;
+        padding-bottom: 200px;
+    }
+    .lista{
+      padding-right: auto;
+      padding-left: auto;
+      padding-top: 50px;
+    }
+    .sec4{
+      padding: 50px;
+    }
+    .sec4text h3{
+      font-family: RobotoRegular;
+      font-size: 2rem;
+      color: var(--colorgray);
+    }
+    .sec4text .strong{
+      font-family: RobotoBold;
+    }
+    .sec4text h2{
+      font-family: RobotoBold;
+      font-size: 2.8rem;
+      color: var(--colorgray);
+    }
+    .sec4text p{
+      font-family: RobotoRegular;
+      padding-top: 30px;
+      font-size: 1.2rem;
+      text-align: justify;
+      color: var(--colorgray);
+    }
+    .sec4app{
+      padding-top: 30px;
+      padding-left: auto;
+      padding-right: auto;
+    }
+    .imgapp1{
+      padding: 10px;
+      text-align: center;
+    }
+    .form{
+      background-image: url(/RecursosGraficos/Pattern.png);
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+    .containerform{
+      background-color: var(--colorwhite);
+      -webkit-box-shadow: 0px 3px 12px 1px rgba(0,0,0,0.11);
+      -moz-box-shadow: 0px 3px 12px 1px rgba(0,0,0,0.11);
+      box-shadow: 0px 3px 12px 1px rgba(0,0,0,0.11);
+      border-radius: 15px;
+    }
+    .forminfo{
+      background-color: var(--colorgreen);
+      padding-right: 30px;
+      padding-bottom: 30px;
+    }
+    .formform{
+      padding: 50px;
+      
+    }
+    .formform h1{
+      font-family: RobotoBold;
+      color: var(--colorgray);
+      font-size: 2.5rem;
+    }
+    .formcont{
+      padding-top: 50px;
+      
+    }
+
+    .forminfotxt{
+      padding-left: 60px;
+      padding-top: 40px;
+    
+    }
+    .forminfo h2{
+      font-family: RobotoBold;
+      font-size: 2rem;
+    }
+    .forminfo p{
+      font-family: RobotoRegular;
+      font-size: 1rem;
+    }
+    .formcontrol{
+      margin-top: 15px;
+    }
+    .footer{
+      background-color: var(--colorgreen);
+    }
+    .footertext a{
+      text-decoration: none;
+      color: var(--colorwhite);
+    }
+    .footertext{
+      color: var(--colorwhite);
+    }
