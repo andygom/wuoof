@@ -3,9 +3,9 @@
 
 @font-face{
     font-family: "RobotoBold";
-    src: url(/Fonts/Roboto/Roboto-Bold.ttf);
+    src: url(../Fonts/Roboto/Roboto-Bold.ttf);
 }
 @font-face{
     font-family: "RobotoRegular";
-    src: url(/Fonts/Roboto/Roboto-Regular.ttf);
+    src: url(../Fonts/Roboto/Roboto-Regular.ttf);
 }

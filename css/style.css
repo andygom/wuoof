@@ -1,7 +1,7 @@
 
 
-    @import url(/css/variables.css);
-    @import url(/css/fonts.css);
+    @import url(variables.css);
+    @import url(fonts.css);
     .logo{
       height: auto;
       width: 60%;
@@ -91,7 +91,7 @@
     .banner{
         width: 100%;
         height: auto;
-        background-image: url(/RecursosGraficos/SliderPrincipal.png);
+        background-image: url(../RecursosGraficos/SliderPrincipal.png);
         background-repeat: no-repeat;
         position: relative;
         background-size: cover;
@@ -174,7 +174,7 @@
       padding-bottom: 30px;
     }
     .sec3{
-        background-image: url(/RecursosGraficos/GreenBackground.png);
+        background-image: url(../RecursosGraficos/GreenBackground.png);
         background-repeat: no-repeat;
         margin-top: -700px;
         background-size: cover;
@@ -224,7 +224,7 @@
       text-align: center;
     }
     .form{
-      background-image: url(/RecursosGraficos/Pattern.png);
+      background-image: url(../RecursosGraficos/Pattern.png);
       padding-top: 40px;
       padding-bottom: 40px;
     }
