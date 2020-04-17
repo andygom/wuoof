@@ -9,6 +9,24 @@
   </head>
 <body>
 
+<div class="responsive-navbar">
+  <div class="nav-logo">
+    <img src="RecursosGraficos/Logo.png" alt="" class="logo">
+  </div>
+
+  <div class="menu-content">
+    <div class="menu-links no-mobile">
+      <a href="#">Bienvenido</a>
+      <a href="#">¿Qué es <strong>Wuoof!</strong>?</a>
+      <a href="#">Descargar</a>
+    </div>
+
+    <div class="button-cont">
+      <a href="#">Preregistro</a>
+    </div>
+  </div>
+</div>
+
 
 <!--------navbar------------>
 <div class="banner">
@@ -16,9 +34,6 @@
 <div class="menubar">
   <nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" href="#"><img src="RecursosGraficos/Logo.png" alt="" class="logo"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <div class="mr-auto"></div>
       <ul class="navbar-nav">
@@ -41,12 +56,12 @@
     
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-md-12 bannertext txtwhite">
+                <div class="col-sm-8 bannertext txtwhite">
                     <h1 class="title">LA MEJOR <spam class="strong">APP</spam> <br>PARA <spam class="strong">MASCOTAS</spam></h1>
                     <p class="txt">Descarga y descubre más sobre esta excelente aplicación</p>
                     <button href="#" class="btn button primary-button">Ver más</button>
                 </div>
-                <div class="col-lg-4 col-md-12 bannerimg">
+                <div class="col-sm-4 bannerimg">
                     <img src="RecursosGraficos/App1.png" alt="bannerimg" class="img-fluid">
                 </div>
             </div>
@@ -140,10 +155,10 @@
     <div class="sec3">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 col-sm-12 sec3img">
+                <div class="col-lg-4 sec3img">
                     <img src="RecursosGraficos/App2.png" class="img-fluid imgapp2">
                   </div>
-                  <div class="col-md-8 col-sm-12 sec3title">
+                  <div class="col-lg-8 sec3title">
                     <div class="titlesec2 txtwhite">Funciones de la App</div>
                  
                     <div class="row txtwhite lista">
@@ -319,5 +334,26 @@
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+  $( window ).on( "load", function() {
+    var scroll = $(window).scrollTop();
+    if(scroll > 80) {
+      $(".responsive-navbar").addClass("shown-bar");
+    } else {
+      $(".responsive-navbar").removeClass("shown-bar");
+    }
+    
+      $(window).scroll(function (event) {
+          var scroll = $(window).scrollTop();
+          if(scroll > 80) {
+            $(".responsive-navbar").addClass("shown-bar");
+          } else {
+            $(".responsive-navbar").removeClass("shown-bar");
+          }
+
+      });
+  });
+</script>
 </body>
 </html>

@@ -2,6 +2,8 @@
 
     @import url(variables.css);
     @import url(fonts.css);
+    @import url(responsive.css);
+
     .logo{
       height: auto;
       width: 60%;
@@ -23,14 +25,79 @@
     .navbar-nav .nav-item .nav-link:hover{
       color: var(--colorgray);
     }
+
+    .responsive-navbar {
+        position: fixed;
+        z-index: 10;
+        width: 100%;
+        background: #edc56d;
+        padding: 0px 30px;
+        transition: 0.3s;
+        top: -80px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        border-bottom: 2px solid #d8a83e;
+    }
+
+    .responsive-navbar.shown-bar {
+        top: 0px;
+    }
+
+    .responsive-navbar .nav-logo {
+        width: 150px;
+        padding: 0px;
+        height: 70px;
+        display: inline-block;
+    }
+
+    .nav-logo img {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+    }
+
+    .menu-content {
+        display: inline-block;
+        float: right;
+        line-height: 50px;
+        padding: 10px;
+    }
+
+    .menu-content .menu-links {
+        display: inline-block;
+    }
+
+    .menu-content a {
+        color: #fff;
+        padding: 0px 10px;
+        color: #fff;
+        text-decoration: none!important;
+        transition: 0.3s;
+    }
+
+    .menu-content .button-cont a {
+        display: inline-table;
+        background: #60c072;
+        line-height: 35px;
+        padding: 0px 20px;
+        border-radius: 50px;
+        color: #fff!important;
+        text-decoration: none!important;
+        transition: 0.3s;
+    }
+
+    .button-cont {
+        display: inline-block;
+    }
+
     @media only screen and (max-width: 762px){
       .navbar, .logo, .nav-item{
         padding: 2%;
         margin: 0%;
       }
-      .banner{
+      body .banner{
         text-align: center;
-        
+        height: auto;
       }
       .banner .bannertext h1{
         font-size: 2rem;
@@ -49,17 +116,8 @@
         padding-left: 0px;
         padding-right: 0px;          
       }
-      .section2 .card{
-        margin-top: 15px;
-      }
-      .section2 .btnsec2{
-        margin-bottom: 15px;
-      }
       .section2 .textp{
         font-size: 1rem;
-      }
-      .sec3{
-        text-align: center;
       }
       .sec3 .listtxt{
         max-width: 80%;
@@ -91,14 +149,14 @@
     .banner{
         width: 100%;
         height: auto;
-        background-image: url(../RecursosGraficos/SliderPrincipal.png);
+        background-image: url(../RecursosGraficos/SliderPrincipal-min.png);
         background-repeat: no-repeat;
         position: relative;
         background-size: cover;
     }
     .bannertext h1{
         font-family: RobotoRegular;
-        padding-top: 15%;
+        padding-top: 10%;
         font-size: 3rem;
     }
     .bannertext .strong{
@@ -279,4 +337,5 @@
     }
     .footertext{
       color: var(--colorwhite);
+      padding: 10px;
     }

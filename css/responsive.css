@@ -1,0 +1,29 @@
+@media only screen and (max-width: 981px){
+	body .banner {
+	    height: 720px;
+	}
+
+	.section2 .card{
+	  margin-top: 15px;
+	}
+
+	.section2 .btnsec2{
+	  margin-bottom: 15px;
+	}
+
+	body .sec3title {
+	    padding-top: 0px;
+	}
+
+	.sec3{
+	  text-align: center;
+	}
+
+	body .no-mobile {
+		display: none!important;
+	}
+
+	body .responsive-navbar {
+	    padding: 0px 15px;
+	}
+}
