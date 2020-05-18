@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'extras/globals.dart';
 import 'partner/home-card.dart';
 import 'partner/walker_list.dart';
+import 'partner/host_list.dart';
+import 'dates/dates.dart';
 
 class UserHome extends StatefulWidget {
   @override
@@ -340,7 +342,12 @@ class _UserHome extends State<UserHome> {
                     child: new Material(
                       color: Colors.transparent,
                       child: new InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HostList()));
+                        },
                         child: new Container(
                           width: (MediaQuery.of(context).size.width / 3) -
                               (normal_padding) -
@@ -349,7 +356,9 @@ class _UserHome extends State<UserHome> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Container(
+                              Hero(
+                                tag: "host-badge",
+                                child: Container(
                                   width: 60,
                                   height: 60,
                                   decoration: BoxDecoration(
@@ -358,6 +367,7 @@ class _UserHome extends State<UserHome> {
                                       image: AssetImage("images/host-btn.png"),
                                     ),
                                   )),
+                              ),
                               SizedBox(height: 5),
                               Text("Cuidadores")
                             ],
@@ -399,16 +409,19 @@ class _UserHome extends State<UserHome> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Container(
+                              Hero(
+                                tag: "walker-badge",
+                                child: Container(
                                   width: 60,
                                   height: 60,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                       fit: BoxFit.contain,
                                       image:
-                                          AssetImage("images/walker-btn.png"),
+                                          AssetImage("images/paseador.png"),
                                     ),
                                   )),
+                              ),
                               SizedBox(height: 5),
                               Text("Paseadores")
                             ],
@@ -436,7 +449,12 @@ class _UserHome extends State<UserHome> {
                     child: new Material(
                       color: Colors.transparent,
                       child: new InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DatesScreen()));
+                        },
                         child: new Container(
                           width: (MediaQuery.of(context).size.width / 3) -
                               (normal_padding) -
@@ -488,7 +506,7 @@ class _UserHome extends State<UserHome> {
                         color: common_grey)),
                 Container(
                   width: double.infinity,
-                  height: 220,
+                  height: 240,
                   child: ListView.builder(
                       itemCount: 20,
                       padding: EdgeInsets.all(normal_padding),

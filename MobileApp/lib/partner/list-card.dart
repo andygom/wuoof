@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import '../extras/globals.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import '../extras/globals.dart';
 
-Widget partnerListCard(BuildContext context, verified) {
+Widget partnerListCard(BuildContext context, verified, service) {
   return Container(
     width: 130,
     margin: EdgeInsets.only(bottom: 10),
@@ -22,7 +24,7 @@ Widget partnerListCard(BuildContext context, verified) {
     child: Row(
       children: <Widget>[
         Container(
-          height: 120,
+          height: 140,
           width: 120,
           padding: EdgeInsets.all(small_padding),
           decoration: BoxDecoration(
@@ -56,11 +58,11 @@ Widget partnerListCard(BuildContext context, verified) {
                         width: 5,
                       ),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(50)
-                        ),
+                            color: Colors.black.withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(50)),
                         child: Text(
                           "Verificado",
                           style: TextStyle(color: Colors.white, fontSize: 12),
@@ -73,21 +75,55 @@ Widget partnerListCard(BuildContext context, verified) {
         Flexible(
           child: Container(
             alignment: Alignment.topLeft,
-            padding: EdgeInsets.all(small_padding),
+            padding: EdgeInsets.all(normal_padding),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Text(
+                      dummy_partner_name,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      softWrap: false,
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          color: title_color,
+                          fontWeight: small_title_weight,
+                          fontSize: small_title_size),
+                    ),
+                    SizedBox(
+                      width: 7,
+                    ),
+                    RatingBar(
+                      ignoreGestures: true,
+                      initialRating: 4.5,
+                      itemSize: 18,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemPadding: EdgeInsets.symmetric(horizontal: 0.0),
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (rating) {
+                        print(rating);
+                      },
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 3,
+                ),
                 Text(
-                  dummy_partner_name,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  softWrap: false,
-                  textAlign: TextAlign.left,
+                  "Cuernavaca, Mor - 2Km",
                   style: TextStyle(
-                      color: title_color,
-                      fontWeight: small_title_weight,
-                      fontSize: small_title_size),
+                    color: Colors.grey,
+                    fontSize: 12,
+                  ),
                 ),
                 SizedBox(
                   height: 3,
@@ -119,7 +155,7 @@ Widget partnerListCard(BuildContext context, verified) {
                         TextSpan(
                             text: '\$200',
                             style: TextStyle(fontWeight: FontWeight.w700)),
-                        TextSpan(text: '/paseo'),
+                        TextSpan(text: '/' + service.toString()),
                       ],
                     ),
                   ),

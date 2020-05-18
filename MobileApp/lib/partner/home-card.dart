@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../extras/globals.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 Widget partnerHomeCard(BuildContext context) {
   return Container(
@@ -41,16 +42,50 @@ Widget partnerHomeCard(BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Text(
+                    dummy_partner_name,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    softWrap: false,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        color: title_color,
+                        fontWeight: small_title_weight,
+                        fontSize: small_title_size),
+                  ),
+                  SizedBox(
+                    width: 7,
+                  ),
+                  RatingBar(
+                    ignoreGestures: true,
+                    initialRating: 4.5,
+                    itemSize: 14,
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    itemPadding: EdgeInsets.symmetric(horizontal: 0.0),
+                    itemBuilder: (context, _) => Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                    ),
+                    onRatingUpdate: (rating) {
+                      print(rating);
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 3,
+              ),
               Text(
-                dummy_partner_name,
-                overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  softWrap: false,
-                textAlign: TextAlign.left,
+                "Cuernavaca, Mor.",
                 style: TextStyle(
-                    color: title_color,
-                    fontWeight: small_title_weight,
-                    fontSize: small_title_size),
+                  color: Colors.grey,
+                  fontSize: 12,
+                ),
               ),
               SizedBox(
                 height: 3,
@@ -70,9 +105,8 @@ Widget partnerHomeCard(BuildContext context) {
               Container(
                 padding: EdgeInsets.all(3),
                 decoration: BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.circular(1)
-                ),
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(1)),
                 child: RichText(
                   text: TextSpan(
                     style: new TextStyle(
@@ -82,8 +116,7 @@ Widget partnerHomeCard(BuildContext context) {
                     children: <TextSpan>[
                       TextSpan(
                           text: '\$200',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700)),
+                          style: TextStyle(fontWeight: FontWeight.w700)),
                       TextSpan(text: '/paseo'),
                     ],
                   ),
