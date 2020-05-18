@@ -25,16 +25,16 @@ class _DatesScreen extends State<DatesScreen> with TickerProviderStateMixin {
 
     return new Scaffold(
       appBar: main_appbar(context, "Citas"),
-      body: new Center(
-          child: Container(
-              height: MediaQuery.of(context).size.height * 0.6,
+      body: Container(
+        child: Container(
+              height: MediaQuery.of(context).size.height * 0.7,
               child: new TinderSwapCard(
                   orientation: AmassOrientation.BOTTOM,
                   totalNum: 6,
                   stackNum: 3,
                   swipeEdge: 4.0,
                   maxWidth: MediaQuery.of(context).size.width * 0.9,
-                  maxHeight: MediaQuery.of(context).size.width * 0.9,
+                  maxHeight: MediaQuery.of(context).size.height * 1.9,
                   minWidth: MediaQuery.of(context).size.width * 0.8,
                   minHeight: MediaQuery.of(context).size.width * 0.8,
                   cardBuilder: (context, index) => petCard(context),
@@ -51,7 +51,8 @@ class _DatesScreen extends State<DatesScreen> with TickerProviderStateMixin {
                   swipeCompleteCallback:
                       (CardSwipeOrientation orientation, int index) {
                     /// Get orientation & index of swiped card!
-                  }))),
+                  }))
+      )
     );
   }
 }
