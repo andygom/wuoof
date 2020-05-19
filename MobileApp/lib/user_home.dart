@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'extras/globals.dart';
 import 'partner/home-card.dart';
@@ -6,6 +8,8 @@ import 'partner/host_list.dart';
 import 'dates/dates.dart';
 import 'owner/my_pets.dart';
 import 'owner/my_activities.dart';
+import 'owner/user_profile.dart';
+import 'owner/payment_methods.dart';
 
 class UserHome extends StatefulWidget {
   @override
@@ -13,6 +17,17 @@ class UserHome extends StatefulWidget {
 }
 
 class _UserHome extends State<UserHome> {
+  List<Map<String, dynamic>> listaServicios2 = [
+    {
+      "service_id": "service_123456789",
+      "category": "1",
+      "image":
+          "https://thumbs.dreamstime.com/b/el-electricista-en-trabajo-con-las-pinzas-cort%C3%B3-cable-el%C3%A9ctrico-instala-l%C3%A1mparas-casa-los-circuitos-el%C3%A9ctricos-cableado-151886460.jpg",
+      "title": "Localización y reparación de cortos eléctricos",
+      "description": "Descripción breve del servicio, para el ejemplo.",
+    }
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,12 +138,21 @@ class _UserHome extends State<UserHome> {
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.person),
+                leading: Icon(
+                  Icons.person,
+                  color: primary_green,
+                ),
                 title: Text('Mi perfil'),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => UserProfile()));
+                },
               ),
               ListTile(
-                leading: Icon(Icons.pets),
+                leading: Icon(
+                  Icons.pets,
+                  color: primary_green,
+                ),
                 title: Text('Mis mascotas'),
                 onTap: () {
                   Navigator.push(context,
@@ -136,35 +160,58 @@ class _UserHome extends State<UserHome> {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.book),
+                leading: Icon(
+                  Icons.book,
+                  color: primary_green,
+                ),
                 title: Text('Actividades'),
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => UserActivities()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => UserActivities()));
                 },
               ),
               ListTile(
-                leading: Icon(Icons.credit_card),
+                leading: Icon(
+                  Icons.credit_card,
+                  color: primary_green,
+                ),
                 title: Text('Mis tarjetas'),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => PaymentMethods()));
+                },
               ),
               ListTile(
-                leading: Icon(Icons.inbox),
+                leading: Icon(
+                  Icons.inbox,
+                  color: primary_green,
+                ),
                 title: Text('Inbox'),
                 onTap: () {},
               ),
               ListTile(
-                leading: Icon(Icons.help),
+                leading: Icon(
+                  Icons.help,
+                  color: primary_green,
+                ),
                 title: Text('Ayuda'),
                 onTap: () {},
               ),
               ListTile(
-                leading: Icon(Icons.info),
+                leading: Icon(
+                  Icons.info,
+                  color: primary_green,
+                ),
                 title: Text('Información legal'),
                 onTap: () {},
               ),
               ListTile(
-                leading: Icon(Icons.exit_to_app),
+                leading: Icon(
+                  Icons.exit_to_app,
+                  color: primary_green,
+                ),
                 title: Text('Cerrar sesión'),
                 onTap: () {},
               ),

@@ -6,7 +6,9 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wuoof/extras/globals.dart';
 import 'package:wuoof/general/main-appbar.dart';
-import '../pets/pet_list_card.dart';
+import '../dates/date_item_card.dart';
+import '../partner/walk_item_card.dart';
+import '../partner/host_item_card.dart';
 
 void main() {
   runApp(UserActivities());
@@ -15,7 +17,6 @@ void main() {
 var categoria_plomeria = "1";
 var categoria_electricidad = "2";
 var categoria_especiales = "3";
-
 
 class UserActivities extends StatefulWidget {
   @override
@@ -100,77 +101,139 @@ class _UserActivities extends State<UserActivities> {
 
   showLists(context) {
     return TabBarView(children: [
-      fetch_error ? null : 
-      modelListGenerator(context, categoria_plomeria, serviciosPlomeria),
+      fetch_error
+          ? null
+          : modelListGenerator(
+              context, categoria_plomeria, serviciosPlomeria, "dates"),
       modelListGenerator(
-          context, categoria_electricidad, serviciosElectricidad),
-      modelListGenerator(context, categoria_especiales, serviciosEspeciales),
+          context, categoria_electricidad, serviciosElectricidad, "walks"),
+      modelListGenerator(
+          context, categoria_especiales, serviciosEspeciales, "hosts"),
     ]);
   }
 
-  modelListGenerator(context, category, list) {
-  var listLength;
+  modelListGenerator(context, category, list, model) {
+    var listLength;
 
-  if (category == "") {
-    listLength = list.length;
-  } else {
-    listLength =
-        list.where((service) => service["category_id"] == category).length;
+    if (category == "") {
+      listLength = list.length;
+    } else {
+      listLength =
+          list.where((service) => service["category_id"] == category).length;
+    }
+
+    setModel(history) {
+      var card_model = dateItemListCard(context, false);
+
+      switch (model) {
+        case "dates":
+          card_model = dateItemListCard(context, history);
+          break;
+
+        case "walks":
+          card_model = walkItemListCard(context, history);
+          break;
+
+        case "hosts":
+          card_model = hostItemListCard(context, history);
+          break;
+      }
+
+      return card_model;
+    }
+
+    return new Padding(
+      padding: EdgeInsets.all(small_padding),
+      child: StaggeredGridView.countBuilder(
+        padding: EdgeInsets.all(7),
+        crossAxisCount: 1,
+        itemCount: listLength,
+        itemBuilder: (BuildContext context, int index) => setModel(false),
+        staggeredTileBuilder: (int index) => new StaggeredTile.fit(1),
+        mainAxisSpacing: 0,
+        crossAxisSpacing: 0.0,
+      ),
+    );
   }
-
-  return new Padding(
-    padding: EdgeInsets.all(small_padding),
-    child: StaggeredGridView.countBuilder(
-      padding: EdgeInsets.all(7),
-      crossAxisCount: 1,
-      itemCount: listLength,
-      itemBuilder: (BuildContext context, int index) => petListCard(context, false, "Mascota"),
-      staggeredTileBuilder: (int index) => new StaggeredTile.fit(1),
-      mainAxisSpacing: 0,
-      crossAxisSpacing: 0.0,
-    ),
-  );
-}
 
   @override
   Widget build(BuildContext context) {
     //loading_lists ? loadServicesList(context) : null;
     return Scaffold(
-          key: _scaffoldKey,
-          appBar: main_appbar(context, "Mis actividades"),
-          body: loading_lists
-              ? Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  color: Colors.white,
-                  child: Center(
-                    child: const CircularProgressIndicator(),
-                  ))
-              : DefaultTabController(
-                  length: 3,
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        constraints: BoxConstraints.expand(height: 50),
-                        child: TabBar(
-                            isScrollable: false,
-                            tabs: [
-                              Tab(text: "Citas"),
-                              Tab(text: "Paseos"),
-                              Tab(text: "Cuidados"),
+      key: _scaffoldKey,
+      appBar: main_appbar(context, "Mis actividades"),
+      body: loading_lists
+          ? Container(
+              width: double.infinity,
+              height: double.infinity,
+              color: Colors.white,
+              child: Center(
+                child: const CircularProgressIndicator(),
+              ))
+          : DefaultTabController(
+              length: 3,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    constraints: BoxConstraints.expand(height: 50),
+                    child: TabBar(
+                        isScrollable: false,
+                        tabs: [
+                          Tab(
+                              icon: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Image.asset(
+                                "images/date-btn.png",
+                                width: 24,
+                              ),
+                              SizedBox(
+                                width: 4,
+                              ),
+                              Text("Citas")
                             ],
-                            labelColor: Colors.black,
-                            indicatorColor: Colors.blueAccent),
-                      ),
-                      Expanded(
-                        child: Container(
-                          color: Colors.grey[300],
-                          child: !fetch_error ? showLists(context) : null,
-                        ),
-                      )
-                    ],
+                          )),
+                          Tab(
+                              icon: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Image.asset(
+                                "images/walker-btn.png",
+                                width: 24,
+                              ),
+                              SizedBox(
+                                width: 4,
+                              ),
+                              Text("Paseos")
+                            ],
+                          )),
+                          Tab(
+                              icon: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Image.asset(
+                                "images/host-btn.png",
+                                width: 24,
+                              ),
+                              SizedBox(
+                                width: 4,
+                              ),
+                              Text("Cuidados")
+                            ],
+                          )),
+                        ],
+                        labelColor: Colors.black,
+                        indicatorColor: primary_green),
                   ),
-                ),
-        );
+                  Expanded(
+                    child: Container(
+                      color: Colors.grey[300],
+                      child: !fetch_error ? showLists(context) : null,
+                    ),
+                  )
+                ],
+              ),
+            ),
+    );
   }
 }

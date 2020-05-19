@@ -104,7 +104,7 @@ Widget petCard(BuildContext context) {
                             ),
                             CircleAvatar(
                               radius: 30,
-                              backgroundImage: NetworkImage(dummy_net_partner),
+                              backgroundImage: NetworkImage(dummy_user_image),
                             ),
                           ],
                         ),
