@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import '../extras/globals.dart';
-import '../extras/globals.dart';
-import '../extras/globals.dart';
-import '../extras/globals.dart';
-import '../extras/globals.dart';
 
 Widget petCard(BuildContext context) {
   return Container(
@@ -19,7 +15,7 @@ Widget petCard(BuildContext context) {
           ),
         )
       ],
-      borderRadius: BorderRadius.circular(small_border_radius),
+      borderRadius: BorderRadius.circular(big_border_radius),
       color: Colors.white,
       image: DecorationImage(
         fit: BoxFit.cover,
@@ -34,7 +30,7 @@ Widget petCard(BuildContext context) {
           width: double.infinity,
           padding: EdgeInsets.all(normal_padding),
           decoration: new BoxDecoration(
-            borderRadius: BorderRadius.circular(small_border_radius),
+            borderRadius: BorderRadius.circular(big_border_radius),
             gradient: new LinearGradient(
                 colors: [Colors.black.withOpacity(0.5), Colors.transparent],
                 begin: const FractionalOffset(0.0, 0.0),
@@ -72,7 +68,7 @@ Widget petCard(BuildContext context) {
                 width: double.infinity,
                 padding: EdgeInsets.all(normal_padding),
                 decoration: new BoxDecoration(
-                  borderRadius: BorderRadius.circular(small_border_radius),
+                  borderRadius: BorderRadius.circular(big_border_radius),
                   gradient: new LinearGradient(
                       colors: [Colors.transparent, Colors.black.withOpacity(0.5)],
                       begin: const FractionalOffset(0.0, 0.0),

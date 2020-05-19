@@ -5,7 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 Widget partnerHomeCard(BuildContext context) {
   return Container(
     width: 130,
-    margin: EdgeInsets.only(right: 10),
+    margin: EdgeInsets.only(right: normal_margin),
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(small_border_radius),
         color: Colors.white,

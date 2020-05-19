@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
 import 'package:wuoof/extras/globals.dart';
 import '../extras/globals.dart';
-import '../extras/globals.dart';
-import '../extras/globals.dart';
 import '../general/main-appbar.dart';
 import 'pet-card.dart';
 

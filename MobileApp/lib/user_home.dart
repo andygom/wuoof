@@ -4,6 +4,8 @@ import 'partner/home-card.dart';
 import 'partner/walker_list.dart';
 import 'partner/host_list.dart';
 import 'dates/dates.dart';
+import 'owner/my_pets.dart';
+import 'owner/my_activities.dart';
 
 class UserHome extends StatefulWidget {
   @override
@@ -74,42 +76,81 @@ class _UserHome extends State<UserHome> {
               DrawerHeader(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
+                    InkWell(
+                      onTap: () {},
+                      child: Hero(
+                        tag: "profile_picture",
+                        child: Container(
+                          width: 70,
+                          height: 70,
+                          margin: EdgeInsets.only(top: 0, bottom: 10),
+                          decoration: new BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            border: Border.all(width: 3, color: Colors.white),
+                            image: DecorationImage(
+                              image: setImage("network", dummy_user_image,
+                                  true), // <-- BACKGROUND IMAGE
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                     Text(
-                      'Bienvenido, Javier',
+                      dummy_user_name != null
+                          ? "Bienvenido, " + dummy_user_name
+                          : "",
                       style: TextStyle(color: Colors.white, fontSize: 22),
                     ),
                   ],
                 ),
-                decoration: BoxDecoration(
-                  color: Colors.blue,
+                decoration: new BoxDecoration(
+                  gradient: new LinearGradient(
+                      colors: [primary_yellow, primary_yellow],
+                      begin: const FractionalOffset(0.0, 0.0),
+                      end: const FractionalOffset(2.0, 1.0),
+                      stops: [0.0, 1.0],
+                      tileMode: TileMode.clamp),
                   image: DecorationImage(
-                    image:
-                        AssetImage("images/drawer.png"), // <-- BACKGROUND IMAGE
+                    image: setImage("network", drawer_bg, true),
+                    colorFilter: new ColorFilter.mode(
+                        Colors.black.withOpacity(0.2), BlendMode.dstATop),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
               ListTile(
                 leading: Icon(Icons.person),
-                title: Text('Mi cuenta'),
+                title: Text('Mi perfil'),
                 onTap: () {},
               ),
               ListTile(
-                leading: Icon(Icons.payment),
-                title: Text('Pagos'),
+                leading: Icon(Icons.pets),
+                title: Text('Mis mascotas'),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyPets()));
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.book),
+                title: Text('Actividades'),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => UserActivities()));
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.credit_card),
+                title: Text('Mis tarjetas'),
                 onTap: () {},
               ),
               ListTile(
-                leading: Icon(Icons.favorite),
-                title: Text('Cupones'),
-                onTap: () {},
-              ),
-              ListTile(
-                leading: Icon(Icons.work),
-                title: Text('Mis servicios'),
+                leading: Icon(Icons.inbox),
+                title: Text('Inbox'),
                 onTap: () {},
               ),
               ListTile(
@@ -182,9 +223,15 @@ class _UserHome extends State<UserHome> {
                         ),
                         Column(
                           children: <Widget>[
-                            CircleAvatar(
-                              radius: 60,
-                              backgroundImage: NetworkImage(dummy_net_img),
+                            Card(
+                              elevation: 5.0,
+                              shape: CircleBorder(),
+                              clipBehavior: Clip.antiAlias,
+                              child: CircleAvatar(
+                                backgroundColor: common_grey,
+                                radius: 60,
+                                backgroundImage: NetworkImage(dummy_net_img),
+                              ),
                             ),
                             SizedBox(
                               height: 10,
@@ -359,14 +406,15 @@ class _UserHome extends State<UserHome> {
                               Hero(
                                 tag: "host-badge",
                                 child: Container(
-                                  width: 60,
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      fit: BoxFit.contain,
-                                      image: AssetImage("images/host-btn.png"),
-                                    ),
-                                  )),
+                                    width: 60,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        fit: BoxFit.contain,
+                                        image:
+                                            AssetImage("images/host-btn.png"),
+                                      ),
+                                    )),
                               ),
                               SizedBox(height: 5),
                               Text("Cuidadores")
@@ -412,15 +460,15 @@ class _UserHome extends State<UserHome> {
                               Hero(
                                 tag: "walker-badge",
                                 child: Container(
-                                  width: 60,
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      fit: BoxFit.contain,
-                                      image:
-                                          AssetImage("images/paseador.png"),
-                                    ),
-                                  )),
+                                    width: 60,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        fit: BoxFit.contain,
+                                        image:
+                                            AssetImage("images/paseador.png"),
+                                      ),
+                                    )),
                               ),
                               SizedBox(height: 5),
                               Text("Paseadores")
@@ -522,7 +570,10 @@ class _UserHome extends State<UserHome> {
             Container(
               margin: EdgeInsets.symmetric(horizontal: normal_padding),
               child: FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => WalkerList()));
+                },
                 color: Colors.green,
                 child: Text(
                   "Ver todos",

@@ -10,7 +10,7 @@
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		mGV2e8kebtJ85OSt5ghwKXKUHC8=
+		rg/tgXBI8d3OUNiTYalXL/GSFds=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>flutter_assets/LICENSE</key>
 		<data>
-		TTHkJne5daZ4JC4nENS/OYDJU5I=
+		AXRDBlhopIYojLr0dCah3zaPTnY=
 		</data>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.ttf</key>
 		<data>
@@ -98,11 +98,23 @@
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-		HvBKiw7UVPb9DoPO1nHyPl8mkbg=
+		9J94CsvjXJV2eSYh4GsW54GRDhU=
 		</data>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
 		TdRNbRcrlXQQgeiweLFizPmk92g=
+		</data>
+		<key>flutter_assets/packages/flutter_tindercard/assets/welcome0.png</key>
+		<data>
+		PDZoEg+loyILBta9v2Mqc5KuV+s=
+		</data>
+		<key>flutter_assets/packages/flutter_tindercard/assets/welcome1.png</key>
+		<data>
+		shRUCNj5R0aYgLnkPIF5bH3Qq3M=
+		</data>
+		<key>flutter_assets/packages/flutter_tindercard/assets/welcome2.png</key>
+		<data>
+		1u4UFnD8KFu6Ex8goB7QVn2PQlc=
 		</data>
 		<key>flutter_assets/vm_snapshot_data</key>
 		<data>
@@ -115,11 +127,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			mGV2e8kebtJ85OSt5ghwKXKUHC8=
+			rg/tgXBI8d3OUNiTYalXL/GSFds=
 			</data>
 			<key>hash2</key>
 			<data>
-			PLboCdI6mLtHDmvUCd3HTBbKLsr64Bf+BeKOEL+pJN4=
+			Hf7sk0QtkxVm/vqWRAsXls0ItaxCMGj9vNBpT6MnRS0=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
@@ -137,11 +149,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			TTHkJne5daZ4JC4nENS/OYDJU5I=
+			AXRDBlhopIYojLr0dCah3zaPTnY=
 			</data>
 			<key>hash2</key>
 			<data>
-			dGUw7X6d/8XEtf1sOAI5m8uTDqw16FPLyawaGj5YO/g=
+			DEbQgiZgrkuxeaRgwtUPMfutHyZ4/mtmXCC9uCQKaQI=
 			</data>
 		</dict>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.ttf</key>
@@ -357,11 +369,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			HvBKiw7UVPb9DoPO1nHyPl8mkbg=
+			9J94CsvjXJV2eSYh4GsW54GRDhU=
 			</data>
 			<key>hash2</key>
 			<data>
-			tKF0y0wlOPkulCyLVsFqjdjcMIr5Gdww9B6N4QaQOv4=
+			mqCgh48AL9RJ3CHAAP1jGvBh5hURQQ5nvulGr5nFU4E=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
@@ -373,6 +385,39 @@
 			<key>hash2</key>
 			<data>
 			d6fK2iHuml40zu1xSV3HnoE9PVFhQREGOzVfduySSBY=
+			</data>
+		</dict>
+		<key>flutter_assets/packages/flutter_tindercard/assets/welcome0.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			PDZoEg+loyILBta9v2Mqc5KuV+s=
+			</data>
+			<key>hash2</key>
+			<data>
+			aONDh05sDmr63Tmi0aV4K2V3qI8zc/0vvD/7fr0J1eU=
+			</data>
+		</dict>
+		<key>flutter_assets/packages/flutter_tindercard/assets/welcome1.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			shRUCNj5R0aYgLnkPIF5bH3Qq3M=
+			</data>
+			<key>hash2</key>
+			<data>
+			99D5pcx7Iq/ohlELCkCzJNAd5AzaCzGAqpOmorYc6Bw=
+			</data>
+		</dict>
+		<key>flutter_assets/packages/flutter_tindercard/assets/welcome2.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			1u4UFnD8KFu6Ex8goB7QVn2PQlc=
+			</data>
+			<key>hash2</key>
+			<data>
+			QvUgkRDHk8BfVL3BLp9JHdTmV82M3Pymb+kdEEJaxDI=
 			</data>
 		</dict>
 		<key>flutter_assets/vm_snapshot_data</key>
