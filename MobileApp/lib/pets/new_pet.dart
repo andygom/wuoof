@@ -3,7 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:wuoof/extras/globals.dart';
 import 'dart:io';
 import 'dart:convert';
-
+import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:wuoof/general/main-appbar.dart';
 
 class NewPet extends StatefulWidget {
@@ -15,6 +15,26 @@ class _NewPet extends State<NewPet> {
   bool filling_form = false;
   final _editProfileForm = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  List _myActivities;
+  String _myActivitiesResult;
+
+  @override
+  void initState() {
+    super.initState();
+    _myActivities = [];
+    _myActivitiesResult = '';
+  }
+
+  _saveForm() {
+    var form = _editProfileForm.currentState;
+    if (form.validate()) {
+      form.save();
+      setState(() {
+        _myActivitiesResult = _myActivities.toString();
+      });
+    }
+  }
 
   String pet_name = "";
   String profile_pic_base64 = "";
@@ -685,16 +705,71 @@ class _NewPet extends State<NewPet> {
                                             gender = newValue;
                                           });
                                         },
-                                        items: <String>[
-                                          'Hembra',
-                                          'Macho'
-                                        ].map<DropdownMenuItem<String>>(
-                                            (String value) {
+                                        items: <String>['Hembra', 'Macho']
+                                            .map<DropdownMenuItem<String>>(
+                                                (String value) {
                                           return DropdownMenuItem<String>(
                                             child: Text(value),
                                             value: value,
                                           );
                                         }).toList(),
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.all(16),
+                                        child: MultiSelectFormField(
+                                          autovalidate: false,
+                                          titleText: '¿Cómo es tu mascota?',
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.length == 0) {
+                                              return 'Please select one or more options';
+                                            }
+                                            return null;
+                                          },
+                                          dataSource: [
+                                            {
+                                              "display": "Juguetón",
+                                              "value": "Juguetón",
+                                            },
+                                            {
+                                              "display": "Climbing",
+                                              "value": "Climbing",
+                                            },
+                                            {
+                                              "display": "Walking",
+                                              "value": "Walking",
+                                            },
+                                            {
+                                              "display": "Swimming",
+                                              "value": "Swimming",
+                                            },
+                                            {
+                                              "display": "Soccer Practice",
+                                              "value": "Soccer Practice",
+                                            },
+                                            {
+                                              "display": "Baseball Practice",
+                                              "value": "Baseball Practice",
+                                            },
+                                            {
+                                              "display": "Football Practice",
+                                              "value": "Football Practice",
+                                            },
+                                          ],
+                                          textField: 'display',
+                                          valueField: 'value',
+                                          okButtonLabel: 'OK',
+                                          cancelButtonLabel: 'CANCEL',
+                                          // required: true,
+                                          hintText: 'Please choose one or more',
+                                          initialValue: _myActivities,
+                                          onSaved: (value) {
+                                            if (value == null) return;
+                                            setState(() {
+                                              _myActivities = value;
+                                            });
+                                          },
+                                        ),
                                       ),
                                       Padding(
                                         padding:

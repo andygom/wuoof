@@ -1,59 +1,84 @@
 import 'package:flutter/material.dart';
 import '../owner/register_owner.dart';
 import '../owner/user_login.dart';
+import '../extras/globals.dart';
 
 const orangecolor = const Color(0xFFE6B548);
 const yellowcolor = const Color(0xFFFACA5E);
 const greencolor = const Color(0xFF4FB961);
 
-Container _buildButtonRow(titletext, iconimage) {
+Container _buildButtonRow(context, titletext, iconimage, type) {
+  var ruta = RegisterOwner();
+  switch (type) {
+    case "owner":
+      ruta = RegisterOwner();
+      break;
+
+    case "host":
+      ruta = RegisterOwner();
+      break;
+
+    case "walker":
+      ruta = RegisterOwner();
+      break;
+  }
+
   return Container(
-    padding: const EdgeInsets.only(left: 40, right: 40, bottom: 15),
     child: InkWell(
       child: Container(
-        height: 100,
-        width: 380,
+        height: 120,
+        width: double.infinity,
+        margin: EdgeInsets.only(bottom: normal_margin),
+        padding: EdgeInsets.all(normal_padding),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(medium_border_radius),
           color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Color.fromRGBO(0, 0, 0, 0.19),
+              blurRadius: 5.0, // soften the shadow
+              spreadRadius: 1.0, //extend the shadow
+              offset: Offset(
+                0.0, // Move to right 10  horizontally
+                5.0, // Move to bottom 10 Vertically
+              ),
+            )
+          ],
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(10),
-                  alignment: Alignment.topLeft,
-                  child: Text(titletext,
+            Flexible(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(titletext,
                       style: TextStyle(
                           color: greencolor,
                           fontSize: 25,
                           fontWeight: FontWeight.bold)),
-                ),
-                Container(
-                  child: Text(
-                    ('Lorem'),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    (dummy_dog_bio),
                     style: TextStyle(
                       color: Colors.grey,
-                      fontSize: 10,
+                      fontSize: 15,
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Container(
-                    padding: EdgeInsets.all(10),
-                    child: Image.asset(iconimage),
-                    height: 100,
-                    alignment: Alignment.topRight),
-              ],
+            SizedBox(
+              width: normal_margin
             ),
+            Container(
+                child: Image.asset(iconimage),
+                height: 100,
+                alignment: Alignment.topRight),
           ],
         ),
       ),
@@ -115,7 +140,10 @@ Container _buildButtonRow(titletext, iconimage) {
                                   
                             ), */
       onTap: () {
-        
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ruta),
+        );
       },
     ),
   );
@@ -162,199 +190,14 @@ class UserType extends StatelessWidget {
                   padding: EdgeInsets.all(15),
                   child: Column(
                     children: [
+                      _buildButtonRow(
+                          context, "Dueño", "images/owner.png", "owner"),
+                      _buildButtonRow(
+                          context, "Cuidador", "images/cuidador.png", "owner"),
+                      _buildButtonRow(
+                          context, "Paseador", "images/paseador.png", "owner"),
 
-                      Container(
-              padding: const EdgeInsets.only(left: 40, right: 40, bottom: 15),
-              child: InkWell(
-                child: Container(
-                  height: 100,
-                  width: 380,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            alignment: Alignment.topLeft,
-                            child: Text('Dueño',
-                                style: TextStyle(
-                                    color: greencolor,
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                          Container(
-                            child: Text(
-                              ('Lorem'),
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 10,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Container(
-                              padding: EdgeInsets.all(10),
-                              child: Image.asset('images/owner.png'),
-                              height: 100,
-                              alignment: Alignment.topRight),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(
-                   context,
-                   MaterialPageRoute(
-                       builder: (context) =>
-                           RegisterOwner()),
-                  );  
-                 },
-               ),
-             ),
-
-
-              Container(
-              padding: const EdgeInsets.only(left: 40, right: 40, bottom: 15),
-              child: InkWell(
-                child: Container(
-                  height: 100,
-                  width: 380,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            alignment: Alignment.topLeft,
-                            child: Text('Cuidador',
-                                style: TextStyle(
-                                    color: greencolor,
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                          Container(
-                            child: Text(
-                              ('Lorem'),
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 10,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Container(
-                              padding: EdgeInsets.all(10),
-                              child: Image.asset('images/cuidador.png'),
-                              height: 100,
-                              alignment: Alignment.topRight),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(
-                   context,
-                   MaterialPageRoute(
-                       builder: (context) =>
-                           LoginPage()),
-                  );  
-                 },
-               ),
-             ),
-
-
-
-
-
-
-             Container(
-              padding: const EdgeInsets.only(left: 40, right: 40, bottom: 15),
-              child: InkWell(
-                child: Container(
-                  height: 100,
-                  width: 380,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            alignment: Alignment.topLeft,
-                            child: Text('Paseador',
-                                style: TextStyle(
-                                    color: greencolor,
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                          Container(
-                            child: Text(
-                              ('Lorem'),
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 10,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Container(
-                              padding: EdgeInsets.all(10),
-                              child: Image.asset('images/paseador.png'),
-                              height: 100,
-                              alignment: Alignment.topRight),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(
-                   context,
-                   MaterialPageRoute(
-                       builder: (context) =>
-                           RegisterOwner()),
-                  );  
-                 },
-               ),
-             ),
-
-  
-
-                     /*  _buildButtonRow('Dueño', 'images/owner.png'),
+                      /*  _buildButtonRow('Dueño', 'images/owner.png'),
                       _buildButtonRow('Cuidador', 'images/cuidador.png'),
                       _buildButtonRow('Paseador', 'images/paseador.png') */
                     ],

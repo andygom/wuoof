@@ -14,6 +14,7 @@ var common_grey = Colors.black54;
 var small_paragraph_size = 12.00;
 var small_border_radius = 5.0;
 var big_border_radius = 15.0;
+var medium_border_radius = 10.00;
 var normal_margin = 15.00;
 var drawer_bg =
     "https://i.pinimg.com/736x/3e/74/30/3e7430bab993954bbde7d61538f530a3.jpg";
