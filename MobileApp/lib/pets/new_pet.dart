@@ -5,6 +5,10 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:wuoof/general/main-appbar.dart';
+import 'dart:async';
+import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'dart:typed_data';
 
 class NewPet extends StatefulWidget {
   @override
@@ -16,6 +20,9 @@ class _NewPet extends State<NewPet> {
   final _editProfileForm = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  List<Asset> images = List<Asset>();
+  String _error = 'No hay error';
+
   List _myActivities;
   String _myActivitiesResult;
 
@@ -24,6 +31,64 @@ class _NewPet extends State<NewPet> {
     super.initState();
     _myActivities = [];
     _myActivitiesResult = '';
+  }
+
+  Widget buildGridView() {
+    return GridView.count(
+      crossAxisCount: 1,
+      scrollDirection: Axis.horizontal,
+      shrinkWrap: true,
+      childAspectRatio: 1,
+      mainAxisSpacing: 5.0,
+      padding: EdgeInsets.all(0),
+      children: List.generate(images.length, (index) {
+        Asset asset = images[index];
+        return AssetThumb(
+          asset: asset,
+          width: 200,
+          height: 200,
+        );
+      }),
+    );
+  }
+
+  Future<void> printIt(asset) async {
+    //ByteData byteData = await asset.getByteData(quality: 80);
+  }
+
+  Future<void> loadAssets() async {
+    List<Asset> resultList = List<Asset>();
+    String error = 'No Error Dectected';
+
+    try {
+      resultList = await MultiImagePicker.pickImages(
+        maxImages: 8,
+        enableCamera: true,
+        selectedAssets: images,
+        cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
+        materialOptions: MaterialOptions(
+          actionBarColor: "#abcdef",
+          actionBarTitle: "Example App",
+          allViewTitle: "All Photos",
+          useDetailsView: false,
+          selectCircleStrokeColor: "#000000",
+        ),
+      );
+      //ByteData byteData = await images[0].getByteData(quality: 80);
+      print("Hey");
+    } on Exception catch (e) {
+      error = e.toString();
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      images = resultList;
+      _error = error;
+    });
   }
 
   _saveForm() {
@@ -150,6 +215,48 @@ class _NewPet extends State<NewPet> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      RaisedButton(
+                        onPressed: loadAssets,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.0)),
+                        padding: EdgeInsets.all(0.0),
+                        child: Ink(
+                          decoration: BoxDecoration(
+                              color: primary_green,
+                              borderRadius: BorderRadius.circular(5.0)),
+                          child: Container(
+                            constraints: BoxConstraints(
+                                maxWidth: double.infinity, minHeight: 40.0),
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Fotos de mi mascota",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 300,
+                        height: 100,
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.black12,
+                        ),
+                        child: images.isEmpty
+                            ? Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(Icons.photo_library),
+                                  Text("Toca agregar imágenes de tu mascota")
+                                ],
+                              )
+                            : Align(
+                                child: buildGridView(),
+                              ),
+                      ),
                       Container(
                         child: Container(
                           child: Padding(
@@ -535,6 +642,16 @@ class _NewPet extends State<NewPet> {
                                             value: value,
                                           );
                                         }).toList(),
+                                        validator: (value) {
+                                          if (value.isEmpty) {
+                                            return 'Es necesario completar este campo';
+                                          } else {
+                                            setState(() {
+                                              pet_sociable = value;
+                                            });
+                                          }
+                                          return null;
+                                        },
                                       ),
                                       DropdownButtonFormField<String>(
                                         value: kid_sociable,
@@ -715,7 +832,6 @@ class _NewPet extends State<NewPet> {
                                         }).toList(),
                                       ),
                                       Container(
-                                        padding: EdgeInsets.all(16),
                                         child: MultiSelectFormField(
                                           autovalidate: false,
                                           titleText: '¿Cómo es tu mascota?',
@@ -728,40 +844,65 @@ class _NewPet extends State<NewPet> {
                                           },
                                           dataSource: [
                                             {
+                                              "display": "Amigable",
+                                              "value": "Amigable",
+                                            },
+                                            {
                                               "display": "Juguetón",
                                               "value": "Juguetón",
                                             },
                                             {
-                                              "display": "Climbing",
-                                              "value": "Climbing",
+                                              "display": "Travieso",
+                                              "value": "Travieso",
                                             },
                                             {
-                                              "display": "Walking",
-                                              "value": "Walking",
+                                              "display": "Reservado",
+                                              "value": "Reservado",
                                             },
                                             {
-                                              "display": "Swimming",
-                                              "value": "Swimming",
+                                              "display": "Tranquilo",
+                                              "value": "Tranquilo",
                                             },
                                             {
-                                              "display": "Soccer Practice",
-                                              "value": "Soccer Practice",
+                                              "display": "Solitario",
+                                              "value": "Solitario",
                                             },
                                             {
-                                              "display": "Baseball Practice",
-                                              "value": "Baseball Practice",
+                                              "display": "Obediente",
+                                              "value": "Obediente",
                                             },
                                             {
-                                              "display": "Football Practice",
-                                              "value": "Football Practice",
+                                              "display": "Territorial",
+                                              "value": "Territorial",
+                                            },
+                                            {
+                                              "display":
+                                                  "Dominante con otros perros",
+                                              "value":
+                                                  "Dominante con otros perros",
+                                            },
+                                            {
+                                              "display": "Líder de la manada",
+                                              "value": "Líder de la manada",
+                                            },
+                                            {
+                                              "display": "Activo",
+                                              "value": "Activo",
+                                            },
+                                            {
+                                              "display": "Pasivo",
+                                              "value": "Pasivo",
                                             },
                                           ],
                                           textField: 'display',
                                           valueField: 'value',
                                           okButtonLabel: 'OK',
-                                          cancelButtonLabel: 'CANCEL',
+                                          cancelButtonLabel: 'Cerrar',
+                                          errorText:
+                                              "Debes escoger al menos una opción",
                                           // required: true,
-                                          hintText: 'Please choose one or more',
+                                          hintText:
+                                              'Escoge las características',
                                           initialValue: _myActivities,
                                           onSaved: (value) {
                                             if (value == null) return;
