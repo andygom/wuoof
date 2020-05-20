@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/fa_icon.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:wuoof/owner/register_owner.dart';
 import '../general/user_type.dart';
+import '../user_home.dart';
 
 const orangecolor = const Color(0xFFE6B548); 
 const yellowcolor = const Color(0xFFFACA5E); 
 const greencolor = const Color(0xFF4FB961);     
-
-
-
-
 
 
 Column _buildButtonColumn(Color color, IconData icon) {
@@ -296,12 +293,12 @@ class _LoginPage extends State<LoginPage> {
                                                   top: 20, bottom: 5),
                                               child: RaisedButton(
                                                 onPressed: () {
-                                                 /*  Navigator.push(
+                                                   Navigator.pushReplacement(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        HomePage()),
-                                                   );      */  
+                                                        UserHome()),
+                                                   );        
                                                   /* if (_myForm.currentState
                                                       .validate()) {
                                                     tryLogin(context);
@@ -411,7 +408,7 @@ class _LoginPage extends State<LoginPage> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        RegisterPage()),
+                                                        UserType()),
                                               );
                                             },
                                             child: RichText(

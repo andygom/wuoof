@@ -11,6 +11,7 @@ import 'owner/my_activities.dart';
 import 'owner/user_profile.dart';
 import 'owner/payment_methods.dart';
 import 'general/inbox.dart';
+import 'owner/user_login.dart';
 
 class UserHome extends StatefulWidget {
   @override
@@ -193,10 +194,8 @@ class _UserHome extends State<UserHome> {
                 ),
                 title: Text('Inbox'),
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Inbox()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Inbox()));
                 },
               ),
               ListTile(
@@ -221,7 +220,10 @@ class _UserHome extends State<UserHome> {
                   color: primary_green,
                 ),
                 title: Text('Cerrar sesión'),
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => LoginPage()));
+                },
               ),
             ],
           ),
