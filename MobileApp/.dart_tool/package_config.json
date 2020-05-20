@@ -152,6 +152,18 @@
       "languageVersion": "1.12"
     },
     {
+      "name": "multi_image_picker",
+      "rootUri": "file:///Users/javierguerrero/Code/flutter/.pub-cache/hosted/pub.dartlang.org/multi_image_picker-4.6.7",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "multiselect_formfield",
+      "rootUri": "file:///Users/javierguerrero/Code/flutter/.pub-cache/hosted/pub.dartlang.org/multiselect_formfield-0.1.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "path",
       "rootUri": "file:///Users/javierguerrero/Code/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.6.4",
       "packageUri": "lib/",
@@ -308,7 +320,7 @@
       "languageVersion": "2.1"
     }
   ],
-  "generated": "2020-05-19T20:00:00.311485Z",
+  "generated": "2020-05-20T18:29:10.311814Z",
   "generator": "pub",
   "generatorVersion": "2.7.0"
 }

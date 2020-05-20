@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 var primary_yellow = Colors.orangeAccent;
 var primary_green = Colors.green;
 var primary_red = Colors.red;
+var primary_blue = Colors.blue;
 var edit_color = Colors.blue;
 var title_color = Colors.blue;
 var small_title_weight = FontWeight.w700;

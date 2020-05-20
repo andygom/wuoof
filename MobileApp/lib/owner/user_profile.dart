@@ -97,7 +97,7 @@ class _UserProfile extends State<UserProfile> {
                             image: DecorationImage(
                               image: _image == null
                                   ? NetworkImage(
-                                      "https://www.allstarplumbingandrooter.com/images/img-profile-James-Bo-McNeely-Owner-767x1024.jpg")
+                                      dummy_user_image)
                                   : FileImage(_image), // <-- BACKGROUND IMAGE
                               fit: BoxFit.cover,
                             ),

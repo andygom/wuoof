@@ -10,6 +10,7 @@ import 'owner/my_pets.dart';
 import 'owner/my_activities.dart';
 import 'owner/user_profile.dart';
 import 'owner/payment_methods.dart';
+import 'general/inbox.dart';
 
 class UserHome extends StatefulWidget {
   @override
@@ -179,8 +180,10 @@ class _UserHome extends State<UserHome> {
                 ),
                 title: Text('Mis tarjetas'),
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => PaymentMethods()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PaymentMethods()));
                 },
               ),
               ListTile(
@@ -189,7 +192,12 @@ class _UserHome extends State<UserHome> {
                   color: primary_green,
                 ),
                 title: Text('Inbox'),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Inbox()));
+                },
               ),
               ListTile(
                 leading: Icon(

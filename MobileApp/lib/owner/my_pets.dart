@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../extras/globals.dart';
 import '../pets/pet_list_card.dart';
 import '../general/main-appbar.dart';
+import '../pets/new_pet.dart';
 
 class MyPets extends StatefulWidget {
   @override
@@ -36,7 +37,8 @@ class _MyPets extends State<MyPets> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          //addNewPet();
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => NewPet()));
         },
         child: Icon(Icons.add),
         backgroundColor: primary_green,
