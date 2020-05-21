@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wuoof/general/chat.dart';
 import '../extras/globals.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -122,8 +123,7 @@ Widget hostItemListCard(BuildContext context, history) {
                 ),
                 children: [
                   new TextSpan(
-                      text: '¿Cuántos días/noches?: ',
-                      style: new TextStyle()),
+                      text: '¿Cuántos días/noches?: ', style: new TextStyle()),
                   new TextSpan(
                       text: "3",
                       style: new TextStyle(
@@ -256,12 +256,16 @@ Widget hostItemListCard(BuildContext context, history) {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(Icons.phone, color: Colors.white, size: 16,),
+                    Icon(
+                      Icons.phone,
+                      color: Colors.white,
+                      size: 16,
+                    ),
                     SizedBox(
                       width: 5,
                     ),
                     Text(
-                      "Llamar a "+dummy_partner_name,
+                      "Llamar a " + dummy_partner_name,
                       style: TextStyle(color: Colors.white, fontSize: 17),
                     )
                   ],
@@ -288,7 +292,13 @@ Widget hostItemListCard(BuildContext context, history) {
           child: new Material(
             color: Colors.transparent,
             child: new InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            ChatScreen(dummy_partner_name, dummy_net_partner)));
+              },
               child: new Container(
                 padding: EdgeInsets.all(small_padding),
                 decoration: BoxDecoration(
@@ -298,7 +308,11 @@ Widget hostItemListCard(BuildContext context, history) {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(Icons.chat, color: Colors.white, size: 16,),
+                    Icon(
+                      Icons.chat,
+                      color: Colors.white,
+                      size: 16,
+                    ),
                     SizedBox(
                       width: 5,
                     ),

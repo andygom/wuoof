@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'user_home.dart';
 import 'owner/user_login.dart';
 import 'owner/register_owner.dart';
+import 'general/chat.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home: UserHome(""),
     );
   }
 }

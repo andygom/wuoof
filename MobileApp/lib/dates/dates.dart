@@ -54,8 +54,8 @@ class _DatesScreen extends State<DatesScreen> with TickerProviderStateMixin {
                   maxHeight: MediaQuery.of(context).size.height * 0.9,
                   minWidth: MediaQuery.of(context).size.width * 0.8,
                   minHeight: MediaQuery.of(context).size.height * 0.8,
-                  cardBuilder: (context, index) => petCard(context),
                   cardController: controller = CardController(),
+                  cardBuilder: (context, index) => petCard(context, controller, "pet_data"),
                   swipeUpdateCallback:
                       (DragUpdateDetails details, Alignment align) {
                     /// Get swiping card's alignment

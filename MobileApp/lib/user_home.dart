@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'extras/globals.dart';
 import 'partner/home-card.dart';
 import 'partner/walker_list.dart';
@@ -12,8 +13,12 @@ import 'owner/user_profile.dart';
 import 'owner/payment_methods.dart';
 import 'general/inbox.dart';
 import 'owner/user_login.dart';
+import 'pets/edit_pet.dart';
 
 class UserHome extends StatefulWidget {
+  final String pet_data;
+  UserHome(this.pet_data);
+
   @override
   _UserHome createState() => _UserHome();
 }
@@ -29,6 +34,31 @@ class _UserHome extends State<UserHome> {
       "description": "Descripción breve del servicio, para el ejemplo.",
     }
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkPetData(context);
+  }
+
+  var pet_name = dog_dummy_name;
+
+  checkPetData(BuildContext context) {
+    var jsonString = widget.pet_data;
+    Map<String, dynamic> decodedJSON;
+    var decodeSucceeded = false;
+    try {
+      var array = json.decode(jsonString);
+      decodeSucceeded = true;
+      pet_name = array["name"];
+    } on FormatException catch (e) {
+      print('The provided string is not valid JSON');
+    }
+    print('Decoding succeeded: $decodeSucceeded');
+
+    return pet_name.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +108,10 @@ class _UserHome extends State<UserHome> {
                   )
                 ],
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Inbox()));
+              },
             )
           ],
         ),
@@ -146,6 +179,7 @@ class _UserHome extends State<UserHome> {
                 ),
                 title: Text('Mi perfil'),
                 onTap: () {
+                  Navigator.pop(context);
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => UserProfile()));
                 },
@@ -157,6 +191,7 @@ class _UserHome extends State<UserHome> {
                 ),
                 title: Text('Mis mascotas'),
                 onTap: () {
+                  Navigator.pop(context);
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => MyPets()));
                 },
@@ -168,10 +203,11 @@ class _UserHome extends State<UserHome> {
                 ),
                 title: Text('Actividades'),
                 onTap: () {
+                  Navigator.pop(context);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => UserActivities()));
+                          builder: (context) => UserActivities(0)));
                 },
               ),
               ListTile(
@@ -181,6 +217,7 @@ class _UserHome extends State<UserHome> {
                 ),
                 title: Text('Mis tarjetas'),
                 onTap: () {
+                  Navigator.pop(context);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -194,6 +231,7 @@ class _UserHome extends State<UserHome> {
                 ),
                 title: Text('Inbox'),
                 onTap: () {
+                  Navigator.pop(context);
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Inbox()));
                 },
@@ -259,7 +297,12 @@ class _UserHome extends State<UserHome> {
                               child: new Material(
                                 color: Colors.transparent,
                                 child: new InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => EditPet()));
+                                  },
                                   child: new Container(
                                     width: 40,
                                     height: 40,
@@ -293,7 +336,7 @@ class _UserHome extends State<UserHome> {
                             SizedBox(
                               height: 10,
                             ),
-                            Text("¡Hola, Bambina!",
+                            Text("¡Hola, " + pet_name + "!",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 19,
@@ -322,7 +365,12 @@ class _UserHome extends State<UserHome> {
                               child: new Material(
                                 color: Colors.transparent,
                                 child: new InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => MyPets()));
+                                  },
                                   child: new Container(
                                     width: 40,
                                     height: 40,
@@ -619,7 +667,7 @@ class _UserHome extends State<UserHome> {
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (BuildContext context, int index) {
-                        return partnerHomeCard(context);
+                        return partnerHomeCard(context, "Paseos");
                       }),
                 )
               ],

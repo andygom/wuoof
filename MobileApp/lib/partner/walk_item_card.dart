@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wuoof/general/chat.dart';
 import '../extras/globals.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -274,7 +275,13 @@ Widget walkItemListCard(BuildContext context, history) {
           child: new Material(
             color: Colors.transparent,
             child: new InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            ChatScreen(dummy_partner_name, dummy_net_partner)));
+              },
               child: new Container(
                 padding: EdgeInsets.all(small_padding),
                 decoration: BoxDecoration(

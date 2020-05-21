@@ -10,15 +10,14 @@ import '../dates/date_item_card.dart';
 import '../partner/walk_item_card.dart';
 import '../partner/host_item_card.dart';
 
-void main() {
-  runApp(UserActivities());
-}
-
 var categoria_plomeria = "1";
 var categoria_electricidad = "2";
 var categoria_especiales = "3";
 
 class UserActivities extends StatefulWidget {
+  final int tabIndex;
+
+  UserActivities(this.tabIndex);
   @override
   _UserActivities createState() => _UserActivities();
 }
@@ -172,6 +171,7 @@ class _UserActivities extends State<UserActivities> {
               ))
           : DefaultTabController(
               length: 3,
+              initialIndex: widget.tabIndex,
               child: Column(
                 children: <Widget>[
                   Container(

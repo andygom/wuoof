@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import '../extras/globals.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import '../extras/globals.dart';
+import 'public_partner_profile.dart';
+
+
 
 Widget partnerListCard(BuildContext context, verified, service) {
-  return Container(
+  return InkWell(
+    onTap: (){
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => PublicPartnerProfile(service)),
+      );
+    },
+    child: Container(
     width: 130,
     margin: EdgeInsets.only(bottom: 10),
     decoration: BoxDecoration(
@@ -166,5 +175,6 @@ Widget partnerListCard(BuildContext context, verified, service) {
         )
       ],
     ),
+  ),
   );
 }

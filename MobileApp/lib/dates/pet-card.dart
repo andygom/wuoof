@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../extras/globals.dart';
 
-Widget petCard(BuildContext context) {
+Widget petCard(BuildContext context, controller, pet_data) {
   return Container(
     decoration: BoxDecoration(
       boxShadow: [
@@ -130,7 +130,9 @@ Widget petCard(BuildContext context) {
                               child: new Material(
                                 color: Colors.transparent,
                                 child: new InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    controller.triggerLeft();
+                                  },
                                   child: new Container(
                                     width: 50,
                                     height: 50,
@@ -160,7 +162,9 @@ Widget petCard(BuildContext context) {
                               child: new Material(
                                 color: Colors.transparent,
                                 child: new InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    controller.triggerRight();
+                                  },
                                   child: new Container(
                                     width: 50,
                                     height: 50,

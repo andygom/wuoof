@@ -1,47 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:wuoof/extras/globals.dart';
 import 'package:wuoof/owner/register_owner.dart';
 import '../general/user_type.dart';
 import '../user_home.dart';
+import '../pets/new_pet.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
-const orangecolor = const Color(0xFFE6B548); 
-const yellowcolor = const Color(0xFFFACA5E); 
-const greencolor = const Color(0xFF4FB961);     
-
+const orangecolor = const Color(0xFFE6B548);
+const yellowcolor = const Color(0xFFFACA5E);
+const greencolor = const Color(0xFF4FB961);
 
 Column _buildButtonColumn(Color color, IconData icon) {
-    return Column(
-    
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          padding: EdgeInsets.all(7),
-          decoration: BoxDecoration(
-            color: greencolor,
-            borderRadius: BorderRadius.circular(100),
-            boxShadow: [BoxShadow(
+  return Column(
+    mainAxisSize: MainAxisSize.max,
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Container(
+        padding: EdgeInsets.all(7),
+        decoration: BoxDecoration(
+          color: greencolor,
+          borderRadius: BorderRadius.circular(100),
+          boxShadow: [
+            BoxShadow(
               color: Color.fromRGBO(0, 0, 0, 0.19),
-               blurRadius: 5.0, // soften the shadow
-               spreadRadius: 1.0, //extend the shadow
-               offset: Offset(
-                 0.0, // Move to right 10  horizontally
-                 3.0, // Move to bottom 10 Vertically
-                                    ),
-                             )
-                         ],
-            ),
-          child: Icon(icon, color: color, size: 35),
-
+              blurRadius: 5.0, // soften the shadow
+              spreadRadius: 1.0, //extend the shadow
+              offset: Offset(
+                0.0, // Move to right 10  horizontally
+                3.0, // Move to bottom 10 Vertically
+              ),
+            )
+          ],
         ),
-
-      ],
-      
-    );
-  }
-
-
-
+        child: Icon(icon, color: color, size: 35),
+      ),
+    ],
+  );
+}
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
@@ -62,28 +60,33 @@ class _LoginPage extends State<LoginPage> {
   String mail = "prueba@prueba.com";
   String password = "12345678";
 
-/*   Future<http.Response> tryLogin(context) async {
+  bool hasPet = true;
+
+  Future<http.Response> tryLogin(context) async {
     setState(() {
       filling_form = true;
     });
     final http.Response response = await http.post(
-      'https://balabox-demos.com/fixme/backend/app/mods/mods',
+      api_url,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{
         'action': "login",
         'mail': mail,
-        'password': password
+        'password': password,
+        'user_type': 'client'
       }),
     );
     var jsonResponse = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      //print("Good");
+      print(jsonResponse);
       if (jsonResponse[0]['status'] == "true") {
         String user_id = jsonResponse[1]['user_id'];
+
         if (user_id != null) {
-          storeLoginData(mail, password, user_id, context);
+          //storeLoginData(mail, user_id, token, context);
+          getUserData(user_id, context);
         }
       } else {
         setState(() {
@@ -98,35 +101,68 @@ class _LoginPage extends State<LoginPage> {
       _displaySnackBar(context, "No se ha podido iniciar sesión");
       throw Exception('Failed to login.');
     }
-  } */
+  }
 
- /*  _displaySnackBar(BuildContext context, String message) {
+  Future<http.Response> getUserData(user_id, context) async {
+    setState(() {
+      filling_form = true;
+    });
+    final http.Response response = await http.post(
+      api_url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'action': "get_user_public_data",
+        'user_id': user_id
+      }),
+    );
+    var jsonResponse = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      if (jsonResponse[0]['status'] == "true") {
+        String user_data = jsonEncode(jsonResponse[1]['user_data'][0]);
+        if (user_data != null) {
+          storeLoginData(user_data, user_id, context);
+        }
+        //print(jsonDecode(user_data)["name"]);
+      } else {
+        setState(() {
+          filling_form = false;
+        });
+        _displaySnackBar(context, jsonResponse[0]['message']);
+      }
+    } else {
+      setState(() {
+        filling_form = false;
+      });
+      _displaySnackBar(context, "No se ha podido iniciar sesión");
+      throw Exception('Failed to login.');
+    }
+  }
+
+  _displaySnackBar(BuildContext context, String message) {
     final snackBar = SnackBar(content: Text(message));
     _scaffoldKey.currentState.showSnackBar(snackBar);
-  } */
+  }
 
-/*   storeLoginData(mail, password, user_id, context) async {
+  storeLoginData(user_data, user_id, context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('user_mail', mail);
-    await prefs.setString('user_password', password);
+    await prefs.setString('user_data', user_data);
     await prefs.setString('user_id', user_id);
     goHome(context);
-  } */
+  }
 
-/* goHome(context) {
-    bool is_coach = false;
-    if (is_coach) {
-      Navigator.pushReplacement(
-      //  context,
-      //  MaterialPageRoute(builder: (context) => HomePage()),
-      );
-    } else {
-      Navigator.pushReplacement(
-      //  context,
-      //  MaterialPageRoute(builder: (context) => HomePage()),
-      );
-    }
-  } */  
+  goHome(context) {
+    !hasPet
+        ? Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => NewPet()),
+          )
+        : Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => UserHome("")),
+          );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -146,13 +182,13 @@ class _LoginPage extends State<LoginPage> {
               fit: StackFit.expand,
               children: <Widget>[
                 Container(
-                  decoration: new BoxDecoration(                  
-                     gradient: new LinearGradient(
+                  decoration: new BoxDecoration(
+                    gradient: new LinearGradient(
                         colors: [orangecolor, yellowcolor],
                         begin: const FractionalOffset(0.0, 0.0),
                         end: const FractionalOffset(2.0, 1.0),
                         stops: [0.0, 1.0],
-                        tileMode: TileMode.clamp), 
+                        tileMode: TileMode.clamp),
                   ),
                   child: ListView(
                     children: <Widget>[
@@ -163,14 +199,13 @@ class _LoginPage extends State<LoginPage> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-
                             Container(
                               child: Container(
-                                  child: Image.asset('images/logo-fondo-blanco.png', height: 170),
-                                
+                                child: Image.asset(
+                                    'images/logo-fondo-blanco.png',
+                                    height: 170),
                               ),
                             ),
-                            
                             Container(
                               child: Container(
                                 child: Padding(
@@ -207,8 +242,7 @@ class _LoginPage extends State<LoginPage> {
                                                 enabledBorder:
                                                     UnderlineInputBorder(
                                                   borderSide: BorderSide(
-                                                      color: Colors
-                                                          .white),
+                                                      color: Colors.white),
                                                 ),
                                                 focusedBorder:
                                                     UnderlineInputBorder(
@@ -256,8 +290,7 @@ class _LoginPage extends State<LoginPage> {
                                                 enabledBorder:
                                                     UnderlineInputBorder(
                                                   borderSide: BorderSide(
-                                                      color: Colors
-                                                          .white),
+                                                      color: Colors.white),
                                                 ),
                                                 focusedBorder:
                                                     UnderlineInputBorder(
@@ -293,16 +326,10 @@ class _LoginPage extends State<LoginPage> {
                                                   top: 20, bottom: 5),
                                               child: RaisedButton(
                                                 onPressed: () {
-                                                   Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        UserHome()),
-                                                   );        
-                                                  /* if (_myForm.currentState
+                                                  if (_myForm.currentState
                                                       .validate()) {
                                                     tryLogin(context);
-                                                  } */
+                                                  }                                                  
                                                 },
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius:
@@ -311,7 +338,7 @@ class _LoginPage extends State<LoginPage> {
                                                 padding: EdgeInsets.all(0.0),
                                                 child: Ink(
                                                   decoration: BoxDecoration(
-                                                    color: greencolor,
+                                                      color: greencolor,
                                                       /* gradient: LinearGradient(
                                                         colors: [
                                                           Colors.lightGreen,
@@ -344,98 +371,94 @@ class _LoginPage extends State<LoginPage> {
                                               ),
                                             ),
                                             Container(
-                                          margin: EdgeInsets.only(
-                                              top: 20, bottom: 15),
-                                          child: InkWell(
-                                            child: Text(
-                                              "¿Olvidaste tu contraseña?",
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: Colors.white),
-                                            ),
-                                              onTap: () {
-                                              /* Navigator.push(
+                                                margin: EdgeInsets.only(
+                                                    top: 20, bottom: 15),
+                                                child: InkWell(
+                                                    child: Text(
+                                                      "¿Olvidaste tu contraseña?",
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          color: Colors.white),
+                                                    ),
+                                                    onTap: () {
+                                                      /* Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         HomePage()),
-                                              );       */  }               
-                                          )),
-                                          
-                                           Padding(
-                                              padding: EdgeInsets.only(top: 20),
-                                           ),
-                                            Row(
-                                            children: <Widget>[
-                                              Expanded(
-                                                child: Divider(
-                                                  color: Colors.white,
-                                                )
-                                              ),  
-                                              Text(
-                                                " Ó entra con: ",
-                                                style: TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.white
-                                                )
-                                              ), 
-                                              Expanded(
-                                                child: Divider(
-                                                  color: Colors.white,
-                                                )
-                                              ),
-                                            ]
-                                          ),
+                                              );       */
+                                                    })),
                                             Padding(
-                                              padding: EdgeInsets.only(top: 20, bottom: 20),
-
+                                              padding: EdgeInsets.only(top: 20),
+                                            ),
+                                            Row(children: <Widget>[
+                                              Expanded(
+                                                  child: Divider(
+                                                color: Colors.white,
+                                              )),
+                                              Text(" Ó entra con: ",
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      color: Colors.white)),
+                                              Expanded(
+                                                  child: Divider(
+                                                color: Colors.white,
+                                              )),
+                                            ]),
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 20, bottom: 20),
                                               child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
                                                 children: [
-                                                  _buildButtonColumn(Colors.white, FontAwesomeIcons.facebookF),
-                                                  _buildButtonColumn(Colors.white, FontAwesomeIcons.google),
-                                                ],),
-                                              ),
-
-                                          ],
-                                        ),
-                                      ),
-
-                                      Container(
-                                          child: InkWell(
-                                            onTap: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        UserType()),
-                                              );
-                                            },
-                                            child: RichText(
-                                              text: new TextSpan(
-    
-                                                style: new TextStyle(
-                                                  fontSize: 14.0,
-                                                  color: Colors.black,
-                                                ),
-                                                children: <TextSpan>[
-                                                  new TextSpan(
-                                                      style: new TextStyle(
-                                                        fontSize: 15.0,
-                                                        color: Colors.white,
-                                                      ),
-                                                      text:
-                                                          '¿Eres nuevo? '),
-                                                  new TextSpan(
-                                                      text: 'Regístrate aquí',
-                                                      style: new TextStyle(
-                                                          color: Colors.white,
-                                                          fontWeight:
-                                                              FontWeight.bold)),
+                                                  _buildButtonColumn(
+                                                      Colors.white,
+                                                      FontAwesomeIcons
+                                                          .facebookF),
+                                                  _buildButtonColumn(
+                                                      Colors.white,
+                                                      FontAwesomeIcons.google),
                                                 ],
                                               ),
                                             ),
-                                          )),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                          child: InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    UserType()),
+                                          );
+                                        },
+                                        child: RichText(
+                                          text: new TextSpan(
+                                            style: new TextStyle(
+                                              fontSize: 14.0,
+                                              color: Colors.black,
+                                            ),
+                                            children: <TextSpan>[
+                                              new TextSpan(
+                                                  style: new TextStyle(
+                                                    fontSize: 15.0,
+                                                    color: Colors.white,
+                                                  ),
+                                                  text: '¿Eres nuevo? '),
+                                              new TextSpan(
+                                                  text: 'Regístrate aquí',
+                                                  style: new TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ],
+                                          ),
+                                        ),
+                                      )),
                                     ],
                                   ),
                                 ),

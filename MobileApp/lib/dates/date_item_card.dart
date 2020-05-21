@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wuoof/general/chat.dart';
 import '../extras/globals.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -120,20 +121,27 @@ Widget dateItemListCard(BuildContext context, history) {
                     color: Colors.transparent,
                     child: new InkWell(
                       onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ChatScreen(
+                                    dummy_user_name, dummy_user_image)));
                       },
                       child: new Container(
                         padding: EdgeInsets.all(small_padding),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(small_border_radius),
+                          borderRadius:
+                              BorderRadius.circular(small_border_radius),
                           color: primary_green,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text("Ir al chat", style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 17
-                            ),)
+                            Text(
+                              "Ir al chat",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 17),
+                            )
                           ],
                         ),
                       ),
