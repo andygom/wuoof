@@ -1,4 +1,4 @@
-#Mon May 18 09:12:43 CDT 2020
-base.0=/Users/javierguerrero/Code/Clientes/Wuoof/Remake/wuoof/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+#Fri May 22 09:17:25 CDT 2020
+base.0=/Users/javierguerrero/Code/Clientes/Wuoof/Web/wuoof/MobileApp/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
