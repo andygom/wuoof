@@ -9,8 +9,13 @@ import 'dart:async';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:typed_data';
+import 'package:http/http.dart' as http;
+import 'package:wuoof/owner/my_pets.dart';
 
 class NewPet extends StatefulWidget {
+  final String user_id;
+  NewPet(this.user_id);
+
   @override
   _NewPet createState() => _NewPet();
 }
@@ -19,6 +24,8 @@ class _NewPet extends State<NewPet> {
   bool filling_form = false;
   final _editProfileForm = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  String dummy = "hey";
 
   List<Asset> images = List<Asset>();
   String _error = 'No hay error';
@@ -29,7 +36,7 @@ class _NewPet extends State<NewPet> {
   @override
   void initState() {
     super.initState();
-    _myActivities = [];
+    _myActivities = ["Amigable","Obediente","Travieso"];
     _myActivitiesResult = '';
   }
 
@@ -52,8 +59,13 @@ class _NewPet extends State<NewPet> {
     );
   }
 
-  Future<void> printIt(asset) async {
+  Future<void> printIt() async {
     //ByteData byteData = await asset.getByteData(quality: 80);
+    ByteData byteData = await images[0].getByteData(quality: 80);
+    //print(base64Encode(byteData.buffer.asUint16List()));
+    setState(() {
+      //dummy = base64Encode(byteData.buffer.asUint8List());
+    });
   }
 
   Future<void> loadAssets() async {
@@ -101,35 +113,95 @@ class _NewPet extends State<NewPet> {
     }
   }
 
-  String pet_name = "";
+  String pet_name = "Bambina";
   String profile_pic_base64 = "";
-  String nationality = "";
-  String birth_date = "";
-  String biography = "";
-  String allergies_and_treatment = "";
-  String training = "";
-  String diet = "";
-  String pet_sociable = null;
-  String kid_sociable = null;
-  String vaccines = null;
-  String sterilized = null;
-  String extra_info = "";
-  String size = null;
-  String breed = null;
-  String gender = null;
-  String characteristics = "";
+  String nationality = "Mexicana";
+  String birth_date = "12/11/2017";
+  String biography = "Soy una perrita muy tranquila, me gusta jugar con más perros.";
+  String allergies_and_treatment = "Tengo alergia a las croquetas Dog Chow";
+  String training = "Va al baño y atiende a las órdenes de comida.";
+  String diet = "Come pollo con arroz todos los días.";
+  String pet_sociable = "Sí";
+  String kid_sociable = "Sí";
+  String vaccines = "Sí";
+  String sterilized = "Sí";
+  String extra_info = "Come dos veces al día, a las 11:00 am y a las 4:00 pm";
+  String size = "Pequeño";
+  String breed = "Chihuahua";
+  String gender = "Hembra";
 
   File _image;
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(
-        source: ImageSource.gallery, imageQuality: 70);
+        source: ImageSource.gallery, imageQuality: 80, maxWidth: 700, maxHeight: 700);
 
     setState(() {
       _image = image;
       profile_pic_base64 = base64Encode(_image.readAsBytesSync());
     });
     //print(base64Encode(_image.readAsBytesSync()));
+  }
+
+  Future<http.Response> submitForm(context) async {
+    setState(() {
+      filling_form = true;
+    });
+
+    try {
+      final http.Response response = await http.post(
+      api_url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        "action": "new_pet",
+        "user_id": widget.user_id,
+        "name": pet_name,
+        "img_url": profile_pic_base64,
+        "img_url_gallery": (["assets/welcome0.png","assets/welcome1.png","assets/welcome2.png","assets/welcome2.png","assets/welcome1.png","assets/welcome1.png"]).toString(),
+        "age": birth_date,
+        "gender": gender,
+        "nationality": nationality,
+        "breed": breed,
+        "biography": biography,
+        "information": extra_info,
+        "personality": _myActivities.toString()
+      }),
+    );
+    var jsonResponse = jsonDecode(response.body);
+    print(jsonResponse);
+    if (response.statusCode == 200) {
+      print("checkpoint");
+      if (jsonResponse[0]['status'] == "true") {
+        print("bingo");
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => MyPets(widget.user_id)));
+      } else {
+        print("nah");
+        setState(() {
+          filling_form = false;
+        });
+        _displaySnackBar(context, jsonResponse[0]['message'].toString());
+      }
+    } else {
+      setState(() {
+        filling_form = false;
+      });
+      _displaySnackBar(context,
+          "No se ha podido registrar tu cuenta, revisa tu conexión a internet.");
+      throw Exception('Failed to signup.');
+    }
+    } catch (e) {
+      _displaySnackBar(context,
+          "Parece que hay un problema, contacta a soporte.");
+    }
+    
+  }
+
+  _displaySnackBar(BuildContext context, String message) {
+    final snackBar = SnackBar(content: Text(message));
+    _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 
   @override
@@ -140,7 +212,15 @@ class _NewPet extends State<NewPet> {
       extendBodyBehindAppBar: true,
       appBar: appBar,
       key: _scaffoldKey,
-      body: Column(
+      body: filling_form
+          ? Container(
+              width: double.infinity,
+              height: double.infinity,
+              color: Colors.white,
+              child: Center(
+                child: const CircularProgressIndicator(),
+              ))
+          : Column(
         children: <Widget>[
           Container(
             width: double.infinity,
@@ -182,7 +262,7 @@ class _NewPet extends State<NewPet> {
                             border: Border.all(width: 3, color: Colors.white),
                             image: DecorationImage(
                               image: _image == null
-                                  ? NetworkImage(dummy_net_img)
+                                  ? NetworkImage(placeholder_dog)
                                   : FileImage(_image), // <-- BACKGROUND IMAGE
                               fit: BoxFit.cover,
                             ),
@@ -215,7 +295,7 @@ class _NewPet extends State<NewPet> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      RaisedButton(
+                      /* RaisedButton(
                         onPressed: loadAssets,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5.0)),
@@ -256,7 +336,7 @@ class _NewPet extends State<NewPet> {
                             : Align(
                                 child: buildGridView(),
                               ),
-                      ),
+                      ), */
                       Container(
                         child: Container(
                           child: Padding(
@@ -275,7 +355,7 @@ class _NewPet extends State<NewPet> {
                                         //initialValue: "prueba@prueba.com",
                                         decoration: const InputDecoration(
                                           suffixIcon: Icon(
-                                            Icons.person_outline,
+                                            Icons.pets,
                                             color: Colors.green,
                                           ),
                                           hintText: 'Nombre',
@@ -318,13 +398,13 @@ class _NewPet extends State<NewPet> {
                                         },
                                       ),
                                       TextFormField(
-                                        initialValue: pet_name,
+                                        initialValue: nationality,
                                         style: TextStyle(color: Colors.black),
                                         //initialValue: "prueba@prueba.com",
 
                                         decoration: const InputDecoration(
                                           suffixIcon: Icon(
-                                            Icons.person_outline,
+                                            Icons.pets,
                                             color: Colors.green,
                                           ),
                                           hintText: 'Nacionalidad',
@@ -367,13 +447,13 @@ class _NewPet extends State<NewPet> {
                                         },
                                       ),
                                       TextFormField(
-                                        initialValue: pet_name,
+                                        initialValue: birth_date,
                                         style: TextStyle(color: Colors.black),
                                         //initialValue: "prueba@prueba.com",
 
                                         decoration: const InputDecoration(
                                           suffixIcon: Icon(
-                                            Icons.person_outline,
+                                            Icons.pets,
                                             color: Colors.green,
                                           ),
                                           hintText: 'Fecha de nacimiento',
@@ -416,13 +496,14 @@ class _NewPet extends State<NewPet> {
                                         },
                                       ),
                                       TextFormField(
-                                        initialValue: pet_name,
+                                        initialValue: biography,
                                         style: TextStyle(color: Colors.black),
                                         //initialValue: "prueba@prueba.com",
                                         maxLines: 2,
+                                        textInputAction: TextInputAction.done,
                                         decoration: const InputDecoration(
                                           suffixIcon: Icon(
-                                            Icons.person_outline,
+                                            Icons.pets,
                                             color: Colors.green,
                                           ),
                                           hintText: 'Biografía',
@@ -469,13 +550,14 @@ class _NewPet extends State<NewPet> {
                                         style: TextStyle(color: Colors.black),
                                         //initialValue: "prueba@prueba.com",
                                         maxLines: 2,
+                                        textInputAction: TextInputAction.done,
                                         decoration: const InputDecoration(
                                           suffixIcon: Icon(
-                                            Icons.person_outline,
+                                            Icons.pets,
                                             color: Colors.green,
                                           ),
                                           helperText:
-                                              "Describe si tiene algún tipo de alergia o si requiere de cuidados médicos especiales",
+                                              "Describe si tiene algún tipo de alergia ó si requiere de cuidados médicos especiales",
                                           helperMaxLines: 3,
                                           hintText: 'Alergias y cuidados',
                                           hintStyle: TextStyle(
@@ -521,9 +603,10 @@ class _NewPet extends State<NewPet> {
                                         style: TextStyle(color: Colors.black),
                                         //initialValue: "prueba@prueba.com",
                                         maxLines: 2,
+                                        textInputAction: TextInputAction.done,
                                         decoration: const InputDecoration(
                                           suffixIcon: Icon(
-                                            Icons.person_outline,
+                                            Icons.pets,
                                             color: Colors.green,
                                           ),
                                           helperText:
@@ -573,9 +656,10 @@ class _NewPet extends State<NewPet> {
                                         style: TextStyle(color: Colors.black),
                                         //initialValue: "prueba@prueba.com",
                                         maxLines: 2,
+                                        textInputAction: TextInputAction.done,                                        
                                         decoration: const InputDecoration(
                                           suffixIcon: Icon(
-                                            Icons.person_outline,
+                                            Icons.pets,
                                             color: Colors.green,
                                           ),
                                           helperText:
@@ -724,9 +808,10 @@ class _NewPet extends State<NewPet> {
                                         style: TextStyle(color: Colors.black),
                                         //initialValue: "prueba@prueba.com",
                                         maxLines: 2,
+                                        textInputAction: TextInputAction.done,
                                         decoration: const InputDecoration(
                                           suffixIcon: Icon(
-                                            Icons.person_outline,
+                                            Icons.pets,
                                             color: Colors.green,
                                           ),
                                           hintText: 'Información adicional',
@@ -757,6 +842,16 @@ class _NewPet extends State<NewPet> {
                                                 BorderSide(color: Colors.red),
                                           ),
                                         ),
+                                        validator: (value) {
+                                          if (value.isEmpty) {
+                                            return 'Es necesario completar este campo';
+                                          } else {
+                                            setState(() {
+                                              extra_info = value;
+                                            });
+                                          }
+                                          return null;
+                                        },
                                       ),
                                       DropdownButtonFormField<String>(
                                         value: size,
@@ -917,9 +1012,11 @@ class _NewPet extends State<NewPet> {
                                             EdgeInsets.only(top: 20, bottom: 5),
                                         child: RaisedButton(
                                           onPressed: () {
+                                            //printIt();
                                             if (_editProfileForm.currentState
                                                 .validate()) {
-                                              //tryLogin(context);
+                                                  profile_pic_base64 != null && profile_pic_base64 != "" ?
+                                              submitForm(context): _displaySnackBar(context,"¡Ups, falta la foto!");
                                             }
                                           },
                                           shape: RoundedRectangleBorder(

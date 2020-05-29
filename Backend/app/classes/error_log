@@ -1,0 +1,7 @@
+[26-May-2020 15:18:41 America/Mexico_City] PHP Warning:  file_get_contents(image.png): failed to open stream: No such file or directory in /home2/balaboxd/public_html/wuoof/backend/app/classes/prueba-imagen.php on line 10
+[26-May-2020 15:32:47 America/Mexico_City] PHP Warning:  file_get_contents(myimage.png): failed to open stream: No such file or directory in /home2/balaboxd/public_html/wuoof/backend/app/classes/prueba-imagen.php on line 25
+[26-May-2020 15:35:39 America/Mexico_City] PHP Warning:  file_get_contents(myimage.png): failed to open stream: No such file or directory in /home2/balaboxd/public_html/wuoof/backend/app/classes/prueba-imagen.php on line 25
+[26-May-2020 15:35:54 America/Mexico_City] PHP Warning:  file_get_contents(perrito.png): failed to open stream: No such file or directory in /home2/balaboxd/public_html/wuoof/backend/app/classes/prueba-imagen.php on line 25
+[26-May-2020 15:42:17 America/Mexico_City] PHP Warning:  file_get_contents(): Filename cannot be empty in /home2/balaboxd/public_html/wuoof/backend/app/classes/prueba-imagen.php on line 32
+[27-May-2020 11:55:54 America/Mexico_City] PHP Warning:  base64_decode() expects parameter 1 to be string, array given in /home2/balaboxd/public_html/wuoof/backend/app/classes/prueba-imagen.php on line 53
+[27-May-2020 12:14:53 America/Mexico_City] PHP Parse error:  syntax error, unexpected 'var' (T_VAR) in /home2/balaboxd/public_html/wuoof/backend/app/classes/prueba-imagen.php on line 65

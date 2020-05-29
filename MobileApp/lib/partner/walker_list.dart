@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import '../extras/globals.dart';
 import '../extras/globals.dart';
@@ -5,7 +7,7 @@ import '../extras/globals.dart';
 import '../general/main-appbar.dart';
 import 'list-card.dart';
 import 'package:flutter_range_slider/flutter_range_slider.dart' as frs;
-
+import 'package:http/http.dart' as http;
 
 class WalkerList extends StatefulWidget {
   @override
@@ -13,6 +15,64 @@ class WalkerList extends StatefulWidget {
 }
 
 class _WalkerList extends State<WalkerList> {
+  bool loading_lists = true;
+  bool fetch_error = false;
+
+  List<Map<String, dynamic>> listaDePaseadores;
+
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    loadList(context);
+  }
+
+  Future<http.Response> loadList(BuildContext context) async {
+    final http.Response response = await http.post(
+      api_url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'action': "get_available_partners_list",
+        "pet_id": "pet_kzxw5zSiqHF",
+        "service_id": "service_NEO9Fl2xq9q"
+      }),
+    );
+
+    var jsonResponse = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      print(jsonResponse);
+      if (jsonResponse[0]['status'] == "true") {
+        print("Checkpoint");
+        setState(() {
+          loading_lists = false;
+          listaDePaseadores = List<Map<String, dynamic>>.from(
+              jsonResponse[1]['partners_data_list']);
+        });
+        print(jsonResponse[1]['partners_data_list']);
+      } else {
+        setState(() {
+          loading_lists = false;
+        });
+        _displaySnackBar(context, jsonResponse[0]['message']);
+      }
+    } else {
+      setState(() {
+        loading_lists = false;
+        fetch_error = true;
+      });
+      _displaySnackBar(context, "No se ha podido cargar la lista de servicios");
+      //throw Exception('Failed to load list.');
+    }
+  }
+
+  _displaySnackBar(context, String message) {
+    final snackBar = SnackBar(content: Text(message));
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+
   List<RangeSliderData> rangeSliders;
 
   double _lowerValue = 20.0;
@@ -117,6 +177,7 @@ class _WalkerList extends State<WalkerList> {
 
     return Scaffold(
       appBar: appBar,
+      key: _scaffoldKey,
       body: Column(
         children: <Widget>[
           Container(
@@ -128,17 +189,17 @@ class _WalkerList extends State<WalkerList> {
                   Hero(
                     tag: "walker-badge",
                     child: Container(
-                    width: 80,
-                    height: 80,
-                    decoration: new BoxDecoration(
-                      borderRadius: BorderRadiusDirectional.circular(80),
-                      color: Colors.transparent,
-                      image: DecorationImage(
-                        image: AssetImage("images/paseador.png"),
-                        fit: BoxFit.contain,
+                      width: 80,
+                      height: 80,
+                      decoration: new BoxDecoration(
+                        borderRadius: BorderRadiusDirectional.circular(80),
+                        color: Colors.transparent,
+                        image: DecorationImage(
+                          image: AssetImage("images/paseador.png"),
+                          fit: BoxFit.contain,
+                        ),
                       ),
                     ),
-                  ),
                   ),
                   SizedBox(
                     height: 10,
@@ -150,14 +211,31 @@ class _WalkerList extends State<WalkerList> {
                 ],
               )),
           Expanded(
-            child: ListView.builder(
-                itemCount: 20,
-                padding: EdgeInsets.all(normal_padding),
-                physics: ClampingScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return partnerListCard(context, true, "paseo");
-                }),
+            child: loading_lists
+                ? Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    color: Colors.white,
+                    child: Center(
+                      child: const CircularProgressIndicator(),
+                    ))
+                : listaDePaseadores == null
+                    ? Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        color: Colors.white,
+                        child: Center(
+                          child: Text("¡No se encontraron resultados!"),
+                        ))
+                    : ListView.builder(
+                        itemCount: listaDePaseadores.length,
+                        padding: EdgeInsets.all(normal_padding),
+                        physics: ClampingScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return partnerListCard(context, true,
+                              listaDePaseadores[index], "walk", true);
+                        }),
           )
         ],
       ),

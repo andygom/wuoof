@@ -5,14 +5,20 @@ import '../extras/globals.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../user_home.dart';
 
-Widget petListCard(BuildContext context, data, verified, service,) {
+Widget petListCard(
+  BuildContext context,
+  data,
+  verified,
+  service,
+) {
   var petData = jsonDecode(data);
+  print("Cambio");
+  print(petData);
   return InkWell(
     onTap: () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => UserHome(data)),
-      );
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => UserHome(data)),
+          (Route<dynamic> route) => false);
     },
     child: Container(
       width: 130,
@@ -42,7 +48,8 @@ Widget petListCard(BuildContext context, data, verified, service,) {
                   topLeft: Radius.circular(small_border_radius),
                   bottomLeft: Radius.circular(small_border_radius)),
               image: DecorationImage(
-                image: NetworkImage(dummy_net_img),
+                image: setImage(
+                    "network", images_path + petData["pet_img_url"], true),
                 fit: BoxFit.cover,
               ),
             ),
@@ -58,7 +65,7 @@ Widget petListCard(BuildContext context, data, verified, service,) {
                   Row(
                     children: <Widget>[
                       Text(
-                        petData["name"],
+                        petData["pet_name"],
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         softWrap: false,
@@ -77,7 +84,7 @@ Widget petListCard(BuildContext context, data, verified, service,) {
                     height: 3,
                   ),
                   Text(
-                    petData["age"]+" años",
+                    "Nacimiento: " + petData["pet_age"],
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: 12,
@@ -86,7 +93,7 @@ Widget petListCard(BuildContext context, data, verified, service,) {
                   SizedBox(
                     height: 3,
                   ),
-                  Text(petData["biography"],
+                  Text(petData["pet_biography"],
                       overflow: TextOverflow.ellipsis,
                       maxLines: 3,
                       softWrap: false,

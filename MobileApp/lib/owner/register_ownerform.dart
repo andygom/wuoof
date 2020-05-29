@@ -1,52 +1,85 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:wuoof/extras/globals.dart';
+import 'package:wuoof/owner/user_login.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
-const greencolor = const Color(0xFF4FB961);    
+//import 'new_petform.dart';
 
-class RegisterOwnerform extends StatefulWidget{
+const greencolor = const Color(0xFF4FB961);
 
-    RegisterOwnerform({Key key, this.title}) : super(key: key);
-  final String title;
-  static _RegisterOwnerform of(BuildContext context) =>
-      context.ancestorStateOfType(const TypeMatcher<_RegisterOwnerform>());
+class RegisterOwnerform extends StatefulWidget {
 
   @override
   _RegisterOwnerform createState() => _RegisterOwnerform();
-
 }
 
-class _RegisterOwnerform extends State<RegisterOwnerform>{
-    int _counter = 0;
+class _RegisterOwnerform extends State<RegisterOwnerform> {
   bool filling_form = false;
   final _myForm = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  String name;
+  String first_lastname;
+  String second_lastname;
+  String phone;
+  String mail;
+  String password;
+  String confirmed_password;
+  DateTime birthdate = DateTime.now();
+  String birthdate_string =
+      "${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}";
+
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: birthdate,
+        firstDate: DateTime(1930, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != birthdate)
+      setState(() {
+        birthdate = picked;
+        birthdate_string =
+            "${birthdate.day}-${birthdate.month}-${birthdate.year}";
+      });
+  }
+
   //String mail = "prueba@prueba.com";
   //String password = "12345678";
 
-
-/*   Future<http.Response> tryLogin(context) async {
+  Future<http.Response> submitForm(context) async {
     setState(() {
       filling_form = true;
     });
     final http.Response response = await http.post(
-      'https://balabox-demos.com/fixme/backend/app/mods/mods',
+      api_url,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{
-        'action': "login",
-        'mail': mail,
-        'password': password
+        "action": "signup",
+        "name": name,
+        "first_lastname": first_lastname,
+        "second_lastname": second_lastname,
+        "img_url": "dummy.jpg",
+        "birth_date": birthdate_string,
+        "phone": phone,
+        "state": " ",
+        "municipality": " ",
+        "gender": " ",
+        "mail": mail,
+        "password": password,
+        "type":"client"
       }),
     );
     var jsonResponse = jsonDecode(response.body);
     if (response.statusCode == 200) {
       //print("Good");
       if (jsonResponse[0]['status'] == "true") {
-        String user_id = jsonResponse[1]['user_id'];
-        if (user_id != null) {
-          storeLoginData(mail, password, user_id, context);
-        }
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LoginPage()));
       } else {
         setState(() {
           filling_form = false;
@@ -57,374 +90,426 @@ class _RegisterOwnerform extends State<RegisterOwnerform>{
       setState(() {
         filling_form = false;
       });
-      _displaySnackBar(context, "No se ha podido iniciar sesión");
-      throw Exception('Failed to login.');
+      _displaySnackBar(context,
+          "No se ha podido registrar tu cuenta, revisa tu conexión a internet.");
+      throw Exception('Failed to signup.');
     }
-  } */
+  }
 
- /*  _displaySnackBar(BuildContext context, String message) {
+  _displaySnackBar(BuildContext context, String message) {
     final snackBar = SnackBar(content: Text(message));
     _scaffoldKey.currentState.showSnackBar(snackBar);
-  } */
+  }
 
-/*   storeLoginData(mail, password, user_id, context) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('user_mail', mail);
-    await prefs.setString('user_password', password);
-    await prefs.setString('user_id', user_id);
-    goHome(context);
-  } */
-
-/* goHome(context) {
-    bool is_coach = false;
-    if (is_coach) {
-      Navigator.pushReplacement(
-      //  context,
-      //  MaterialPageRoute(builder: (context) => HomePage()),
-      );
-    } else {
-      Navigator.pushReplacement(
-      //  context,
-      //  MaterialPageRoute(builder: (context) => HomePage()),
-      );
-    }
-  } */  
+  goHome(context) {}
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-
-key: _scaffoldKey,
-      backgroundColor: Colors.white,
-      resizeToAvoidBottomPadding: false,
-      body: filling_form
-          ? Container(
-              width: double.infinity,
-              height: double.infinity,
-              color: Colors.white,
-              child: Center(
-                child: const CircularProgressIndicator(),
-              ))
-          : Stack(
-              fit: StackFit.expand,
-              children: <Widget>[
-                Container(
-                  color:  Colors.white,        
-                  child: ListView(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 30, bottom: 15, left: 15, right: 15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-
-                            Container(
-                              child: Container(
-                                  child: Image.asset('images/logo-fondo-blanco.png', height: 170),
-                                
+        key: _scaffoldKey,
+        backgroundColor: Colors.white,
+        resizeToAvoidBottomPadding: true,
+        body: filling_form
+            ? Container(
+                width: double.infinity,
+                height: double.infinity,
+                color: Colors.white,
+                child: Center(
+                  child: const CircularProgressIndicator(),
+                ))
+            : Container(
+                color: Colors.white,
+                child: ListView(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: 30, bottom: 15, left: 15, right: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            child: Container(
+                              child: Image.asset('images/logo-fondo-blanco.png',
+                                  height: 170),
+                            ),
+                          ),
+                          Container(
+                            child: Padding(
+                              padding: EdgeInsets.all(20),
+                              child: Column(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: EdgeInsets.only(bottom: 10),
+                                    child: Text('Sé parte de Wuoof!',
+                                        style: TextStyle(
+                                          color: common_grey,
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w500,
+                                        )),
+                                  ),
+                                ],
                               ),
                             ),
-
-                             Container(
-                                child: Padding(
-                                  padding: EdgeInsets.all(20),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: EdgeInsets.only(bottom: 10),
-                                        child: Text('Registro Dueño',
-                                            style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 28,
-                                              fontWeight: FontWeight.w500,
-                                            )),
+                          ),
+                          Form(
+                            key: _myForm,
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 40, right: 40),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  TextFormField(
+                                    initialValue: name,
+                                    style: TextStyle(color: Colors.black),
+                                    decoration: const InputDecoration(
+                                      suffixIcon: Icon(Icons.person_outline,
+                                          color: Colors.green),
+                                      hintText: 'Nombre',
+                                      hintStyle: TextStyle(
+                                        color: Colors.black,
                                       ),
-                                    ],
+                                      labelText: 'Nombre',
+                                      labelStyle: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: greencolor),
+                                      ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
+                                      ),
+                                      errorStyle: TextStyle(color: Colors.red),
+                                      focusedErrorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Ingresa tu nombre';
+                                      } else {
+                                        setState(() {
+                                          name = value;
+                                        });
+                                      }
+                                      return null;
+                                    },
                                   ),
-                                ),
-                              ),
-                         Form(
-                          key: _myForm,
-                          
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 40, right: 40),
-                          child: Column(
-                            crossAxisAlignment:
-                                CrossAxisAlignment.center,
-                            
-                            children: <Widget>[
-
-                              TextFormField(
-
-                                style: TextStyle(
-                                    color: Colors.black),
-                                decoration: const InputDecoration(
-                                  hintText: 'Nombre',
-                                  hintStyle: TextStyle(
-                                    color: Colors.black,
+                                  TextFormField(
+                                    initialValue: first_lastname,
+                                    style: TextStyle(color: Colors.black),
+                                    decoration: const InputDecoration(
+                                      suffixIcon: Icon(Icons.people_outline,
+                                          color: Colors.green),
+                                      hintText: 'Apellido Paterno',
+                                      hintStyle: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                      labelText: 'Apellido Paterno',
+                                      labelStyle: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: greencolor),
+                                      ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
+                                      ),
+                                      errorStyle: TextStyle(color: Colors.red),
+                                      focusedErrorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Ingresa tu apellido paterno';
+                                      } else {
+                                        setState(() {
+                                          first_lastname = value;
+                                        });
+                                      }
+                                      return null;
+                                    },
                                   ),
-                                  labelText: 'Nombre',
-                                  labelStyle: TextStyle(
-                                    color: Colors.grey,
+                                  TextFormField(
+                                    initialValue: second_lastname,
+                                    style: TextStyle(color: Colors.black),
+                                    decoration: const InputDecoration(
+                                      suffixIcon: Icon(Icons.people_outline,
+                                          color: Colors.green),
+                                      hintText: 'Apellido Materno',
+                                      hintStyle: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                      labelText: 'Apellido Materno',
+                                      labelStyle: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: greencolor),
+                                      ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
+                                      ),
+                                      errorStyle: TextStyle(color: Colors.red),
+                                      focusedErrorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Ingresa tu apellido materno';
+                                      } else {
+                                        setState(() {
+                                          second_lastname = value;
+                                        });
+                                      }
+                                      return null;
+                                    },
                                   ),
-                                  enabledBorder:
-                                      UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors
-                                            .grey),
+                                  Container(
+                                    width: double.infinity,
+                                    margin: EdgeInsets.only(top: 15),
+                                    padding: EdgeInsets.all(small_padding),
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        borderRadius: BorderRadius.circular(
+                                            small_border_radius)),
+                                    child: InkWell(
+                                        onTap: () {
+                                          _selectDate(context);
+                                        },
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text("Fecha de nacimiento"),
+                                            Text(
+                                              birthdate_string.toString(),
+                                              style: TextStyle(
+                                                  color: common_grey,
+                                                  fontSize: 15),
+                                            )
+                                          ],
+                                        )),
                                   ),
-                                  focusedBorder:
-                                      UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: greencolor),
+                                  TextFormField(
+                                    initialValue: phone,
+                                    style: TextStyle(color: Colors.black),
+                                    decoration: const InputDecoration(
+                                      suffixIcon: Icon(Icons.phone_android,
+                                          color: Colors.green),
+                                      hintText: 'Teléfono',
+                                      hintStyle: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                      labelText: 'Teléfono',
+                                      labelStyle: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: greencolor),
+                                      ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
+                                      ),
+                                      errorStyle: TextStyle(color: Colors.red),
+                                      focusedErrorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Ingresa tu teléfono';
+                                      } else {
+                                        setState(() {
+                                          phone = value;
+                                        });
+                                      }
+                                      return null;
+                                    },
                                   ),
-                                  errorBorder:
-                                      UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.yellow),
+                                  TextFormField(
+                                    initialValue: mail,
+                                    style: TextStyle(color: Colors.black),
+                                    decoration: const InputDecoration(
+                                      suffixIcon: Icon(Icons.mail_outline,
+                                          color: Colors.green),
+                                      hintText: 'Correo',
+                                      hintStyle: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                      labelText: 'Correo',
+                                      labelStyle: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: greencolor),
+                                      ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
+                                      ),
+                                      errorStyle: TextStyle(color: Colors.red),
+                                      focusedErrorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Ingresa tu correo';
+                                      } else {
+                                        setState(() {
+                                          mail = value;
+                                        });
+                                      }
+                                      return null;
+                                    },
                                   ),
-                                  errorStyle: TextStyle(
-                                      color: Colors.yellow),
-                                  focusedErrorBorder:
-                                      UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.yellow),
+                                  TextFormField(
+                                    initialValue: password,
+                                    style: TextStyle(color: Colors.black),
+                                    obscureText: true,
+                                    //enabled: edition_enabled ? true : false,
+                                    decoration: const InputDecoration(
+                                      suffixIcon: Icon(Icons.lock_outline,
+                                          color: Colors.green),
+                                      hintText: 'Contraseña',
+                                      hintStyle: TextStyle(
+                                        color: Colors.black38,
+                                      ),
+                                      labelText: 'Contraseña',
+                                      labelStyle: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: greencolor),
+                                      ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
+                                      ),
+                                      errorStyle: TextStyle(color: Colors.red),
+                                      focusedErrorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Ingresa tu contraseña';
+                                      } else {
+                                        setState(() {
+                                          password = value;
+                                        });
+                                      }
+                                      return null;
+                                    },
                                   ),
-                                ),
-                                validator: (value) {
-                                  /* if (value.isEmpty) {
-                                    return 'Ingresa tu correo';
-                                  } else {
-                                    setState(() {
-                                      mail = value;
-                                    });
-                                  } */
-                                  return null;
-                                  
-                                },
-                              ),
-                          
-                              TextFormField(
-
-                                
-                                
-                                style: TextStyle(
-                                    color: Colors.black),
-                                decoration: const InputDecoration(
-                                  hintText: 'Apellido Paterno',
-                                  hintStyle: TextStyle(
-                                    color: Colors.black,
+                                  TextFormField(
+                                    //initialValue: password,
+                                    style: TextStyle(color: Colors.black),
+                                    obscureText: true,
+                                    //enabled: edition_enabled ? true : false,
+                                    decoration: const InputDecoration(
+                                      suffixIcon: Icon(Icons.lock_outline,
+                                          color: Colors.green),
+                                      hintText: 'Confirmar contraseña',
+                                      hintStyle: TextStyle(
+                                        color: Colors.black38,
+                                      ),
+                                      labelText: 'Confirmar contraseña',
+                                      labelStyle: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: greencolor),
+                                      ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
+                                      ),
+                                      errorStyle: TextStyle(color: Colors.red),
+                                      focusedErrorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value != password)
+                                        return 'La contraseña no coincide';
+                                      if (value.isEmpty) {
+                                        return 'La contraseña no coincide';
+                                      } else {
+                                        setState(() {
+                                          password = value;
+                                        });
+                                      }
+                                      return null;
+                                    },
                                   ),
-                                  labelText: 'Apellido Paterno',
-                                  labelStyle: TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                  enabledBorder:
-                                      UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors
-                                            .grey),
-                                  ),
-                                  focusedBorder:
-                                      UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: greencolor),
-                                  ),
-                                  errorBorder:
-                                      UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.yellow),
-                                  ),
-                                  errorStyle: TextStyle(
-                                      color: Colors.yellow),
-                                  focusedErrorBorder:
-                                      UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.yellow),
-                                  ),
-                                ),
-                                validator: (value) {
-                                  /* if (value.isEmpty) {
-                                    return 'Ingresa tu correo';
-                                  } else {
-                                    setState(() {
-                                      mail = value;
-                                    });
-                                  } */
-                                  return null;
-                                  
-                                },
-                              ),
-
-                              TextFormField(
-
-                                style: TextStyle(
-                                    color: Colors.black),
-                                decoration: const InputDecoration(
-                                  hintText: 'Apellido Materno',
-                                  hintStyle: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                  labelText: 'Apellido Materno',
-                                  labelStyle: TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                  enabledBorder:
-                                      UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors
-                                            .grey),
-                                  ),
-                                  focusedBorder:
-                                      UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: greencolor),
-                                  ),
-                                  errorBorder:
-                                      UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.yellow),
-                                  ),
-                                  errorStyle: TextStyle(
-                                      color: Colors.yellow),
-                                  focusedErrorBorder:
-                                      UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.yellow),
-                                  ),
-                                ),
-                                validator: (value) {
-                                  /* if (value.isEmpty) {
-                                    return 'Ingresa tu correo';
-                                  } else {
-                                    setState(() {
-                                      mail = value;
-                                    });
-                                  } */
-                                  return null;
-                                  
-                                },
-                              ),
-                          
-                              TextFormField(
-
-                                style: TextStyle(
-                                    color: Colors.black),
-                                decoration: const InputDecoration(
-                                  hintText: 'Teléfono',
-                                  hintStyle: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                  labelText: 'Teléfono',
-                                  labelStyle: TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                  enabledBorder:
-                                      UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors
-                                            .grey),
-                                  ),
-                                  focusedBorder:
-                                      UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: greencolor),
-                                  ),
-                                  errorBorder:
-                                      UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.yellow),
-                                  ),
-                                  errorStyle: TextStyle(
-                                      color: Colors.yellow),
-                                  focusedErrorBorder:
-                                      UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.yellow),
-                                  ),
-                                ),
-                                validator: (value) {
-                                  /* if (value.isEmpty) {
-                                    return 'Ingresa tu correo';
-                                  } else {
-                                    setState(() {
-                                      mail = value;
-                                    });
-                                  } */
-                                  return null;
-                                  
-                                },
-                              ),
-
-                              TextFormField(
-
-                                style: TextStyle(
-                                    color: Colors.black),
-                                decoration: const InputDecoration(
-                                  hintText: 'Dirección',
-                                  hintStyle: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                  labelText: 'Dirección',
-                                  labelStyle: TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                  enabledBorder:
-                                      UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors
-                                            .grey),
-                                  ),
-                                  focusedBorder:
-                                      UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: greencolor),
-                                  ),
-                                  errorBorder:
-                                      UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.yellow),
-                                  ),
-                                  errorStyle: TextStyle(
-                                      color: Colors.yellow),
-                                  focusedErrorBorder:
-                                      UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.yellow),
-                                  ),
-                                ),
-                                validator: (value) {
-                                  /* if (value.isEmpty) {
-                                    return 'Ingresa tu correo';
-                                  } else {
-                                    setState(() {
-                                      mail = value;
-                                    });
-                                  } */
-                                  return null;
-                                  
-                                },
-                              ),
-
-
-                              Padding(
-                               padding: EdgeInsets.only(
-                                   top: 20, bottom: 5),
-                               child: RaisedButton(
-                                 onPressed: () {
-                                 },
-                                 shape: RoundedRectangleBorder(
-                                     borderRadius:
-                                         BorderRadius.circular(
-                                             80.0)),
-                                 padding: EdgeInsets.all(0.0),
-                                 child: Ink(
-                                   decoration: BoxDecoration(
-                                     color: greencolor,
-                                       /* gradient: LinearGradient(
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.only(top: 20, bottom: 5),
+                                    child: RaisedButton(
+                                      onPressed: () {
+                                        if (_myForm.currentState.validate()) {
+                                          submitForm(context);
+                                        }
+                                      },
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(80.0)),
+                                      padding: EdgeInsets.all(0.0),
+                                      child: Ink(
+                                        decoration: BoxDecoration(
+                                            color: greencolor,
+                                            /* gradient: LinearGradient(
                                          colors: [
                                            Colors.lightGreen,
                                            Colors
@@ -435,47 +520,65 @@ key: _scaffoldKey,
                                          end: Alignment
                                              .centerRight,
                                        ), */
-                                       borderRadius:
-                                           BorderRadius.circular(
-                                               8.0)),
-                                   child: Container(
-                                     constraints: BoxConstraints(
-                                         maxWidth:
-                                             double.infinity,
-                                         minHeight: 40.0),
-                                     alignment: Alignment.center,
-                                     child: Text(
-                                       "Siguiente",
-                                       textAlign:
-                                           TextAlign.center,
-                                       style: TextStyle(
-                                           color: Colors.white),
-                                     ),
-                                   ),
-                                 ),
-                               ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0)),
+                                        child: Container(
+                                          constraints: BoxConstraints(
+                                              maxWidth: double.infinity,
+                                              minHeight: 40.0),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "¡Listo!",
+                                            textAlign: TextAlign.center,
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-
-                          ],
-                          
-                        ),
-                         ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                              alignment: Alignment.center,
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginPage()),
+                                  );
+                                },
+                                child: RichText(
+                                  text: new TextSpan(
+                                    style: new TextStyle(
+                                      fontSize: 14.0,
+                                      color: Colors.black,
+                                    ),
+                                    children: <TextSpan>[
+                                      new TextSpan(
+                                          style: new TextStyle(
+                                            fontSize: 15.0,
+                                          ),
+                                          text: '¿Ya tienes cuenta? '),
+                                      new TextSpan(
+                                          text: 'Inicia sesión',
+                                          style: new TextStyle(
+                                              fontWeight: FontWeight.bold)),
+                                    ],
+                                  ),
+                                ),
+                              )),
+                        ],
                       ),
-
-                        
-                    ],
-                    
-                  ),
-                    
+                    ),
+                  ],
                 ),
-              ],
-              
-            ),
-          
-                 
-              )
-              ]
-              )
-              );
+              ));
   }
 }

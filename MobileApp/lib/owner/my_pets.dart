@@ -8,6 +8,9 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyPets extends StatefulWidget {
+  final String user_id;
+  MyPets(this.user_id);
+
   @override
   _MyPets createState() => _MyPets();
 }
@@ -39,11 +42,11 @@ class _MyPets extends State<MyPets> {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(
-          <String, String>{'action': "get_user_pet_list", 'user_id': "user_OH9NvFh0PSu"}),
+          <String, String>{'action': "get_user_pet_list", 'user_id': widget.user_id}),
     );
     var jsonResponse = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      print(jsonResponse[0]['message']);
+      //print(jsonResponse[0]['message']);
       if (jsonResponse[0]['status'] == "true") {
         print("Checkpoint");
         setState(() {
@@ -51,6 +54,7 @@ class _MyPets extends State<MyPets> {
           listaDeMascotas = List<Map<String, dynamic>>.from(
               jsonResponse[1]['pet_data_list']);
         });
+        print(jsonResponse[1]['pet_data_list']);
       } else {
         setState(() {
           loading_lists = false;
@@ -106,7 +110,7 @@ class _MyPets extends State<MyPets> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => NewPet()));
+              context, MaterialPageRoute(builder: (context) => NewPet(widget.user_id)));
         },
         child: Icon(Icons.add),
         backgroundColor: primary_green,

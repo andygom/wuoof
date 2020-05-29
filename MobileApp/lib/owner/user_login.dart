@@ -57,7 +57,9 @@ class _LoginPage extends State<LoginPage> {
   final _myForm = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  String mail = "prueba@prueba.com";
+  List<Map<String, dynamic>> listaDeMascotas;
+
+  String mail = "javierguerrero@balabox.com";
   String password = "12345678";
 
   bool hasPet = true;
@@ -66,7 +68,8 @@ class _LoginPage extends State<LoginPage> {
     setState(() {
       filling_form = true;
     });
-    final http.Response response = await http.post(
+    try {
+      final http.Response response = await http.post(
       api_url,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
@@ -100,6 +103,12 @@ class _LoginPage extends State<LoginPage> {
       });
       _displaySnackBar(context, "No se ha podido iniciar sesión");
       throw Exception('Failed to login.');
+    }
+    } catch (e) {
+      _displaySnackBar(context, "Ha habido un problema de servidor");
+      setState(() {
+      filling_form = false;
+    });
     }
   }
 
@@ -149,19 +158,53 @@ class _LoginPage extends State<LoginPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('user_data', user_data);
     await prefs.setString('user_id', user_id);
+    //loadPetList(context, user_id);
     goHome(context);
   }
 
+  /* Future<http.Response> loadPetList(BuildContext context, user_id) async {
+    final http.Response response = await http.post(
+      api_url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(
+          <String, String>{'action': "get_user_pet_list", 'user_id': user_id}),
+    );
+    var jsonResponse = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      //print(jsonResponse[0]['message']);
+      if (jsonResponse[0]['status'] == "true") {
+        print("Checkpoint");
+        setState(() {
+          filling_form = false;
+          listaDeMascotas =
+              List<Map<String, dynamic>>.from(jsonResponse[1]['pet_data_list']);
+        });
+        print(jsonResponse[1]['pet_data_list']);
+      } else {
+        setState(() {
+          filling_form = false;
+          hasPet = false;
+        });
+        /* _displaySnackBar(context, jsonResponse[0]['message']); */
+        goHome(context);
+      }
+    } else {
+      setState(() {
+        filling_form = false;
+      });
+      _displaySnackBar(
+          context, "Hubo un problema, comúnicate con soporte de Wuoof!");
+      //throw Exception('Failed to load list.');
+    }
+  } */
+
   goHome(context) {
-    !hasPet
-        ? Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => NewPet()),
-          )
-        : Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => UserHome("")),
-          );
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => UserHome("")),
+    );
   }
 
   @override
@@ -228,6 +271,7 @@ class _LoginPage extends State<LoginPage> {
                                               CrossAxisAlignment.center,
                                           children: <Widget>[
                                             TextFormField(
+                                              initialValue: mail,
                                               style: TextStyle(
                                                   color: Colors.white),
                                               decoration: const InputDecoration(
@@ -274,6 +318,7 @@ class _LoginPage extends State<LoginPage> {
                                               },
                                             ),
                                             TextFormField(
+                                              initialValue: password,
                                               //controller: TextEditingController(text: "123456789"),
                                               style: TextStyle(
                                                   color: Colors.white),
@@ -329,7 +374,7 @@ class _LoginPage extends State<LoginPage> {
                                                   if (_myForm.currentState
                                                       .validate()) {
                                                     tryLogin(context);
-                                                  }                                                  
+                                                  }
                                                 },
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius:

@@ -1,7 +1,52 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import '../extras/globals.dart';
 
 Widget petCard(BuildContext context, controller, pet_data) {
+  String pet_name = "N/D";
+  String pet_age = "N/D";
+  String pet_biography = "N/D";
+  String pet_img = pattern;
+  String pet_gender = null;
+
+  if (checkJsonArray(context, jsonEncode(pet_data))) {
+    print(jsonEncode(pet_data));
+    pet_name = pet_data["pet_name"];
+    pet_age = pet_data["pet_age"];
+    pet_biography = pet_data["pet_biography"];
+    pet_img = images_path + pet_data["pet_img_url"];
+    pet_gender = pet_data["pet_gender"];
+  }
+
+  genderIcon() {
+    var icon = Container(
+      width: 30,
+      height: 30,
+      decoration: BoxDecoration(
+          color: Colors.pink, borderRadius: BorderRadius.circular(50)),
+      child: Icon(
+        Icons.search,
+        color: Colors.white,
+      ),
+    );
+
+    if (pet_gender == "macho") {
+      icon = Container(
+        width: 30,
+        height: 30,
+        decoration: BoxDecoration(
+            color: primary_blue, borderRadius: BorderRadius.circular(50)),
+        child: Icon(
+          Icons.search,
+          color: Colors.white,
+        ),
+      );
+    }
+
+    return icon;
+  }
+
   return Container(
     decoration: BoxDecoration(
       boxShadow: [
@@ -19,7 +64,7 @@ Widget petCard(BuildContext context, controller, pet_data) {
       color: Colors.white,
       image: DecorationImage(
         fit: BoxFit.cover,
-        image: NetworkImage(dummy_net_img),
+        image: setImage("network", pet_img, true),
       ),
     ),
     child: Column(
@@ -42,23 +87,13 @@ Widget petCard(BuildContext context, controller, pet_data) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                dog_dummy_name,
+                pet_name,
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 25,
                     fontWeight: FontWeight.w500),
               ),
-              Container(
-                width: 30,
-                height: 30,
-                decoration: BoxDecoration(
-                    color: Colors.pink,
-                    borderRadius: BorderRadius.circular(50)),
-                child: Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-              )
+              genderIcon()
             ],
           ),
         )),
@@ -70,16 +105,22 @@ Widget petCard(BuildContext context, controller, pet_data) {
                 decoration: new BoxDecoration(
                   borderRadius: BorderRadius.circular(big_border_radius),
                   gradient: new LinearGradient(
-                      colors: [Colors.transparent, Colors.black.withOpacity(0.5)],
+                      colors: [
+                        Colors.transparent,
+                        Colors.black.withOpacity(0.5)
+                      ],
                       begin: const FractionalOffset(0.0, 0.0),
                       end: const FractionalOffset(0.0, 1.0),
                       stops: [0.0, 1.0],
                       tileMode: TileMode.clamp),
                 ),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Soy una perra muy amigable, me gusta convivir con otros perros y también perseguir la pelota.",
+                      pet_biography,
+                      textAlign: TextAlign.left,
                       style: TextStyle(
                         color: Colors.white,
                       ),
@@ -142,7 +183,6 @@ Widget petCard(BuildContext context, controller, pet_data) {
                                 ),
                               ),
                             ),
-
                             Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(40),

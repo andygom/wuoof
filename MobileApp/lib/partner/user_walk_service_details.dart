@@ -1,7 +1,23 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import '../extras/globals.dart';
 
-Widget profileServiceDetailsCard(BuildContext context, data) {
+Widget profileServiceDetailsCard(BuildContext context, partnerData) {
+  String name = "N/D";
+  String city = "N/D";
+  String description = "N/D";
+  String service_price = null;
+  String partner_img = pattern;
+
+  if (checkJsonArray(context, jsonEncode(partnerData))) {
+    print(jsonEncode(partnerData));
+    name = partnerData["name"];
+    description = partnerData["description"];
+    service_price = partnerData["price"];
+    partner_img = partnerData["img_url"];
+  }
+
   return Column(
     children: <Widget>[
       Container(
@@ -37,7 +53,7 @@ Widget profileServiceDetailsCard(BuildContext context, data) {
               width: 100,
             ),
             Text(
-              "Acerca de los paseos de " + dummy_partner_name + ":",
+              "Acerca de los paseos de " + name + ":",
               style: TextStyle(
                   color: common_grey,
                   fontSize: 18,
@@ -47,7 +63,7 @@ Widget profileServiceDetailsCard(BuildContext context, data) {
               height: 5,
             ),
             Text(
-              dummy_service_description,
+              description,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: common_grey,
@@ -96,7 +112,7 @@ Widget profileServiceDetailsCard(BuildContext context, data) {
                     ),
                     children: <TextSpan>[
                       TextSpan(
-                          text: '\$200',
+                          text: '\$'+service_price,
                           style: TextStyle(fontWeight: FontWeight.w700)),
                       TextSpan(text: '/evento'),
                     ],

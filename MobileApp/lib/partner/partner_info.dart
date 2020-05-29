@@ -1,9 +1,25 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import '../extras/globals.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'review_card.dart';
 
-Widget partnerInfoCard(BuildContext context, data) {
+Widget partnerInfoCard(BuildContext context, partnerData) {
+  String name = "N/D";
+  String city = "N/D";
+  String description = "N/D";
+  String service_price = null;
+  String partner_img = pattern;
+
+  if (checkJsonArray(context, jsonEncode(partnerData))) {
+    print(jsonEncode(partnerData));
+    name = partnerData["name"];
+    description = partnerData["description"];
+    service_price = partnerData["price"];
+    partner_img = partnerData["img_url"];
+  }
+
   return Column(
     children: <Widget>[
       Container(
@@ -35,7 +51,7 @@ Widget partnerInfoCard(BuildContext context, data) {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Text(
-              "¿Quién es " + dummy_partner_name + "?",
+              "¿Quién es " + name + "?",
               style: TextStyle(
                   color: common_grey,
                   fontSize: 18,
@@ -99,7 +115,7 @@ Widget partnerInfoCard(BuildContext context, data) {
       Container(
         margin: EdgeInsets.symmetric(vertical: normal_margin),
         child: Text(
-          "Lo que los usuarios dicen del servicio de " + dummy_partner_name,
+          "Lo que los usuarios dicen del servicio de " + name,
           textAlign: TextAlign.center,
           style: TextStyle(
               color: common_grey, fontSize: 18, fontWeight: small_title_weight),

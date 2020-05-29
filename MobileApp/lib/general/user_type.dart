@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../owner/register_owner.dart';
-import '../owner/user_login.dart';
+import 'package:wuoof/owner/register_ownerform.dart';
+import 'package:wuoof/partner/partner_signup.dart';
 import '../extras/globals.dart';
 
 const orangecolor = const Color(0xFFE6B548);
@@ -8,18 +8,23 @@ const yellowcolor = const Color(0xFFFACA5E);
 const greencolor = const Color(0xFF4FB961);
 
 Container _buildButtonRow(context, titletext, iconimage, type) {
-  var ruta = RegisterOwner();
+  var ruta;
+
   switch (type) {
     case "owner":
-      ruta = RegisterOwner();
+      ruta = RegisterOwnerform();
       break;
 
     case "host":
-      ruta = RegisterOwner();
+      ruta = PartnerSignup("host");
       break;
 
     case "walker":
-      ruta = RegisterOwner();
+      ruta = PartnerSignup("walker");
+      break;
+
+    default:
+      ruta = RegisterOwnerform();
       break;
   }
 
@@ -72,9 +77,7 @@ Container _buildButtonRow(context, titletext, iconimage, type) {
                 ],
               ),
             ),
-            SizedBox(
-              width: normal_margin
-            ),
+            SizedBox(width: normal_margin),
             Container(
                 child: Image.asset(iconimage),
                 height: 100,
@@ -193,9 +196,9 @@ class UserType extends StatelessWidget {
                       _buildButtonRow(
                           context, "Dueño", "images/owner.png", "owner"),
                       _buildButtonRow(
-                          context, "Cuidador", "images/cuidador.png", "owner"),
+                          context, "Cuidador", "images/cuidador.png", "host"),
                       _buildButtonRow(
-                          context, "Paseador", "images/paseador.png", "owner"),
+                          context, "Paseador", "images/paseador.png", "walker"),
 
                       /*  _buildButtonRow('Dueño', 'images/owner.png'),
                       _buildButtonRow('Cuidador', 'images/cuidador.png'),

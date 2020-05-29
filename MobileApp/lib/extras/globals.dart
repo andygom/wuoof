@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 var primary_yellow = Colors.orangeAccent;
@@ -21,9 +23,11 @@ var drawer_bg =
 var card_img =
     "https://icons.iconarchive.com/icons/designbolts/credit-card-payment/256/Master-Card-Blue-icon.png";
 
-var house_img = "https://st.hzcdn.com/simgs/fa31f5d505d3c11a_4-0906/home-design.jpg";
+var house_img =
+    "https://st.hzcdn.com/simgs/fa31f5d505d3c11a_4-0906/home-design.jpg";
 
-var pattern = "https://previews.123rf.com/images/natashapankina/natashapankina1607/natashapankina160700169/61231804-conjunto-drenado-mano-del-doodle-patr%C3%B3n-transparente-animales-cosas-y-de-suministro-de-iconos-ilustraci.jpg";
+var pattern =
+    "https://previews.123rf.com/images/natashapankina/natashapankina1607/natashapankina160700169/61231804-conjunto-drenado-mano-del-doodle-patr%C3%B3n-transparente-animales-cosas-y-de-suministro-de-iconos-ilustraci.jpg";
 
 var dummy_net_img =
     "https://t1.uc.ltmcdn.com/images/8/7/8/img_cuanto_mide_un_perro_chihuahua_29878_600_square.jpg";
@@ -31,6 +35,7 @@ var dummy_pet_img_2 =
     "https://www.webanimales.com/ficheros/2014/11/PRAZSKY-KRYSARIK.jpg";
 var dog_dummy_name = "Bambina";
 var dog_dummy_name_2 = "Balvin";
+var placeholder_dog = "https://us.123rf.com/450wm/roiandroi/roiandroi1801/roiandroi180100004/93089666-perro-lindo-del-perro-de-la-chihuahua-ilustraci%C3%B3n-de-dibujos-animados-de-vector-sobre-un-fondo-blanco-.jpg?ver=6";
 var dummy_dog_bio =
     "Soy una perrita de 5 años, muy juguetona y me encanta socializar con otros perros.";
 
@@ -44,13 +49,12 @@ var dummy_user_name = "Luis";
 var dummy_user_image =
     "https://www.ninjaonlinedating.com/images/Articles/Good_Dating_Profile_Photo.jpg?full=1";
 
-var dummy_service_description = "Ten toda la confianza del mundo, te aseguro que tu mascota estará en las mejores manos, me encantan los perritos y además me he dedicado por mucho tiempo a cuidarlos. Les doy comida premium, así como también me gusta recompensarlos con galletas y juguetes.";
-
-
+var dummy_service_description =
+    "Ten toda la confianza del mundo, te aseguro que tu mascota estará en las mejores manos, me encantan los perritos y además me he dedicado por mucho tiempo a cuidarlos. Les doy comida premium, así como también me gusta recompensarlos con galletas y juguetes.";
 
 //Api
 var api_url = "http://balabox-demos.com/wuoof/backend/app/mods/mods";
-
+var images_path = "http://balabox-demos.com/wuoof/backend/app/img-pets/";
 
 setImage(type, link, decoration) {
   var imageWidget;
@@ -78,4 +82,23 @@ setImage(type, link, decoration) {
   }
 
   return imageWidget;
+}
+
+checkJsonArray(BuildContext context, data) {
+  var jsonString = data;
+  Map<String, dynamic> decodedJSON;
+  var decodeSucceeded = false;
+
+  try {
+    var array = jsonDecode(jsonString);
+    if (array != "" && array != null){
+      decodeSucceeded = true;
+    }
+  } on FormatException catch (e) {
+    print('The provided string is not valid JSON');
+  }
+
+  print('Decoding succeeded: $decodeSucceeded');
+
+  return decodeSucceeded;
 }

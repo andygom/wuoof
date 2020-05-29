@@ -1,18 +1,34 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import '../extras/globals.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../partner/public_partner_profile.dart';
 
-Widget partnerHomeCard(BuildContext context, service) {
+Widget partnerHomeCard(BuildContext context, partnerData, service) {
+  String name = "N/D";
+  String city = "N/D";
+  String description = "N/D";
+  String service_price = null;
+  String partner_img = pattern;
+
+  if (checkJsonArray(context, jsonEncode(partnerData))) {
+    print(jsonEncode(partnerData));
+    name = partnerData["name"];
+    description = partnerData["description"];
+    service_price = partnerData["price"];
+    partner_img = partnerData["img_url"];
+  }
+
   return InkWell(
     onTap: () {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => PublicPartnerProfile("walk")),
+        MaterialPageRoute(builder: (context) => PublicPartnerProfile("walk", partnerData)),
       );
     },
     child: Container(
-      width: 130,
+      width: 150,
       margin: EdgeInsets.only(right: normal_margin),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(small_border_radius),
@@ -37,8 +53,9 @@ Widget partnerHomeCard(BuildContext context, service) {
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(small_border_radius),
                   topRight: Radius.circular(small_border_radius)),
+              color: Colors.grey[200],
               image: DecorationImage(
-                image: NetworkImage(dummy_net_partner),
+                image: setImage("network", partner_img, true),
                 fit: BoxFit.cover,
               ),
             ),
@@ -50,40 +67,36 @@ Widget partnerHomeCard(BuildContext context, service) {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Text(
-                      dummy_partner_name,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      softWrap: false,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: title_color,
-                          fontWeight: small_title_weight,
-                          fontSize: small_title_size),
-                    ),
-                    SizedBox(
-                      width: 7,
-                    ),
-                    RatingBar(
-                      ignoreGestures: true,
-                      initialRating: 4.5,
-                      itemSize: 14,
-                      minRating: 1,
-                      direction: Axis.horizontal,
-                      allowHalfRating: true,
-                      itemCount: 5,
-                      itemPadding: EdgeInsets.symmetric(horizontal: 0.0),
-                      itemBuilder: (context, _) => Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
-                      onRatingUpdate: (rating) {
-                        print(rating);
-                      },
-                    ),
-                  ],
+                Text(
+                  name,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  softWrap: false,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      color: title_color,
+                      fontWeight: small_title_weight,
+                      fontSize: small_title_size),
+                ),
+                SizedBox(
+                  width: 7,
+                ),
+                RatingBar(
+                  ignoreGestures: true,
+                  initialRating: 4.5,
+                  itemSize: 14,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemPadding: EdgeInsets.symmetric(horizontal: 0.0),
+                  itemBuilder: (context, _) => Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                  onRatingUpdate: (rating) {
+                    print(rating);
+                  },
                 ),
                 SizedBox(
                   height: 3,
@@ -98,7 +111,7 @@ Widget partnerHomeCard(BuildContext context, service) {
                 SizedBox(
                   height: 3,
                 ),
-                Text(dummy_partner_bio,
+                Text(description,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                     softWrap: false,
@@ -123,9 +136,9 @@ Widget partnerHomeCard(BuildContext context, service) {
                       ),
                       children: <TextSpan>[
                         TextSpan(
-                            text: '\$200',
+                            text: '\$' + service_price.toString(),
                             style: TextStyle(fontWeight: FontWeight.w700)),
-                        TextSpan(text: '/paseo'),
+                        TextSpan(text: '/' + service.toString()),
                       ],
                     ),
                   ),

@@ -1,9 +1,25 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import '../extras/globals.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
-Widget hostServiceDetailsCard(BuildContext context, data) {
+Widget hostServiceDetailsCard(BuildContext context, partnerData) {
+  String name = "N/D";
+  String city = "N/D";
+  String description = "N/D";
+  String service_price = null;
+  String partner_img = pattern;
+
+  if (checkJsonArray(context, jsonEncode(partnerData))) {
+    print(jsonEncode(partnerData));
+    name = partnerData["name"];
+    description = partnerData["description"];
+    service_price = partnerData["price"];
+    partner_img = partnerData["img_url"];
+  }
+
   return Column(
     children: <Widget>[
       Container(
@@ -39,7 +55,7 @@ Widget hostServiceDetailsCard(BuildContext context, data) {
               width: 100,
             ),
             Text(
-              "Acerca de los cuidados de " + dummy_partner_name + ":",
+              "Acerca de los cuidados de " + name + ":",
               style: TextStyle(
                   color: common_grey,
                   fontSize: 18,
@@ -49,7 +65,7 @@ Widget hostServiceDetailsCard(BuildContext context, data) {
               height: 5,
             ),
             Text(
-              dummy_service_description,
+              description,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: common_grey,
@@ -57,13 +73,12 @@ Widget hostServiceDetailsCard(BuildContext context, data) {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 10),
-              color: Colors.black,
+                margin: EdgeInsets.only(top: 10),
+                color: Colors.black,
                 height: 300,
                 child: PhotoViewGallery.builder(
-                  backgroundDecoration: BoxDecoration(
-                    color: Colors.transparent
-                  ),
+                  backgroundDecoration:
+                      BoxDecoration(color: Colors.transparent),
                   scrollPhysics: const BouncingScrollPhysics(),
                   builder: (BuildContext context, int index) {
                     return PhotoViewGalleryPageOptions(
@@ -127,7 +142,7 @@ Widget hostServiceDetailsCard(BuildContext context, data) {
                     ),
                     children: <TextSpan>[
                       TextSpan(
-                          text: '\$200',
+                          text: '\$'+service_price,
                           style: TextStyle(fontWeight: FontWeight.w700)),
                       TextSpan(text: '/día ó noche'),
                     ],

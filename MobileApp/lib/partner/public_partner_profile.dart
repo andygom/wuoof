@@ -1,12 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:wuoof/extras/globals.dart';
+import 'package:wuoof/owner/checkout.dart';
 import 'user_walk_service_details.dart';
 import 'partner_info.dart';
 import 'partner_host_service_details.dart';
 
 class PublicPartnerProfile extends StatefulWidget {
   final String service;
-  PublicPartnerProfile(this.service);
+  var partnerData;
+  PublicPartnerProfile(this.service, this.partnerData);
 
   @override
   _PublicPartnerProfile createState() => _PublicPartnerProfile();
@@ -37,8 +41,31 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
 }
 
 class _PublicPartnerProfile extends State<PublicPartnerProfile> {
+  
   @override
   Widget build(BuildContext context) {
+    String name = "N/D";
+    String city = "N/D";
+    String description = "N/D";
+    String service_price = null;
+    String partner_img = pattern;
+
+    String tabServiceName = "N/D";
+
+    if (checkJsonArray(context, jsonEncode(widget.partnerData))) {
+      print(jsonEncode(widget.partnerData));
+      name = widget.partnerData["name"];
+      description = widget.partnerData["description"];
+      service_price = widget.partnerData["price"];
+      partner_img = widget.partnerData["img_url"];
+    }
+
+    if (widget.service == "walk"){
+      tabServiceName = "Paseo";
+    } else {
+      tabServiceName = "Cuidado";
+    }
+
     return Scaffold(
       body: DefaultTabController(
         length: 2,
@@ -58,7 +85,7 @@ class _PublicPartnerProfile extends State<PublicPartnerProfile> {
                     centerTitle: false,
                     title: Row(
                       children: <Widget>[
-                        Text("Alex",
+                        Text(name,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16.0,
@@ -94,10 +121,7 @@ class _PublicPartnerProfile extends State<PublicPartnerProfile> {
                         )
                       ],
                     ),
-                    background: Image.network(
-                      dummy_net_partner,
-                      fit: BoxFit.cover,
-                    )),
+                    background: setImage("network", partner_img, false)),
               ),
               SliverPersistentHeader(
                 delegate: _SliverAppBarDelegate(
@@ -117,7 +141,7 @@ class _PublicPartnerProfile extends State<PublicPartnerProfile> {
                           SizedBox(
                             width: 4,
                           ),
-                          Text(widget.service)
+                          Text(tabServiceName)
                         ],
                       )),
                       new Tab(
@@ -151,7 +175,9 @@ class _PublicPartnerProfile extends State<PublicPartnerProfile> {
                 children: <Widget>[
                   Container(
                     padding: EdgeInsets.all(normal_padding),
-                    child: widget.service == "cuidado" ? hostServiceDetailsCard(context, "data") : profileServiceDetailsCard(context, "data"),
+                    child: widget.service == "cuidado"
+                        ? hostServiceDetailsCard(context, widget.partnerData)
+                        : profileServiceDetailsCard(context, widget.partnerData),
                   )
                 ],
               ),
@@ -160,7 +186,7 @@ class _PublicPartnerProfile extends State<PublicPartnerProfile> {
                 children: <Widget>[
                   Container(
                     padding: EdgeInsets.all(normal_padding),
-                    child: partnerInfoCard(context, "data"),
+                    child: partnerInfoCard(context, widget.partnerData),
                   )
                 ],
               ),
@@ -169,28 +195,37 @@ class _PublicPartnerProfile extends State<PublicPartnerProfile> {
         ),
       ),
       bottomNavigationBar: Container(
-              color: primary_green,
-              /// MediaQuery.of(context).padding.bottom - the bottom safe area size
-              height: MediaQuery.of(context).padding.bottom + 50,
-              child: SafeArea(
-                child: InkWell(
-                  onTap: () {},
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 8.0),
-                    child: Column(
-                      children: <Widget>[
-                        Icon(
-                          Icons.check_circle,
-                          color: Colors.white,
-                        ),
-                        Text('Contratar a '+dummy_partner_name, style: TextStyle(
-                          color: Colors.white,
-                        ),)
-                      ],
+          color: primary_green,
+
+          /// MediaQuery.of(context).padding.bottom - the bottom safe area size
+          height: MediaQuery.of(context).padding.bottom + 58,
+          child: SafeArea(
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Checkout(widget.partnerData, widget.service)));
+              },
+              child: Padding(
+                padding: EdgeInsets.only(top: 8.0, bottom: 5),
+                child: Column(
+                  children: <Widget>[
+                    Icon(
+                      Icons.check_circle,
+                      color: Colors.white,
                     ),
-                  ),
+                    Text(
+                      'Contratar a ' + name,
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    )
+                  ],
                 ),
-              )),
+              ),
+            ),
+          )),
     );
   }
 }
