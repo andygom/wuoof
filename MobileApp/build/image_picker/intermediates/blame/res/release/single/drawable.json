@@ -1,18 +1,18 @@
 [
     {
-        "merged": "/Users/javierguerrero/Code/Clientes/Wuoof/Web/wuoof/MobileApp/build/image_picker/intermediates/res/merged/release/drawable/notification_bg.xml",
-        "source": "/Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/fecc98e05c7ccd4a0eedf7cff343a233/core-1.0.2/res/drawable/notification_bg.xml"
+        "merged": "/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/image_picker/intermediates/res/merged/release/drawable/notification_bg.xml",
+        "source": "/Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/a528b13ac93e64cafa3d0480e2c93207/core-1.1.0/res/drawable/notification_bg.xml"
     },
     {
-        "merged": "/Users/javierguerrero/Code/Clientes/Wuoof/Web/wuoof/MobileApp/build/image_picker/intermediates/res/merged/release/drawable/notification_icon_background.xml",
-        "source": "/Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/fecc98e05c7ccd4a0eedf7cff343a233/core-1.0.2/res/drawable/notification_icon_background.xml"
+        "merged": "/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/image_picker/intermediates/res/merged/release/drawable/notification_tile_bg.xml",
+        "source": "/Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/a528b13ac93e64cafa3d0480e2c93207/core-1.1.0/res/drawable/notification_tile_bg.xml"
     },
     {
-        "merged": "/Users/javierguerrero/Code/Clientes/Wuoof/Web/wuoof/MobileApp/build/image_picker/intermediates/res/merged/release/drawable/notification_tile_bg.xml",
-        "source": "/Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/fecc98e05c7ccd4a0eedf7cff343a233/core-1.0.2/res/drawable/notification_tile_bg.xml"
+        "merged": "/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/image_picker/intermediates/res/merged/release/drawable/notification_icon_background.xml",
+        "source": "/Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/a528b13ac93e64cafa3d0480e2c93207/core-1.1.0/res/drawable/notification_icon_background.xml"
     },
     {
-        "merged": "/Users/javierguerrero/Code/Clientes/Wuoof/Web/wuoof/MobileApp/build/image_picker/intermediates/res/merged/release/drawable/notification_bg_low.xml",
-        "source": "/Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/fecc98e05c7ccd4a0eedf7cff343a233/core-1.0.2/res/drawable/notification_bg_low.xml"
+        "merged": "/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/image_picker/intermediates/res/merged/release/drawable/notification_bg_low.xml",
+        "source": "/Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/a528b13ac93e64cafa3d0480e2c93207/core-1.1.0/res/drawable/notification_bg_low.xml"
     }
 ]

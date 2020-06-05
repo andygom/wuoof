@@ -5,6 +5,7 @@ import 'dart:io';
 import 'dart:convert';
 
 import 'package:wuoof/general/main-appbar.dart';
+import 'package:wuoof/general/partner-appbar.dart';
 
 class PartnerProfile extends StatefulWidget {
   @override
@@ -16,9 +17,9 @@ class _PartnerProfile extends State<PartnerProfile> {
   final _editProfileForm = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  String mail = "prueba@prueba.com";
+  String mail = "alex@torres.com";
   String password = "12345678";
-  String name = "Ian Manuel";
+  String name = "Alex";
   String dad_lastname = "Morales";
   String mom_lastname = "Torres";
   String city = "Cuernavaca";
@@ -48,7 +49,7 @@ class _PartnerProfile extends State<PartnerProfile> {
 
   @override
   Widget build(BuildContext context) {
-    AppBar appBar = main_appbar(context, "Perfil");
+    AppBar appBar = partner_appbar(context, "Perfil");
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -84,7 +85,7 @@ class _PartnerProfile extends State<PartnerProfile> {
                 Column(
                   children: <Widget>[
                     InkWell(
-                      onTap: getImage,
+                      onTap: (){},
                       child: Hero(
                         tag: "profile_picture",
                         child: Container(

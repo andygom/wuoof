@@ -49,10 +49,7 @@ class User {
 			$password = password_hash(mysqli_real_escape_string($this->conn,$password), PASSWORD_DEFAULT);
 			$first_lastname = mysqli_real_escape_string($this->conn,$first_lastname);
 			$second_lastname = mysqli_real_escape_string($this->conn,$second_lastname);
-			$img_url = mysqli_real_escape_string($this->conn,$img_url);
 			
-			//$img_url = $this->decodeBase64($img_url);
-			$img_url = base64_decode($img_url);
 
 
 			$birth_date = mysqli_real_escape_string($this->conn,$birth_date);
@@ -64,7 +61,7 @@ class User {
 			$date = date('m/d/Y h:i:s a', time());
 			$user_id = $this->randomCode('user_');
 
-			$sql = "INSERT INTO users (user_id,name,mail,password,first_lastname,second_lastname,img_url,birth_date,state,municipality,gender,creation_date) VALUES ('$user_id', '$name','$mail','$password','$first_lastname','$second_lastname','$img_url','$birth_date','$state','$municipality','$gender','$date')"; 
+			$sql = "INSERT INTO users (user_id,name,mail,password,first_lastname,second_lastname,img_url,birth_date,state,municipality,gender,creation_date) VALUES ('$user_id', '$name','$mail','$password','$first_lastname','$second_lastname','','$birth_date','$state','$municipality','$gender','$date')"; 
 
 			if (mysqli_query($this->conn,$sql)) {
 				$response_array = $extras_class->response("true","sc1","Registro exitoso.", "console");
@@ -213,6 +210,8 @@ class User {
 		global $strings_class;
 		$data_list_array;
 
+		$response_array = $extras_class->response("false","e1","Error interno (500)", "both");
+
 		$query = "SELECT * FROM users WHERE mail = '$mail' AND user_id = '$user_id'";
 		$result = mysqli_query($this->conn, $query);
 
@@ -297,6 +296,8 @@ class User {
 		global $extras_class;
 		global $strings_class;
 		$data_list_array;
+
+		$response_array = $extras_class->response("false","e1","Error interno (500)", "both");
 
 		$query = "SELECT * FROM users WHERE user_id = '$user_id'";
 		$result = mysqli_query($this->conn, $query);

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/javierguerrero/Code/Clientes/Wuoof/Web/wuoof/MobileApp/build/multi_image_picker/intermediates/res/merged/release/values-land/values-land.xml",
+            "outputFile": "/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/multi_image_picker/intermediates/incremental/mergeReleaseResources/merged.dir/values-land/values-land.xml",
             "map": [
                 {
                     "source": "/Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/db2388f0fe5e05a7a168e5a9c11e912f/material-1.0.0/res/values-land/values-land.xml",
@@ -35,7 +35,7 @@
             ]
         },
         {
-            "outputFile": "/Users/javierguerrero/Code/Clientes/Wuoof/Web/wuoof/MobileApp/build/multi_image_picker/intermediates/incremental/mergeReleaseResources/merged.dir/values-land/values-land.xml",
+            "outputFile": "/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/multi_image_picker/intermediates/res/merged/release/values-land/values-land.xml",
             "map": [
                 {
                     "source": "/Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/db2388f0fe5e05a7a168e5a9c11e912f/material-1.0.0/res/values-land/values-land.xml",

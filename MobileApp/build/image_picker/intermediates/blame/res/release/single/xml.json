@@ -1,6 +1,6 @@
 [
     {
-        "merged": "/Users/javierguerrero/Code/Clientes/Wuoof/Web/wuoof/MobileApp/build/image_picker/intermediates/res/merged/release/xml/flutter_image_picker_file_paths.xml",
-        "source": "/Users/javierguerrero/Code/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.6.6+4/android/src/main/res/xml/flutter_image_picker_file_paths.xml"
+        "merged": "/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/image_picker/intermediates/res/merged/release/xml/flutter_image_picker_file_paths.xml",
+        "source": "/Users/javierguerrero/Code/Tools/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.6.6+4/android/src/main/res/xml/flutter_image_picker_file_paths.xml"
     }
 ]

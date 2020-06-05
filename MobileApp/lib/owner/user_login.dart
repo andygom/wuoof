@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wuoof/extras/globals.dart';
 import 'package:wuoof/owner/register_owner.dart';
+import 'package:wuoof/partner/partner_login.dart';
 import '../general/user_type.dart';
 import '../user_home.dart';
 import '../pets/new_pet.dart';
@@ -496,6 +497,40 @@ class _LoginPage extends State<LoginPage> {
                                                   text: '¿Eres nuevo? '),
                                               new TextSpan(
                                                   text: 'Regístrate aquí',
+                                                  style: new TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ],
+                                          ),
+                                        ),
+                                      )),
+                                      Container(
+                                        margin: EdgeInsets.only(top:15),
+                                          child: InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PartnerLogin()),
+                                          );
+                                        },
+                                        child: RichText(
+                                          text: new TextSpan(
+                                            style: new TextStyle(
+                                              fontSize: 14.0,
+                                              color: Colors.black,
+                                            ),
+                                            children: <TextSpan>[
+                                              new TextSpan(
+                                                  style: new TextStyle(
+                                                    fontSize: 15.0,
+                                                    color: Colors.white,
+                                                  ),
+                                                  text: '¿Eres cuidador/paseador? '),
+                                              new TextSpan(
+                                                  text: 'Inicia sesión aquí',
                                                   style: new TextStyle(
                                                       color: Colors.white,
                                                       fontWeight:

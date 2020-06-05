@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wuoof/owner/checkout.dart';
+import 'package:wuoof/owner/my_activities.dart';
 import 'package:wuoof/owner/requesting.dart';
 import 'package:wuoof/partner/partner_home.dart';
+import 'package:wuoof/partner/partner_login.dart';
 import 'package:wuoof/partner/partner_profile.dart';
 import 'user_home.dart';
 import 'owner/user_login.dart';

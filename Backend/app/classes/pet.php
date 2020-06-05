@@ -99,18 +99,12 @@ class Pet {
 
 		$response_array = $extras_class->response("false","e1","Hubo un problema interno (500).", "both");
 
-		$base64 = $img_url;
-
 		$pet_id = $this->randomCode('pet_');
 		$user_id = mysqli_real_escape_string($this->conn,$user_id);
 		$name = mysqli_real_escape_string($this->conn,$name);
-		
-		$img_code = mysqli_real_escape_string($this->conn,$img_url);
-		$img_normal = base64_decode($img_code);
 
-		$file = fopen('../img-pets/', "w");
-		fwrite($file, base64_decode($base64));
-		fclose($file);	
+		$image_name = $pet_id."_".strtotime("now").".png";
+		file_put_contents('../img-pets/'.$image_name, base64_decode($img_url));
 
 		//decodificar imagenes y subirlas
 		$update_gallery = $this->upload_gallery($user_id,$img_url_gallery);
@@ -124,7 +118,7 @@ class Pet {
 		$personality = mysqli_real_escape_string($this->conn,$personality);
 		$date = date('m/d/Y h:i:s a', time());
 
-		$sql = "INSERT INTO pets (id_pet_user, user_id, pet_name, pet_img_url, pet_gallery, pet_age, pet_gender, pet_nationality, pet_breed, pet_biography, pet_information, pet_personality, creation_date) VALUES ('$pet_id','$user_id','$name', '$img_normal', 'galeria','$age','$gender','$nationality','$breed', '$biography','$information', '$personality', '$date')"; 
+		$sql = "INSERT INTO pets (id_pet_user, user_id, pet_name, pet_img_url, pet_gallery, pet_age, pet_gender, pet_nationality, pet_breed, pet_biography, pet_information, pet_personality, creation_date) VALUES ('$pet_id','$user_id','$name', '$image_name', 'galeria','$age','$gender','$nationality','$breed', '$biography','$information', '$personality', '$date')"; 
 
 			if (mysqli_query($this->conn,$sql)) {
 				$response_array = $extras_class->response("true","sc1","Registro exitoso.", "console"); 
