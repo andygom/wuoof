@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wuoof/wuoof_app_icons_icons.dart';
 import '../extras/globals.dart';
 import '../pets/pet_list_card.dart';
 import '../general/main-appbar.dart';
@@ -84,35 +85,47 @@ class _MyPets extends State<MyPets> {
       appBar: appBar,
       body: loading_lists
           ? Container(
+            
               width: double.infinity,
               height: double.infinity,
               color: Colors.white,
               child: Center(
                 child: const CircularProgressIndicator(),
               ))
-          : Column(
-              children: <Widget>[
-                Expanded(
-                  child: !fetch_error
-                      ? ListView.builder(
-                          itemCount: listaDeMascotas.length,
-                          padding: EdgeInsets.all(normal_padding),
-                          physics: ClampingScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (BuildContext context, int index) {
-                            return petListCard(
-                                context, jsonEncode(listaDeMascotas[index]), true, "cuidado");
-                          })
-                      : null,
-                )
-              ],
-            ),
+          : Container(
+            decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('images/white-bg.png'),
+                      fit: BoxFit.cover,
+                      colorFilter: ColorFilter.mode(
+                          Colors.black.withOpacity(0.5), BlendMode.dstATop))),
+            child: Column(
+                children: <Widget>[
+                  Container(
+                    
+                    child: Expanded(
+                      child: !fetch_error
+                          ? ListView.builder(
+                              itemCount: listaDeMascotas.length,
+                              padding: EdgeInsets.all(normal_padding),
+                              physics: ClampingScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (BuildContext context, int index) {
+                                return petListCard(
+                                    context, jsonEncode(listaDeMascotas[index]), true, "cuidado");
+                              })
+                          : null,
+                    ),
+                  )
+                ],
+              ),
+          ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => NewPet(widget.user_id)));
         },
-        child: Icon(Icons.add),
+        child: Icon(WuoofAppIcons.iconos_wuoof_an_adirmascota_05, size: 40),
         backgroundColor: primary_green,
       ),
     );

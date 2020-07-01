@@ -31,11 +31,11 @@ Widget partnerInfoCard(BuildContext context, partnerData) {
                 topRight: Radius.circular(small_border_radius)),
             color: Colors.white,
             image: DecorationImage(
-              image: NetworkImage(pattern),
-              colorFilter: new ColorFilter.mode(
-                  Colors.black.withOpacity(0.07), BlendMode.dstATop),
-              fit: BoxFit.cover,
-            ),
+                              image: AssetImage('images/white-bg.png'),
+                              fit: BoxFit.cover,
+                              colorFilter: ColorFilter.mode(
+                                  Colors.black.withOpacity(0.6),
+                                  BlendMode.dstATop)),
             boxShadow: [
               BoxShadow(
                 color: Color.fromRGBO(0, 0, 0, 0.1),

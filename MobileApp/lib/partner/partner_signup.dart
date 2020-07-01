@@ -122,7 +122,13 @@ class _PartnerSignup extends State<PartnerSignup> {
                   child: const CircularProgressIndicator(),
                 ))
             : Container(
-                color: Colors.white,
+                decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('images/white-bg.png'),
+                          fit: BoxFit.cover,
+                          colorFilter: ColorFilter.mode(
+                              Colors.black.withOpacity(0.6),
+                              BlendMode.dstATop))),
                 child: ListView(
                   children: <Widget>[
                     Padding(
@@ -531,7 +537,7 @@ class _PartnerSignup extends State<PartnerSignup> {
                                               minHeight: 40.0),
                                           alignment: Alignment.center,
                                           child: Text(
-                                            "¡Listo!",
+                                            "Wuoof!",
                                             textAlign: TextAlign.center,
                                             style:
                                                 TextStyle(color: Colors.white),

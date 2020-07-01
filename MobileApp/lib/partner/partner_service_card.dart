@@ -15,9 +15,14 @@ Widget partnerServiceCard(BuildContext context, service, service_price) {
     service_name = "Cuidador";
     service_image = "images/cuidador.png";
     service_description = dummy_partner_bio;
-  } else {
+  }  else if (service == "walk" ){
     service_name = "Paseador";
     service_image = "images/paseador.png";
+    service_description = dummy_service_description;
+  }
+   else if (service == "hospedaje" ){
+    service_name = "Hospedaje";
+    service_image = "images/hospedaje.png";
     service_description = dummy_service_description;
   }
 

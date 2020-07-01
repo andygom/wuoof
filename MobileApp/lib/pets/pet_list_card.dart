@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../extras/globals.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../user_home.dart';
@@ -64,7 +65,23 @@ Widget petListCard(
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Text(
+                      Row(
+                        children: <Widget>[
+                          Icon(Icons.pets, size: small_title_size, color: title_color),
+                          SizedBox(width: 2,),
+                          Text(
+                         petData["pet_name"],
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        softWrap: false,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            color: title_color,
+                            fontWeight: small_title_weight,
+                            fontSize: small_title_size),)
+                        ],
+                      ),
+                      /* Text(
                         petData["pet_name"],
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
@@ -74,7 +91,7 @@ Widget petListCard(
                             color: title_color,
                             fontWeight: small_title_weight,
                             fontSize: small_title_size),
-                      ),
+                      ), */
                       SizedBox(
                         width: 7,
                       ),

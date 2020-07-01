@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:wuoof/partner/publicnew_partner_profile.dart';
 import '../extras/globals.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'public_partner_profile.dart';
@@ -24,7 +25,7 @@ Widget partnerListCard(BuildContext context, verified, partnerData, service, all
     onTap: () {
       allowTap ? Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => PublicPartnerProfile(service,partnerData)),
+        MaterialPageRoute(builder: (context) => PublicNewPartnerProfile(service,partnerData)),
       ) : null;
     },
     child: Container(

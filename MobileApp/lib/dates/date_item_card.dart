@@ -32,8 +32,9 @@ Widget dateItemListCard(BuildContext context, history) {
               Container(
                 height: 65,
                 width: 65,
-                padding: EdgeInsets.all(small_padding),
+                transform: Matrix4.translationValues(7.0, 0.0, 0.0),
                 decoration: BoxDecoration(
+                  border: Border.all(width: 2, color: Colors.white),
                   borderRadius: BorderRadius.circular(50),
                   image: DecorationImage(
                     image: NetworkImage(dummy_net_img),
@@ -42,11 +43,21 @@ Widget dateItemListCard(BuildContext context, history) {
                 ),
               ),
               Container(
+                height: 32,
+                width: 32,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("images/date-btn.png"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Container(
                 height: 65,
                 width: 65,
-                transform: Matrix4.translationValues(-5.0, 0.0, 0.0),
+                transform: Matrix4.translationValues(-7.0, 0.0, 0.0),
                 decoration: BoxDecoration(
-                  border: Border.all(width: 3, color: Colors.white),
+                  border: Border.all(width: 2, color: Colors.white),
                   borderRadius: BorderRadius.circular(50),
                   image: DecorationImage(
                     image: NetworkImage(dummy_pet_img_2),
@@ -63,7 +74,7 @@ Widget dateItemListCard(BuildContext context, history) {
             padding: EdgeInsets.only(
                 top: normal_padding,
                 bottom: normal_padding,
-                right: normal_padding,
+                right: small_padding,
                 left: normal_padding),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -138,7 +149,8 @@ Widget dateItemListCard(BuildContext context, history) {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              "Ir al chat",
+                              'Wuoof!',
+                            //  "Ir al chat",
                               style:
                                   TextStyle(color: Colors.white, fontSize: 17),
                             )

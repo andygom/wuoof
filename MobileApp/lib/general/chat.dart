@@ -218,6 +218,7 @@ _buildMessage(Message message, bool isMe){
       appBar: AppBar(
         backgroundColor: primary_yellow,
         title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             CircleAvatar(
               backgroundImage: NetworkImage(widget.img_url),
@@ -228,6 +229,15 @@ _buildMessage(Message message, bool isMe){
             Text(widget.guest_name)
           ],
         ),
+         actions: <Widget>[
+      Container(
+        margin: EdgeInsets.symmetric(horizontal: 5),
+        child: Image.asset(
+          "images/facewuoof-logo.png",
+          width: 35,
+        ),
+      )
+    ],
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -237,14 +247,11 @@ _buildMessage(Message message, bool isMe){
               child: Container(
                 padding: EdgeInsets.only(left: 10.0, right: 10.0),
                 decoration: BoxDecoration(
-                  color: Colors.grey[200],
                   image: DecorationImage(
-                    image: NetworkImage(pattern),
-                    fit: BoxFit.cover,
-                    colorFilter: new ColorFilter.mode(
-                          Colors.black.withOpacity(0.1), BlendMode.dstATop),
-                  )
-                ),
+                      image: AssetImage('images/Chat-bg.png'),
+                      fit: BoxFit.cover,
+                      colorFilter: ColorFilter.mode(
+                          Colors.black.withOpacity(0.5), BlendMode.dstATop))),
                 child: ClipRRect(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30.0),

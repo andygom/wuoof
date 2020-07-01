@@ -133,7 +133,7 @@ class _HostList extends State<HostList> {
             actions: <Widget>[
               FlatButton(
                 child: Text(
-                  'Cancelar',
+                  'Grrr!',
                   style: TextStyle(color: Colors.red),
                 ),
                 onPressed: () {
@@ -141,7 +141,7 @@ class _HostList extends State<HostList> {
                 },
               ),
               FlatButton(
-                child: Text('Aplicar'),
+                child: Text('Wuoof!'),
                 onPressed: () {},
               ),
             ],
@@ -157,6 +157,7 @@ class _HostList extends State<HostList> {
       backgroundColor: primary_yellow,
       elevation: 0,
       title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
             margin: EdgeInsets.only(right: 10),
@@ -181,7 +182,10 @@ class _HostList extends State<HostList> {
         children: <Widget>[
           Container(
               width: double.infinity,
-              color: primary_yellow,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('images/PerfilPersona-bg.png'),
+                      fit: BoxFit.cover)),
               padding: EdgeInsets.all(normal_padding),
               child: Column(
                 children: <Widget>[
@@ -218,21 +222,32 @@ class _HostList extends State<HostList> {
                     child: Center(
                       child: const CircularProgressIndicator(),
                     ))
-                : listaDeCuidadores == null ? Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    color: Colors.white,
-                    child: Center(
-                      child: Text("¡No se encontraron resultados!"),
-                    )) : ListView.builder(
-                    itemCount: listaDeCuidadores.length,
-                    padding: EdgeInsets.all(normal_padding),
-                    physics: ClampingScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return partnerListCard(
-                          context, true, listaDeCuidadores[index], "cuidado", true);
-                    }),
+                : listaDeCuidadores == null
+                    ? Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        color: Colors.white,
+                        child: Center(
+                          child: Text("¡No se encontraron resultados!"),
+                        ))
+                    : Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('images/white-bg.png'),
+                                fit: BoxFit.cover,
+                                colorFilter: ColorFilter.mode(
+                                    Colors.black.withOpacity(0.5),
+                                    BlendMode.dstATop))),
+                        child: ListView.builder(
+                            itemCount: listaDeCuidadores.length,
+                            padding: EdgeInsets.all(normal_padding),
+                            physics: ClampingScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index) {
+                              return partnerListCard(context, true,
+                                  listaDeCuidadores[index], "host", true);
+                            }),
+                      ),
           )
         ],
       ),

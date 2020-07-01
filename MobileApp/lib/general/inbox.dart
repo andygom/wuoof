@@ -21,12 +21,20 @@ class _Inbox extends State<Inbox> {
 
     return Scaffold(
       appBar: appBar,
-      body: ListView.builder(
-          itemCount: 3,
-          padding: EdgeInsets.all(normal_padding),
-          itemBuilder: (BuildContext context, int index) {
-            return conversationListCard(context);
-          }),
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('images/white-bg.png'),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.5), BlendMode.dstATop))),
+        child: ListView.builder(
+            itemCount: 3,
+            padding: EdgeInsets.all(normal_padding),
+            itemBuilder: (BuildContext context, int index) {
+              return conversationListCard(context);
+            }),
+      ),
     );
   }
 }

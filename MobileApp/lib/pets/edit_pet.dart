@@ -895,8 +895,8 @@ class _EditPet extends State<EditPet> {
                                           ],
                                           textField: 'display',
                                           valueField: 'value',
-                                          okButtonLabel: 'OK',
-                                          cancelButtonLabel: 'Cerrar',
+                                          okButtonLabel: 'Grrr!',
+                                          cancelButtonLabel: 'Wuoof!',
                                           errorText:
                                               "Debes escoger al menos una opción",
                                           // required: true,
@@ -936,7 +936,7 @@ class _EditPet extends State<EditPet> {
                                                   minHeight: 40.0),
                                               alignment: Alignment.center,
                                               child: Text(
-                                                "Guardar",
+                                                "Wuoof!",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     color: Colors.white),
@@ -953,7 +953,7 @@ class _EditPet extends State<EditPet> {
                                           Navigator.pop(context);
                                         },
                                         child: Text(
-                                          "Cancelar y volver",
+                                          "Grrr!",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color:

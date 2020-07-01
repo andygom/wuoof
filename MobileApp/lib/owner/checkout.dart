@@ -204,7 +204,6 @@ class _Checkout extends State<Checkout> {
 
   @override
   Widget build(BuildContext context) {
-
     String name = "N/D";
     String city = "N/D";
     String description = "N/D";
@@ -222,9 +221,11 @@ class _Checkout extends State<Checkout> {
     }
 
     if (widget.service == "walk") {
-      ticketServiceDescription = "Los paseos son un servicio que ofrece Wuoof, en el que la persona a la que contratas se encarga de dar un paseo a tu mascota, y puede variar la dinámica dependiendo de la oferta de cada paseador.";
+      ticketServiceDescription =
+          "Los paseos son un servicio que ofrece Wuoof, en el que la persona a la que contratas se encarga de dar un paseo a tu mascota, y puede variar la dinámica dependiendo de la oferta de cada paseador.";
     } else {
-      ticketServiceDescription = "Los cuidados son un servicio que ofrece Wuoof, en el que la persona a la que contratas se encarga de cuidar a tu mascota por el día ó por la noche dependiendo el acuerdo, y puede variar la dinámica dependiendo de la oferta de cada paseador.";
+      ticketServiceDescription =
+          "Los cuidados son un servicio que ofrece Wuoof, en el que la persona a la que contratas se encarga de cuidar a tu mascota por el día ó por la noche dependiendo el acuerdo, y puede variar la dinámica dependiendo de la oferta de cada paseador.";
     }
 
     return Scaffold(
@@ -239,7 +240,12 @@ class _Checkout extends State<Checkout> {
                   child: const CircularProgressIndicator(),
                 ))
             : Container(
-                color: Colors.grey[300],
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('images/Chat-bg.png'),
+                        fit: BoxFit.cover,
+                        colorFilter: ColorFilter.mode(
+                            Colors.black.withOpacity(0.5), BlendMode.dstATop))),
                 child: ListView(
                   children: <Widget>[
                     Padding(
@@ -248,8 +254,8 @@ class _Checkout extends State<Checkout> {
                         children: <Widget>[
                           Container(
                             width: double.infinity,
-                            child:
-                                partnerListCard(context, true, widget.partnerData, "cuidado", false),
+                            child: partnerListCard(context, true,
+                                widget.partnerData, "cuidado", false),
                           ),
                           Container(
                             padding: EdgeInsets.all(10),
@@ -360,11 +366,15 @@ class _Checkout extends State<Checkout> {
                                               ),
                                             ),
                                           ),
-                                          Text(
-                                            ticketServiceDescription,
-                                            textAlign: TextAlign.justify,
-                                            style: TextStyle(
-                                              fontSize: 12,
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 10),
+                                            child: Text(
+                                              ticketServiceDescription,
+                                              textAlign: TextAlign.justify,
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                              ),
                                             ),
                                           ),
                                           Container(
@@ -383,7 +393,9 @@ class _Checkout extends State<Checkout> {
                                             width: double.infinity,
                                             child: Text(
                                               '\$' +
-                                                  (event_counter * double.parse(service_price))
+                                                  (event_counter *
+                                                          double.parse(
+                                                              service_price))
                                                       .toString() +
                                                   ' mxn',
                                               textAlign: TextAlign.right,
@@ -583,7 +595,7 @@ class _Checkout extends State<Checkout> {
                                     maxWidth: double.infinity, minHeight: 40.0),
                                 alignment: Alignment.center,
                                 child: Text(
-                                  "Realizar pago",
+                                  "Wuoof!",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(color: Colors.white),
                                 ),

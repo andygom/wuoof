@@ -35,8 +35,9 @@ Widget hostItemListCard(BuildContext context, history) {
               Container(
                 height: 100,
                 width: 100,
-                padding: EdgeInsets.all(small_padding),
+                transform: Matrix4.translationValues(12.0, 0.0, 0.0),
                 decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white, width: 3),
                   borderRadius: BorderRadius.circular(50),
                   image: DecorationImage(
                     image: NetworkImage(dummy_net_partner),
@@ -45,9 +46,19 @@ Widget hostItemListCard(BuildContext context, history) {
                 ),
               ),
               Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("images/host-btn.png"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Container(
                 height: 100,
                 width: 100,
-                transform: Matrix4.translationValues(-5.0, 0.0, 0.0),
+                transform: Matrix4.translationValues(-12.0, 0.0, 0.0),
                 decoration: BoxDecoration(
                   border: Border.all(width: 3, color: Colors.white),
                   borderRadius: BorderRadius.circular(50),

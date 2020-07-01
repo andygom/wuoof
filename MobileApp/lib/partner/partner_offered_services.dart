@@ -44,12 +44,21 @@ class _OfferedServices extends State<OfferedServices> {
 
     return Scaffold(
       appBar: appBar,
-      body: ListView(
-        padding: EdgeInsets.all(normal_padding),
-        children: <Widget>[
-          partnerServiceCard(context, "walk", "90"),
-          partnerServiceCard(context, "host", "200")
-        ],
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('images/white-bg.png'),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.9), BlendMode.dstATop))),
+        child: ListView(
+          padding: EdgeInsets.all(normal_padding),
+          children: <Widget>[
+            partnerServiceCard(context, "walk", "90"),
+            partnerServiceCard(context, "host", "200"),
+            partnerServiceCard(context, "hospedaje", "400")
+          ],
+        ),
       ),
       /* floatingActionButton: FloatingActionButton(
         onPressed: () {

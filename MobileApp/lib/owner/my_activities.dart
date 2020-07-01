@@ -9,10 +9,12 @@ import 'package:wuoof/general/main-appbar.dart';
 import '../dates/date_item_card.dart';
 import '../partner/walk_item_card.dart';
 import '../partner/host_item_card.dart';
+import 'package:wuoof/partner/hospedaje_item_card.dart';
 
 var categoria_plomeria = "1";
 var categoria_electricidad = "2";
 var categoria_especiales = "3";
+var categoria_hospedaje = "3";
 
 class UserActivities extends StatefulWidget {
   final int tabIndex;
@@ -35,6 +37,7 @@ class _UserActivities extends State<UserActivities> {
   List<Map<String, dynamic>> serviciosPlomeria;
   List<Map<String, dynamic>> serviciosElectricidad;
   List<Map<String, dynamic>> serviciosEspeciales;
+  List<Map<String, dynamic>> serviciosHospedaje;
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -75,6 +78,9 @@ class _UserActivities extends State<UserActivities> {
               .where(
                   (service) => service["category_id"] == categoria_especiales)
               .toList();
+          serviciosHospedaje = listaServicios
+              .where((service) => service["category_id"] == categoria_hospedaje)
+              .toList();
         });
         //print(jsonResponse[0]['message'].toString());
       } else {
@@ -108,6 +114,8 @@ class _UserActivities extends State<UserActivities> {
           context, categoria_electricidad, serviciosElectricidad, "walks"),
       modelListGenerator(
           context, categoria_especiales, serviciosEspeciales, "hosts"),
+      modelListGenerator(
+          context, categoria_especiales, serviciosEspeciales, "hospedaje"),
     ]);
   }
 
@@ -136,8 +144,11 @@ class _UserActivities extends State<UserActivities> {
         case "hosts":
           card_model = hostItemListCard(context, history);
           break;
-      }
 
+        case "hospedaje":
+          card_model = hospedajeItemListCard(context, history);
+          break;
+      }
       return card_model;
     }
 
@@ -170,7 +181,7 @@ class _UserActivities extends State<UserActivities> {
                 child: const CircularProgressIndicator(),
               ))
           : DefaultTabController(
-              length: 3,
+              length: 4,
               initialIndex: widget.tabIndex,
               child: Column(
                 children: <Widget>[
@@ -180,45 +191,59 @@ class _UserActivities extends State<UserActivities> {
                         isScrollable: false,
                         tabs: [
                           Tab(
-                              icon: Row(
+                              icon: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Image.asset(
                                 "images/date-btn.png",
-                                width: 24,
+                                width: 30,
                               ),
-                              SizedBox(
+                              /*  SizedBox(
                                 width: 4,
-                              ),
-                              Text("Citas")
+                              ), */
+                              Text("Citas", style: TextStyle(fontSize: 10)),
                             ],
                           )),
                           Tab(
-                              icon: Row(
+                              icon: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Image.asset(
                                 "images/walker-btn.png",
-                                width: 24,
+                                width: 30,
                               ),
-                              SizedBox(
+                              /* SizedBox(
                                 width: 4,
-                              ),
-                              Text("Paseos")
+                              ), */
+                              Text("Paseos", style: TextStyle(fontSize: 10)),
                             ],
                           )),
                           Tab(
-                              icon: Row(
+                              icon: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Image.asset(
                                 "images/host-btn.png",
-                                width: 24,
+                                width: 30,
                               ),
-                              SizedBox(
+                              /*  SizedBox(
                                 width: 4,
+                              ), */
+                              Text("Cuidados", style: TextStyle(fontSize: 10)),
+                            ],
+                          )),
+                          Tab(
+                              icon: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Image.asset(
+                                "images/hospedaje-btn.png",
+                                width: 30,
                               ),
-                              Text("Cuidados")
+                              /*    SizedBox(
+                                width: 4,
+                              ), */
+                              Text("Hospedaje", style: TextStyle(fontSize: 10)),
                             ],
                           )),
                         ],
@@ -227,9 +252,20 @@ class _UserActivities extends State<UserActivities> {
                   ),
                   Expanded(
                     child: Container(
-                      color: Colors.grey[300],
-                      child: !fetch_error ? showLists(context) : null,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('images/white-bg.png'),
+                                fit: BoxFit.cover,
+                                colorFilter: ColorFilter.mode(
+                                    Colors.black.withOpacity(0.5),
+                                    BlendMode.dstATop))),
+                        // color: Colors.grey[300],
+                      
+                        child: !fetch_error ? showLists(context) : null,
+                      ),
                     ),
+                
                   )
                 ],
               ),

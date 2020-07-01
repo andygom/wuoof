@@ -6,6 +6,7 @@ Widget partner_appbar(BuildContext context, title) {
       backgroundColor: primary_green,
       elevation: 0,
       title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
             margin: EdgeInsets.only(right: 10),
@@ -13,5 +14,14 @@ Widget partner_appbar(BuildContext context, title) {
           )
         ],
       ),
+       actions: <Widget>[
+      Container(
+        margin: EdgeInsets.symmetric(horizontal: 5),
+        child: Image.asset(
+          "images/facewuoof-logo.png",
+          width: 35,
+        ),
+      )
+    ],
     );
 }

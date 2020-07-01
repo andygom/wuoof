@@ -148,7 +148,8 @@ class _DatesScreen extends State<DatesScreen> with TickerProviderStateMixin {
             actions: <Widget>[
               FlatButton(
                 child: Text(
-                  'Seguir',
+                  'Grrr!',
+                //  'Seguir',
                   style: TextStyle(color: primary_green),
                 ),
                 onPressed: () {
@@ -157,7 +158,7 @@ class _DatesScreen extends State<DatesScreen> with TickerProviderStateMixin {
                 },
               ),
               FlatButton(
-                child: Text('Ver match'),
+                child: Text('Wuoof!'),
                 onPressed: () {
                   Navigator.of(context).pop();
                   Navigator.push(

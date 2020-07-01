@@ -119,7 +119,13 @@ class _RegisterOwnerform extends State<RegisterOwnerform> {
                   child: const CircularProgressIndicator(),
                 ))
             : Container(
-                color: Colors.white,
+                decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('images/white-bg.png'),
+                          fit: BoxFit.cover,
+                          colorFilter: ColorFilter.mode(
+                              Colors.black.withOpacity(0.6),
+                              BlendMode.dstATop))),
                 child: ListView(
                   children: <Widget>[
                     Padding(
@@ -528,7 +534,7 @@ class _RegisterOwnerform extends State<RegisterOwnerform> {
                                               minHeight: 40.0),
                                           alignment: Alignment.center,
                                           child: Text(
-                                            "¡Listo!",
+                                            "Wuoof!",
                                             textAlign: TextAlign.center,
                                             style:
                                                 TextStyle(color: Colors.white),

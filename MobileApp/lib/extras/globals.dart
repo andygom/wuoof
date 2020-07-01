@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
-var primary_yellow = Colors.orangeAccent;
+var primary_yellow = Color(0xfffaca5e);
 var primary_green = Colors.green;
 var primary_red = Colors.red;
 var primary_blue = Colors.blue;

@@ -158,6 +158,7 @@ class _WalkerList extends State<WalkerList> {
       backgroundColor: primary_yellow,
       elevation: 0,
       title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
             margin: EdgeInsets.only(right: 10),
@@ -182,7 +183,10 @@ class _WalkerList extends State<WalkerList> {
         children: <Widget>[
           Container(
               width: double.infinity,
-              color: primary_yellow,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('images/PerfilPersona-bg.png'),
+                      fit: BoxFit.cover)),
               padding: EdgeInsets.all(normal_padding),
               child: Column(
                 children: <Widget>[
@@ -227,15 +231,24 @@ class _WalkerList extends State<WalkerList> {
                         child: Center(
                           child: Text("¡No se encontraron resultados!"),
                         ))
-                    : ListView.builder(
-                        itemCount: listaDePaseadores.length,
-                        padding: EdgeInsets.all(normal_padding),
-                        physics: ClampingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (BuildContext context, int index) {
-                          return partnerListCard(context, true,
-                              listaDePaseadores[index], "walk", true);
-                        }),
+                    : Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('images/white-bg.png'),
+                                fit: BoxFit.cover,
+                                colorFilter: ColorFilter.mode(
+                                    Colors.black.withOpacity(0.5),
+                                    BlendMode.dstATop))),
+                        child: ListView.builder(
+                            itemCount: listaDePaseadores.length,
+                            padding: EdgeInsets.all(normal_padding),
+                            physics: ClampingScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index) {
+                              return partnerListCard(context, true,
+                                  listaDePaseadores[index], "walk", true);
+                            }),
+                      ),
           )
         ],
       ),

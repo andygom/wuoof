@@ -45,7 +45,13 @@ key: _scaffoldKey,
               fit: StackFit.expand,
               children: <Widget>[
                 Container(
-                  color:  Colors.white,        
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('images/white-bg.png'),
+                          fit: BoxFit.cover,
+                          colorFilter: ColorFilter.mode(
+                              Colors.black.withOpacity(0.4),
+                              BlendMode.dstATop))),     
                   child: ListView(
                     children: <Widget>[
                       Padding(

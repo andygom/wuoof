@@ -160,7 +160,12 @@ class UserType extends StatelessWidget {
       backgroundColor: greencolor,
       body: ListView(children: <Widget>[
         Container(
-            color: greencolor,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('images/register-bg.png'),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(0.5), BlendMode.dstATop))),
             padding: EdgeInsets.only(top: 20, bottom: 20),
             /* padding: EdgeInsets.all(50), */
             child: Column(
@@ -199,6 +204,8 @@ class UserType extends StatelessWidget {
                           context, "Cuidador", "images/cuidador.png", "host"),
                       _buildButtonRow(
                           context, "Paseador", "images/paseador.png", "walker"),
+                      _buildButtonRow(
+                          context, "Hospedaje", "images/hospedaje.png", "walker"),
 
                       /*  _buildButtonRow('Dueño', 'images/owner.png'),
                       _buildButtonRow('Cuidador', 'images/cuidador.png'),

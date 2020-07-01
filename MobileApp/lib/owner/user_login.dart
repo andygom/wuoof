@@ -406,7 +406,7 @@ class _LoginPage extends State<LoginPage> {
                                                         minHeight: 40.0),
                                                     alignment: Alignment.center,
                                                     child: Text(
-                                                      "Entrar",
+                                                      "Wuoof!",
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(

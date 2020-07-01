@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import '../extras/globals.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../partner/public_partner_profile.dart';
+import '../partner/publicnew_partner_profile.dart';
+
 
 Widget partnerHomeCard(BuildContext context, partnerData, service) {
   String name = "N/D";
@@ -24,7 +26,7 @@ Widget partnerHomeCard(BuildContext context, partnerData, service) {
     onTap: () {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => PublicPartnerProfile("walk", partnerData)),
+        MaterialPageRoute(builder: (context) => PublicNewPartnerProfile(service, partnerData)),
       );
     },
     child: Container(

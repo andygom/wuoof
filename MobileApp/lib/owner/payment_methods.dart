@@ -77,7 +77,12 @@ class _PaymentMethods extends State<PaymentMethods> with ChangeNotifier {
           ),
           Expanded(
             child: Container(
-              color: Colors.white,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('images/white-bg.png'),
+                      fit: BoxFit.cover,
+                      colorFilter: ColorFilter.mode(
+                          Colors.black.withOpacity(0.5), BlendMode.dstATop))),
               child: new ListView.builder(
                   padding: EdgeInsets.all(10),
                   itemCount: listaTarjetas.length,

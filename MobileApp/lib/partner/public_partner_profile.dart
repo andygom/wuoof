@@ -62,138 +62,13 @@ class _PublicPartnerProfile extends State<PublicPartnerProfile> {
 
     if (widget.service == "walk"){
       tabServiceName = "Paseo";
+      print('paseo');
     } else {
       tabServiceName = "Cuidado";
+      print('cuidado');
     }
 
     return Scaffold(
-      body: DefaultTabController(
-        length: 2,
-        child: NestedScrollView(
-          physics: BouncingScrollPhysics(),
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverAppBar(
-                expandedHeight: 200.0,
-                floating: false,
-                pinned: true,
-                primary: true,
-                backgroundColor: primary_yellow,
-                automaticallyImplyLeading: true,
-                flexibleSpace: FlexibleSpaceBar(
-                    collapseMode: CollapseMode.parallax,
-                    centerTitle: false,
-                    title: Row(
-                      children: <Widget>[
-                        Text(name,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.0,
-                            )),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          width: 15,
-                          height: 15,
-                          decoration: BoxDecoration(
-                              color: primary_green,
-                              borderRadius: BorderRadius.circular(50)),
-                          child: Icon(
-                            Icons.check,
-                            color: Colors.white,
-                            size: 15,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 3),
-                          decoration: BoxDecoration(
-                              color: Colors.black.withOpacity(0.3),
-                              borderRadius: BorderRadius.circular(50)),
-                          child: Text(
-                            "Verificado",
-                            style: TextStyle(color: Colors.white, fontSize: 12),
-                          ),
-                        )
-                      ],
-                    ),
-                    background: setImage("network", partner_img, false)),
-              ),
-              SliverPersistentHeader(
-                delegate: _SliverAppBarDelegate(
-                  TabBar(
-                    labelColor: Colors.black87,
-                    unselectedLabelColor: Colors.grey,
-                    tabs: [
-                      new Tab(
-                          icon: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            Icons.info,
-                            size: 18,
-                            color: primary_green,
-                          ),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Text(tabServiceName)
-                        ],
-                      )),
-                      new Tab(
-                          icon: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            Icons.person_pin,
-                            size: 18,
-                            color: primary_blue,
-                          ),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Text("Perfil")
-                        ],
-                      )),
-                    ],
-                  ),
-                ),
-                pinned: false,
-                floating: false,
-              ),
-            ];
-          },
-          body: Container(
-            color: Colors.grey[200],
-            child: TabBarView(children: [
-              ListView(
-                padding: EdgeInsets.only(top: 0),
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.all(normal_padding),
-                    child: widget.service == "cuidado"
-                        ? hostServiceDetailsCard(context, widget.partnerData)
-                        : profileServiceDetailsCard(context, widget.partnerData),
-                  )
-                ],
-              ),
-              ListView(
-                padding: EdgeInsets.only(top: 0),
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.all(normal_padding),
-                    child: partnerInfoCard(context, widget.partnerData),
-                  )
-                ],
-              ),
-            ]),
-          ),
-        ),
-      ),
       bottomNavigationBar: Container(
           color: primary_green,
 
@@ -216,7 +91,8 @@ class _PublicPartnerProfile extends State<PublicPartnerProfile> {
                       color: Colors.white,
                     ),
                     Text(
-                      'Contratar a ' + name,
+                      'Wuoof!',
+                     // 'Contratar a ' + name,
                       style: TextStyle(
                         color: Colors.white,
                       ),

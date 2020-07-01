@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wuoof/gestureDetector.dart';
 import 'package:wuoof/owner/checkout.dart';
 import 'package:wuoof/owner/my_activities.dart';
 import 'package:wuoof/owner/requesting.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: UserHome("")
+     home: UserHome("")
     );
   }
 }

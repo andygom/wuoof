@@ -12,49 +12,49 @@
 12         to allow setting breakpoints, to provide hot reload, etc.
 13    -->
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/android/app/src/main/AndroidManifest.xml:8:10-72
-14-->/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/android/app/src/main/AndroidManifest.xml:8:27-69
+14-->C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\android\app\src\main\AndroidManifest.xml:8:10-72
+14-->C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\android\app\src\main\AndroidManifest.xml:8:27-69
 15    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-15-->[:image_picker] /Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-80
-15-->[:image_picker] /Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-77
+15-->[:image_picker] C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-80
+15-->[:image_picker] C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-77
 16    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-16-->[:image_picker] /Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-81
-16-->[:image_picker] /Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-78
+16-->[:image_picker] C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-81
+16-->[:image_picker] C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:8:22-78
 17
 18    <application
-18-->/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/android/app/src/main/AndroidManifest.xml:9:5-30:19
+18-->C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\android\app\src\main\AndroidManifest.xml:9:5-30:19
 19        android:name="io.flutter.app.FlutterApplication"
-19-->/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/android/app/src/main/AndroidManifest.xml:10:9-57
+19-->C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\android\app\src\main\AndroidManifest.xml:10:9-57
 20        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-20-->[androidx.core:core:1.1.0] /Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/a528b13ac93e64cafa3d0480e2c93207/core-1.1.0/AndroidManifest.xml:24:18-86
+20-->[androidx.core:core:1.1.0] C:\Users\Andy Sandoval\.gradle\caches\transforms-2\files-2.1\a528b13ac93e64cafa3d0480e2c93207\core-1.1.0\AndroidManifest.xml:24:18-86
 21        android:debuggable="true"
 22        android:icon="@mipmap/ic_launcher"
-22-->/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/android/app/src/main/AndroidManifest.xml:12:9-43
+22-->C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\android\app\src\main\AndroidManifest.xml:12:9-43
 23        android:label="wuoof" >
-23-->/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/android/app/src/main/AndroidManifest.xml:11:9-30
+23-->C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\android\app\src\main\AndroidManifest.xml:11:9-30
 24        <activity
-24-->/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/android/app/src/main/AndroidManifest.xml:13:9-24:20
+24-->C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\android\app\src\main\AndroidManifest.xml:13:9-24:20
 25            android:name="com.example.wuoof.MainActivity"
-25-->/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/android/app/src/main/AndroidManifest.xml:14:13-41
+25-->C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\android\app\src\main\AndroidManifest.xml:14:13-41
 26            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-26-->/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/android/app/src/main/AndroidManifest.xml:17:13-163
+26-->C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\android\app\src\main\AndroidManifest.xml:17:13-163
 27            android:hardwareAccelerated="true"
-27-->/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/android/app/src/main/AndroidManifest.xml:18:13-47
+27-->C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\android\app\src\main\AndroidManifest.xml:18:13-47
 28            android:launchMode="singleTop"
-28-->/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/android/app/src/main/AndroidManifest.xml:15:13-43
+28-->C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\android\app\src\main\AndroidManifest.xml:15:13-43
 29            android:theme="@style/LaunchTheme"
-29-->/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/android/app/src/main/AndroidManifest.xml:16:13-47
+29-->C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\android\app\src\main\AndroidManifest.xml:16:13-47
 30            android:windowSoftInputMode="adjustResize" >
-30-->/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/android/app/src/main/AndroidManifest.xml:19:13-55
+30-->C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\android\app\src\main\AndroidManifest.xml:19:13-55
 31            <intent-filter>
-31-->/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/android/app/src/main/AndroidManifest.xml:20:13-23:29
+31-->C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\android\app\src\main\AndroidManifest.xml:20:13-23:29
 32                <action android:name="android.intent.action.MAIN" />
-32-->/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/android/app/src/main/AndroidManifest.xml:21:17-68
-32-->/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/android/app/src/main/AndroidManifest.xml:21:25-66
+32-->C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\android\app\src\main\AndroidManifest.xml:21:17-68
+32-->C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\android\app\src\main\AndroidManifest.xml:21:25-66
 33
 34                <category android:name="android.intent.category.LAUNCHER" />
-34-->/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/android/app/src/main/AndroidManifest.xml:22:17-76
-34-->/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/android/app/src/main/AndroidManifest.xml:22:27-74
+34-->C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\android\app\src\main\AndroidManifest.xml:22:17-76
+34-->C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\android\app\src\main\AndroidManifest.xml:22:27-74
 35            </intent-filter>
 36        </activity>
 37        <!--
@@ -62,77 +62,77 @@
 39             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
 40        -->
 41        <meta-data
-41-->/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/android/app/src/main/AndroidManifest.xml:27:9-29:33
+41-->C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\android\app\src\main\AndroidManifest.xml:27:9-29:33
 42            android:name="flutterEmbedding"
-42-->/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/android/app/src/main/AndroidManifest.xml:28:13-44
+42-->C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\android\app\src\main\AndroidManifest.xml:28:13-44
 43            android:value="2" />
-43-->/Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/android/app/src/main/AndroidManifest.xml:29:13-30
+43-->C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\android\app\src\main\AndroidManifest.xml:29:13-30
 44
 45        <provider
-45-->[:image_picker] /Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:11:9-19:20
+45-->[:image_picker] C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:11:9-19:20
 46            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
-46-->[:image_picker] /Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-82
+46-->[:image_picker] C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-82
 47            android:authorities="com.example.wuoof.flutter.image_provider"
-47-->[:image_picker] /Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-74
+47-->[:image_picker] C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-74
 48            android:exported="false"
-48-->[:image_picker] /Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-37
+48-->[:image_picker] C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-37
 49            android:grantUriPermissions="true" >
-49-->[:image_picker] /Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-47
+49-->[:image_picker] C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-47
 50            <meta-data
-50-->[:image_picker] /Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-18:75
+50-->[:image_picker] C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-18:75
 51                android:name="android.support.FILE_PROVIDER_PATHS"
-51-->[:image_picker] /Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-67
+51-->[:image_picker] C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:17:17-67
 52                android:resource="@xml/flutter_image_picker_file_paths" />
-52-->[:image_picker] /Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-72
+52-->[:image_picker] C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:18:17-72
 53        </provider>
 54
 55        <activity
-55-->[:url_launcher] /Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/url_launcher/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-11:74
+55-->[:url_launcher] C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-11:74
 56            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
-56-->[:url_launcher] /Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/url_launcher/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-74
+56-->[:url_launcher] C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-74
 57            android:exported="false"
-57-->[:url_launcher] /Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/url_launcher/intermediates/library_manifest/debug/AndroidManifest.xml:10:13-37
+57-->[:url_launcher] C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-37
 58            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-58-->[:url_launcher] /Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/url_launcher/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-71
+58-->[:url_launcher] C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-71
 59
 60        <provider
-60-->[com.sangcomz:FishBun:0.11.2] /Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/81560ca6d6089edd970060178f7da49d/jetified-FishBun-0.11.2/AndroidManifest.xml:12:9-20:20
+60-->[com.sangcomz:FishBun:0.11.2] C:\Users\Andy Sandoval\.gradle\caches\transforms-2\files-2.1\645b717c5980e1a1b18ce6f73c5705a3\jetified-FishBun-0.11.2\AndroidManifest.xml:12:9-20:20
 61            android:name="com.sangcomz.fishbun.FishBunFileProvider"
-61-->[com.sangcomz:FishBun:0.11.2] /Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/81560ca6d6089edd970060178f7da49d/jetified-FishBun-0.11.2/AndroidManifest.xml:13:13-68
+61-->[com.sangcomz:FishBun:0.11.2] C:\Users\Andy Sandoval\.gradle\caches\transforms-2\files-2.1\645b717c5980e1a1b18ce6f73c5705a3\jetified-FishBun-0.11.2\AndroidManifest.xml:13:13-68
 62            android:authorities="com.example.wuoof.fishbunfileprovider"
-62-->[com.sangcomz:FishBun:0.11.2] /Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/81560ca6d6089edd970060178f7da49d/jetified-FishBun-0.11.2/AndroidManifest.xml:14:13-71
+62-->[com.sangcomz:FishBun:0.11.2] C:\Users\Andy Sandoval\.gradle\caches\transforms-2\files-2.1\645b717c5980e1a1b18ce6f73c5705a3\jetified-FishBun-0.11.2\AndroidManifest.xml:14:13-71
 63            android:exported="false"
-63-->[com.sangcomz:FishBun:0.11.2] /Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/81560ca6d6089edd970060178f7da49d/jetified-FishBun-0.11.2/AndroidManifest.xml:15:13-37
+63-->[com.sangcomz:FishBun:0.11.2] C:\Users\Andy Sandoval\.gradle\caches\transforms-2\files-2.1\645b717c5980e1a1b18ce6f73c5705a3\jetified-FishBun-0.11.2\AndroidManifest.xml:15:13-37
 64            android:grantUriPermissions="true" >
-64-->[com.sangcomz:FishBun:0.11.2] /Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/81560ca6d6089edd970060178f7da49d/jetified-FishBun-0.11.2/AndroidManifest.xml:16:13-47
+64-->[com.sangcomz:FishBun:0.11.2] C:\Users\Andy Sandoval\.gradle\caches\transforms-2\files-2.1\645b717c5980e1a1b18ce6f73c5705a3\jetified-FishBun-0.11.2\AndroidManifest.xml:16:13-47
 65            <meta-data
-65-->[:image_picker] /Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-18:75
+65-->[:image_picker] C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-18:75
 66                android:name="android.support.FILE_PROVIDER_PATHS"
-66-->[:image_picker] /Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-67
+66-->[:image_picker] C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:17:17-67
 67                android:resource="@xml/provider_paths" />
-67-->[:image_picker] /Users/javierguerrero/Code/Clientes/Wuoof/wuoof/MobileApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-72
+67-->[:image_picker] C:\Users\Andy Sandoval\Desktop\appwuoof\app\MobileApp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:18:17-72
 68        </provider>
 69
 70        <activity
-70-->[com.sangcomz:FishBun:0.11.2] /Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/81560ca6d6089edd970060178f7da49d/jetified-FishBun-0.11.2/AndroidManifest.xml:22:9-25:51
+70-->[com.sangcomz:FishBun:0.11.2] C:\Users\Andy Sandoval\.gradle\caches\transforms-2\files-2.1\645b717c5980e1a1b18ce6f73c5705a3\jetified-FishBun-0.11.2\AndroidManifest.xml:22:9-25:51
 71            android:name="com.sangcomz.fishbun.ui.album.AlbumActivity"
-71-->[com.sangcomz:FishBun:0.11.2] /Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/81560ca6d6089edd970060178f7da49d/jetified-FishBun-0.11.2/AndroidManifest.xml:23:13-71
+71-->[com.sangcomz:FishBun:0.11.2] C:\Users\Andy Sandoval\.gradle\caches\transforms-2\files-2.1\645b717c5980e1a1b18ce6f73c5705a3\jetified-FishBun-0.11.2\AndroidManifest.xml:23:13-71
 72            android:label="@string/album"
-72-->[com.sangcomz:FishBun:0.11.2] /Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/81560ca6d6089edd970060178f7da49d/jetified-FishBun-0.11.2/AndroidManifest.xml:24:13-42
+72-->[com.sangcomz:FishBun:0.11.2] C:\Users\Andy Sandoval\.gradle\caches\transforms-2\files-2.1\645b717c5980e1a1b18ce6f73c5705a3\jetified-FishBun-0.11.2\AndroidManifest.xml:24:13-42
 73            android:theme="@style/FishBunTheme" />
-73-->[com.sangcomz:FishBun:0.11.2] /Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/81560ca6d6089edd970060178f7da49d/jetified-FishBun-0.11.2/AndroidManifest.xml:25:13-48
+73-->[com.sangcomz:FishBun:0.11.2] C:\Users\Andy Sandoval\.gradle\caches\transforms-2\files-2.1\645b717c5980e1a1b18ce6f73c5705a3\jetified-FishBun-0.11.2\AndroidManifest.xml:25:13-48
 74        <activity
-74-->[com.sangcomz:FishBun:0.11.2] /Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/81560ca6d6089edd970060178f7da49d/jetified-FishBun-0.11.2/AndroidManifest.xml:26:9-28:51
+74-->[com.sangcomz:FishBun:0.11.2] C:\Users\Andy Sandoval\.gradle\caches\transforms-2\files-2.1\645b717c5980e1a1b18ce6f73c5705a3\jetified-FishBun-0.11.2\AndroidManifest.xml:26:9-28:51
 75            android:name="com.sangcomz.fishbun.ui.picker.PickerActivity"
-75-->[com.sangcomz:FishBun:0.11.2] /Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/81560ca6d6089edd970060178f7da49d/jetified-FishBun-0.11.2/AndroidManifest.xml:27:13-73
+75-->[com.sangcomz:FishBun:0.11.2] C:\Users\Andy Sandoval\.gradle\caches\transforms-2\files-2.1\645b717c5980e1a1b18ce6f73c5705a3\jetified-FishBun-0.11.2\AndroidManifest.xml:27:13-73
 76            android:theme="@style/FishBunTheme" />
-76-->[com.sangcomz:FishBun:0.11.2] /Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/81560ca6d6089edd970060178f7da49d/jetified-FishBun-0.11.2/AndroidManifest.xml:28:13-48
+76-->[com.sangcomz:FishBun:0.11.2] C:\Users\Andy Sandoval\.gradle\caches\transforms-2\files-2.1\645b717c5980e1a1b18ce6f73c5705a3\jetified-FishBun-0.11.2\AndroidManifest.xml:28:13-48
 77        <activity
-77-->[com.sangcomz:FishBun:0.11.2] /Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/81560ca6d6089edd970060178f7da49d/jetified-FishBun-0.11.2/AndroidManifest.xml:29:9-31:54
+77-->[com.sangcomz:FishBun:0.11.2] C:\Users\Andy Sandoval\.gradle\caches\transforms-2\files-2.1\645b717c5980e1a1b18ce6f73c5705a3\jetified-FishBun-0.11.2\AndroidManifest.xml:29:9-31:54
 78            android:name="com.sangcomz.fishbun.ui.detail.DetailActivity"
-78-->[com.sangcomz:FishBun:0.11.2] /Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/81560ca6d6089edd970060178f7da49d/jetified-FishBun-0.11.2/AndroidManifest.xml:30:13-73
+78-->[com.sangcomz:FishBun:0.11.2] C:\Users\Andy Sandoval\.gradle\caches\transforms-2\files-2.1\645b717c5980e1a1b18ce6f73c5705a3\jetified-FishBun-0.11.2\AndroidManifest.xml:30:13-73
 79            android:theme="@style/DetailViewTheme" />
-79-->[com.sangcomz:FishBun:0.11.2] /Users/javierguerrero/.gradle/caches/transforms-2/files-2.1/81560ca6d6089edd970060178f7da49d/jetified-FishBun-0.11.2/AndroidManifest.xml:31:13-51
+79-->[com.sangcomz:FishBun:0.11.2] C:\Users\Andy Sandoval\.gradle\caches\transforms-2\files-2.1\645b717c5980e1a1b18ce6f73c5705a3\jetified-FishBun-0.11.2\AndroidManifest.xml:31:13-51
 80    </application>
 81
 82</manifest>

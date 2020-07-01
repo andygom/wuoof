@@ -404,7 +404,7 @@ class _PartnerLogin extends State<PartnerLogin> {
                                                         minHeight: 40.0),
                                                     alignment: Alignment.center,
                                                     child: Text(
-                                                      "Entrar",
+                                                      "Wuoof!",
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
@@ -473,8 +473,12 @@ class _PartnerLogin extends State<PartnerLogin> {
                                       Container(
                                           child: InkWell(
                                         onTap: () {
-                                          Navigator.pop(
-                                            context);
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                   LoginPage()),
+                                          );
                                         },
                                         child: RichText(
                                           text: new TextSpan(

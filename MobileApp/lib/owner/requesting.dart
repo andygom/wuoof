@@ -58,11 +58,10 @@ class _Requesting extends State<Requesting>
             alignment: Alignment.center,
             decoration: BoxDecoration(
                 image: DecorationImage(
-              image: NetworkImage(pattern),
-              fit: BoxFit.cover,
-              colorFilter: new ColorFilter.mode(
-                  Colors.black.withOpacity(0.1), BlendMode.dstATop),
-            )),
+                    image: AssetImage('images/checkout-bg.png'),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(0.9), BlendMode.dstATop))),
             child: Center(
                 child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -131,7 +130,7 @@ class _Requesting extends State<Requesting>
                             maxWidth: double.infinity, minHeight: 40.0),
                         alignment: Alignment.center,
                         child: Text(
-                          "Cancelar solicitud",
+                          "Grrr!",
                           textAlign: TextAlign.center,
                           style: TextStyle(color: Colors.white),
                         ),

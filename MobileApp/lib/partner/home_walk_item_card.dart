@@ -36,11 +36,22 @@ Widget homeWalkItemListCard(BuildContext context, history) {
               Container(
                 height: 100,
                 width: 100,
+                transform: Matrix4.translationValues(12.0, 0.0, 0.0),
                 padding: EdgeInsets.all(small_padding),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
                   image: DecorationImage(
                     image: NetworkImage(dummy_user_image),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("images/walker-btn.png"),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -56,7 +67,7 @@ Widget homeWalkItemListCard(BuildContext context, history) {
                 child: Container(
                 height: 100,
                 width: 100,
-                transform: Matrix4.translationValues(-5.0, 0.0, 0.0),
+                transform: Matrix4.translationValues(-12.0, 0.0, 0.0),
                 decoration: BoxDecoration(
                   border: Border.all(width: 3, color: Colors.white),
                   borderRadius: BorderRadius.circular(50),

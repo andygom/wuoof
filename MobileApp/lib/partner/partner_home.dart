@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wuoof/extras/globals.dart';
 import 'package:wuoof/general/inbox.dart';
 import 'package:wuoof/general/main-appbar.dart';
+import 'package:wuoof/partner/home_hospedaje_item_card.dart';
 import 'package:wuoof/partner/home_host_item_card.dart';
 import 'package:wuoof/partner/home_walk_item_card.dart';
 import 'package:wuoof/partner/partner_login.dart';
@@ -16,6 +17,7 @@ import 'package:wuoof/partner/partner_profile.dart';
 import '../dates/date_item_card.dart';
 import '../partner/walk_item_card.dart';
 import '../partner/host_item_card.dart';
+import '../wuoof_app_icons_icons.dart';
 
 var categoria_plomeria = "1";
 var categoria_electricidad = "2";
@@ -109,11 +111,12 @@ class _PartnerHome extends State<PartnerHome> {
     return TabBarView(children: [
       fetch_error
           ? null
-          :
-      modelListGenerator(
-          context, categoria_electricidad, serviciosElectricidad, "walks"),
+          : modelListGenerator(
+              context, categoria_electricidad, serviciosElectricidad, "walks"),
       modelListGenerator(
           context, categoria_especiales, serviciosEspeciales, "hosts"),
+          modelListGenerator(
+          context, categoria_especiales, serviciosEspeciales, "hospedaje"),
     ]);
   }
 
@@ -137,6 +140,10 @@ class _PartnerHome extends State<PartnerHome> {
 
         case "hosts":
           card_model = homeHostItemListCard(context, history);
+          break;
+        
+        case "hospedaje":
+          card_model = homeHospedajeItemListCard(context, history);
           break;
       }
 
@@ -166,6 +173,7 @@ class _PartnerHome extends State<PartnerHome> {
         elevation: 0,
         backgroundColor: primary_green,
         title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(right: 10),
@@ -220,20 +228,12 @@ class _PartnerHome extends State<PartnerHome> {
                   ),
                 ],
               ),
-              decoration: new BoxDecoration(
-                gradient: new LinearGradient(
-                    colors: [primary_green, primary_green],
-                    begin: const FractionalOffset(0.0, 0.0),
-                    end: const FractionalOffset(2.0, 1.0),
-                    stops: [0.0, 1.0],
-                    tileMode: TileMode.clamp),
-                image: DecorationImage(
-                  image: setImage("network", drawer_bg, true),
-                  colorFilter: new ColorFilter.mode(
-                      Colors.black.withOpacity(0.2), BlendMode.dstATop),
-                  fit: BoxFit.cover,
-                ),
-              ),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('images/partner-bg.png'),
+                      fit: BoxFit.cover,
+                      colorFilter: ColorFilter.mode(
+                          Colors.black.withOpacity(0.9), BlendMode.dstATop))),
             ),
             ListTile(
               leading: Icon(
@@ -248,7 +248,7 @@ class _PartnerHome extends State<PartnerHome> {
             ),
             ListTile(
               leading: Icon(
-                Icons.star,
+                WuoofAppIcons.guidedog,
                 color: primary_green,
               ),
               title: Text('Mis servicios'),
@@ -259,24 +259,26 @@ class _PartnerHome extends State<PartnerHome> {
             ),
             ListTile(
               leading: Icon(
-                Icons.credit_card,
+                WuoofAppIcons.iconos_wuoof_tarjetas,
                 color: primary_green,
               ),
               title: Text('Datos de pago'),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PartnerPaymentDetails()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PartnerPaymentDetails()));
               },
             ),
             ListTile(
               leading: Icon(
-                Icons.inbox,
+                WuoofAppIcons.iconos_wuoof_inbox_03__1_,
                 color: primary_green,
               ),
               title: Text('Inbox'),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Inbox()));
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Inbox()));
               },
             ),
             ListTile(
@@ -297,7 +299,7 @@ class _PartnerHome extends State<PartnerHome> {
             ),
             ListTile(
               leading: Icon(
-                Icons.exit_to_app,
+                WuoofAppIcons.iconos_wuoof_cerrarsesio_n,
                 color: primary_green,
               ),
               title: Text('Cerrar sesión'),
@@ -318,213 +320,244 @@ class _PartnerHome extends State<PartnerHome> {
                 child: const CircularProgressIndicator(),
               ))
           : DefaultTabController(
-              length: 2,
+              length: 3,
               initialIndex: widget.tabIndex,
               child: Column(
                 children: <Widget>[
                   Container(
-              color: primary_green,
-              padding: EdgeInsets.all(normal_padding),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Column(
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('images/partner-bg.png'),
+                              fit: BoxFit.cover,
+                              colorFilter: ColorFilter.mode(
+                                  Colors.black.withOpacity(0.9),
+                                  BlendMode.dstATop))),
+                      padding: EdgeInsets.all(normal_padding),
+                      child: Column(
                         children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color.fromRGBO(0, 0, 0, 0.19),
-                                  blurRadius: 5.0, // soften the shadow
-                                  spreadRadius: 1.0, //extend the shadow
-                                  offset: Offset(
-                                    0.0, // Move to right 10  horizontally
-                                    3.0, // Move to bottom 10 Vertically
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Column(
+                                children: <Widget>[
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(40),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color.fromRGBO(0, 0, 0, 0.19),
+                                          blurRadius: 5.0, // soften the shadow
+                                          spreadRadius: 1.0, //extend the shadow
+                                          offset: Offset(
+                                            0.0, // Move to right 10  horizontally
+                                            3.0, // Move to bottom 10 Vertically
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    child: new Material(
+                                      color: Colors.transparent,
+                                      child: new InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      PartnerProfile()));
+                                        },
+                                        child: new Container(
+                                          width: 40,
+                                          height: 40,
+                                          child: Icon(Icons.edit,
+                                              color: common_grey),
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                )
-                              ],
-                            ),
-                            child: new Material(
-                              color: Colors.transparent,
-                              child: new InkWell(
-                                onTap: () {
-                                  Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PartnerProfile()));
-                                },
-                                child: new Container(
-                                  width: 40,
-                                  height: 40,
-                                  child: Icon(Icons.edit, color: common_grey),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text("Modificar",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w400)),
-                        ],
-                      ),
-                      Column(
-                        children: <Widget>[
-                          Card(
-                            elevation: 5.0,
-                            shape: CircleBorder(),
-                            clipBehavior: Clip.antiAlias,
-                            child: CircleAvatar(
-                              backgroundColor: common_grey,
-                              radius: 60,
-                              backgroundImage: NetworkImage(dummy_net_partner),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text("¡Hola, " + dummy_partner_name,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.w700)),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color.fromRGBO(0, 0, 0, 0.19),
-                                  blurRadius: 5.0, // soften the shadow
-                                  spreadRadius: 1.0, //extend the shadow
-                                  offset: Offset(
-                                    0.0, // Move to right 10  horizontally
-                                    3.0, // Move to bottom 10 Vertically
+                                  SizedBox(
+                                    height: 10,
                                   ),
-                                )
-                              ],
-                            ),
-                            child: new Material(
-                              color: Colors.transparent,
-                              child: new InkWell(
-                                onTap: () {
-                                  Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Inbox()));
-                                },
-                                child: new Container(
-                                  width: 40,
-                                  height: 40,
-                                  child: Icon(Icons.inbox, color: common_grey),
-                                ),
+                                  Text("Modificar",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w400)),
+                                ],
                               ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text("Inbox",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w400)),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Container(
-                    child: Wrap(
-                      children: <Widget>[
-                        RichText(
-                          text: TextSpan(
-                            style: new TextStyle(
-                              fontSize: 13.0,
-                              color: Colors.black,
-                            ),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: 'Partner: ',
-                                  style: TextStyle(color: Colors.white)),
-                              TextSpan(
-                                  text: 'Paseador',
-                                  style: new TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white)),
+                              Column(
+                                children: <Widget>[
+                                  Card(
+                                    elevation: 5.0,
+                                    shape: CircleBorder(),
+                                    clipBehavior: Clip.antiAlias,
+                                    child: CircleAvatar(
+                                      backgroundColor: common_grey,
+                                      radius: 60,
+                                      backgroundImage:
+                                          NetworkImage(dummy_net_partner),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text("¡Hola, " + dummy_partner_name,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 19,
+                                          fontWeight: FontWeight.w700)),
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(40),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color.fromRGBO(0, 0, 0, 0.19),
+                                          blurRadius: 5.0, // soften the shadow
+                                          spreadRadius: 1.0, //extend the shadow
+                                          offset: Offset(
+                                            0.0, // Move to right 10  horizontally
+                                            3.0, // Move to bottom 10 Vertically
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    child: new Material(
+                                      color: Colors.transparent,
+                                      child: new InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Inbox()));
+                                        },
+                                        child: new Container(
+                                          width: 40,
+                                          height: 40,
+                                          child: Icon(Icons.inbox,
+                                              color: common_grey),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text("Inbox",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w400)),
+                                ],
+                              ),
                             ],
                           ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 5),
-                          width: 1,
-                          height: 20,
-                          color: Colors.white,
-                        ),
-                        RichText(
-                          text: TextSpan(
-                            style: new TextStyle(
-                              fontSize: 13.0,
-                              color: Colors.black,
-                            ),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: 'Estado: ',
-                                  style: TextStyle(color: Colors.white)),
-                              TextSpan(
-                                  text: 'Cuernavaca, Mor.',
-                                  style: new TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white)),
-                            ],
+                          SizedBox(
+                            height: 15,
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              )),
+                          Container(
+                            child: Wrap(
+                              children: <Widget>[
+                                RichText(
+                                  text: TextSpan(
+                                    style: new TextStyle(
+                                      fontSize: 13.0,
+                                      color: Colors.black,
+                                    ),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                          text: 'Partner: ',
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                      TextSpan(
+                                          text: 'Paseador',
+                                          style: new TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white)),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 5),
+                                  width: 1,
+                                  height: 20,
+                                  color: Colors.white,
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    style: new TextStyle(
+                                      fontSize: 13.0,
+                                      color: Colors.black,
+                                    ),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                          text: 'Estado: ',
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                      TextSpan(
+                                          text: 'Cuernavaca, Mor.',
+                                          style: new TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white)),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      )),
                   Container(
                     constraints: BoxConstraints.expand(height: 50),
                     child: TabBar(
                         isScrollable: false,
                         tabs: [
                           Tab(
-                              icon: Row(
+                             icon: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Image.asset(
                                 "images/walker-btn.png",
-                                width: 24,
+                                width: 30,
                               ),
                               SizedBox(
                                 width: 4,
                               ),
-                              Text("Paseos")
+                              Text("Paseos", style: TextStyle(fontSize: 10))
                             ],
                           )),
                           Tab(
-                              icon: Row(
+                              icon: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Image.asset(
                                 "images/host-btn.png",
-                                width: 24,
+                                width: 30,
                               ),
                               SizedBox(
                                 width: 4,
                               ),
-                              Text("Cuidados")
+                              Text("Cuidados", style: TextStyle(fontSize: 10))
+                            ],
+                          )),
+                          Tab(
+                             icon: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Image.asset(
+                                "images/hospedaje-btn.png",
+                                width: 30,
+                              ),
+                              /*    SizedBox(
+                                width: 4,
+                              ), */
+                              Text("Hospedajes", style: TextStyle(fontSize: 10)),
                             ],
                           )),
                         ],
@@ -533,7 +566,13 @@ class _PartnerHome extends State<PartnerHome> {
                   ),
                   Expanded(
                     child: Container(
-                      color: Colors.grey[300],
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('images/white-bg.png'),
+                              fit: BoxFit.cover,
+                              colorFilter: ColorFilter.mode(
+                                  Colors.black.withOpacity(0.9),
+                                  BlendMode.dstATop))),
                       child: !fetch_error ? showLists(context) : null,
                     ),
                   )
