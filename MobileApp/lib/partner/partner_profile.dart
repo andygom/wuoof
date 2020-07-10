@@ -144,261 +144,63 @@ class _PartnerProfile extends State<PartnerProfile> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: <Widget>[
-                                        /* formSimpleField(context, name,
-                                            edition_enabled, 'Nombre', name, Icons.person_outline), */
-                                        /* TextFormField(
-                                          initialValue: name,
-                                          style: TextStyle(color: Colors.black),
-                                          //initialValue: "prueba@prueba.com",
-                                          enabled:
-                                              edition_enabled ? true : false,
-                                          decoration: const InputDecoration(
-                                            suffixIcon: Icon(
-                                              Icons.person_outline,
-                                              color: Colors.green,
-                                            ),
-                                            hintText: 'Nombre',
-                                            hintStyle: TextStyle(
-                                              color: Colors.black38,
-                                            ),
-                                            labelText: 'Nombre',
-                                            labelStyle: TextStyle(
-                                              color: Colors.black,
-                                            ),
-                                            enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.green),
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.blue),
-                                            ),
-                                            errorBorder: UnderlineInputBorder(
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                            errorStyle:
-                                                TextStyle(color: Colors.red),
-                                            focusedErrorBorder:
-                                                UnderlineInputBorder(
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                          ),
-                                          validator: (value) {
-                                            if (value.isEmpty) {
-                                              return 'Ingresa tu Nombre';
-                                            } else {
-                                              setState(() {
-                                                name = value;
-                                              });
-                                            }
-                                            return null;
-                                          },
-                                        ), */
-                                        TextFormField(
-                                          initialValue: dad_lastname,
-                                          style: TextStyle(color: Colors.black),
-                                          enabled:
-                                              edition_enabled ? true : false,
-                                          decoration: const InputDecoration(
-                                            suffixIcon: Icon(
-                                              Icons.people_outline,
-                                              color: Colors.green,
-                                            ),
-                                            hintText: 'Apellido paterno',
-                                            hintStyle: TextStyle(
-                                              color: Colors.black38,
-                                            ),
-                                            labelText: 'Apellido paterno',
-                                            labelStyle: TextStyle(
-                                              color: Colors.black,
-                                            ),
-                                            enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.green),
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.blue),
-                                            ),
-                                            errorBorder: UnderlineInputBorder(
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                            errorStyle:
-                                                TextStyle(color: Colors.red),
-                                            focusedErrorBorder:
-                                                UnderlineInputBorder(
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                          ),
-                                          validator: (value) {
-                                            if (value.isEmpty) {
-                                              return 'Ingresa tu apellido paterno';
-                                            } else {
-                                              setState(() {
-                                                dad_lastname = value;
-                                              });
-                                            }
-                                            return null;
-                                          },
+                                        SimpleTextField(
+                                          textCapitalization:
+                                              TextCapitalization.words,
+                                          maxLength: null,
+                                          enabled: edition_enabled,
+                                          initValue: name,
+                                          icon: Icons.person_outline,
+                                          label: 'name',
+                                          labelText: 'Nombre',
+                                          onSaved: (input) => name = input,
                                         ),
-                                        TextFormField(
-                                          style: TextStyle(color: Colors.black),
-                                          initialValue: mom_lastname,
-                                          enabled:
-                                              edition_enabled ? true : false,
-                                          decoration: const InputDecoration(
-                                            suffixIcon: Icon(
-                                              Icons.people_outline,
-                                              color: Colors.green,
-                                            ),
-                                            hintText: 'Apellido materno',
-                                            hintStyle: TextStyle(
-                                              color: Colors.black38,
-                                            ),
-                                            labelText: 'Apellido materno',
-                                            labelStyle: TextStyle(
-                                              color: Colors.black,
-                                            ),
-                                            enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.green),
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.blue),
-                                            ),
-                                            errorBorder: UnderlineInputBorder(
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                            errorStyle:
-                                                TextStyle(color: Colors.red),
-                                            focusedErrorBorder:
-                                                UnderlineInputBorder(
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                          ),
-                                          validator: (value) {
-                                            if (value.isEmpty) {
-                                              return 'Ingresa tu apellido materno';
-                                            } else {
-                                              setState(() {
-                                                mom_lastname = value;
-                                              });
-                                            }
-                                            return null;
-                                          },
+                                        SimpleTextField(
+                                          textCapitalization:
+                                              TextCapitalization.words,
+                                          maxLength: null,
+                                          enabled: edition_enabled,
+                                          initValue: dad_lastname,
+                                          icon: Icons.people_outline,
+                                          label: 'lastName',
+                                          labelText: 'Apellido paterno',
+                                          onSaved: (input) =>
+                                              dad_lastname = input,
                                         ),
-                                        SizedBox(
-                                          height: 160.0,
-                                          child: TextFormField(
-                                            maxLength: 150,
-                                            maxLines: 100,
-                                            initialValue: biography,
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                            enabled:
-                                                edition_enabled ? true : false,
-                                            decoration: const InputDecoration(
-                                              suffixIcon: Icon(
-                                                Icons.person_outline,
-                                                color: Colors.green,
-                                              ),
-                                              hintText: 'Biografía',
-                                              hintStyle: TextStyle(
-                                                color: Colors.black38,
-                                              ),
-                                              labelText: 'Biografía',
-                                              labelStyle: TextStyle(
-                                                color: Colors.black,
-                                              ),
-                                              enabledBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.green),
-                                              ),
-                                              focusedBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.blue),
-                                              ),
-                                              errorBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.red),
-                                              ),
-                                              errorStyle:
-                                                  TextStyle(color: Colors.red),
-                                              focusedErrorBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.red),
-                                              ),
-                                            ),
-                                            validator: (value) {
-                                              if (value.isEmpty) {
-                                                return 'Ingresa tu biografía';
-                                              } else {
-                                                setState(() {
-                                                  biography = value;
-                                                });
-                                              }
-                                              return null;
-                                            },
-                                          ),
+                                        SimpleTextField(
+                                          textCapitalization:
+                                              TextCapitalization.words,
+                                          maxLength: null,
+                                          enabled: edition_enabled,
+                                          initValue: mom_lastname,
+                                          icon: Icons.people_outline,
+                                          label: 'lastName',
+                                          labelText: 'Apellido materno',
+                                          onSaved: (input) =>
+                                              mom_lastname = input,
                                         ),
-                                        TextFormField(
-                                          style: TextStyle(color: Colors.black),
-                                          initialValue: mail,
-                                          enabled:
-                                              edition_enabled ? true : false,
-                                          decoration: const InputDecoration(
-                                            suffixIcon: Icon(
-                                              Icons.mail_outline,
-                                              color: Colors.green,
-                                            ),
-                                            hintText: 'Correo',
-                                            hintStyle: TextStyle(
-                                              color: Colors.black38,
-                                            ),
-                                            labelText: 'Correo',
-                                            labelStyle: TextStyle(
-                                              color: Colors.black,
-                                            ),
-                                            enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.green),
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.blue),
-                                            ),
-                                            errorBorder: UnderlineInputBorder(
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                            errorStyle:
-                                                TextStyle(color: Colors.red),
-                                            focusedErrorBorder:
-                                                UnderlineInputBorder(
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                          ),
-                                          validator: (value) {
-                                            if (value.isEmpty) {
-                                              return 'Ingresa tu correo';
-                                            } else {
-                                              setState(() {
-                                                mail = value;
-                                              });
-                                            }
-                                            return null;
-                                          },
+                                        SimpleTextField(
+                                          textCapitalization: TextCapitalization.sentences,
+                                          label: 'bio',
+                                          initValue: biography,
+                                          maxLength: 150,
+                                          maxLines: 5,
+                                          enabled: edition_enabled,
+                                          icon: Icons.person_outline,
+                                          helperText: '',
+                                          labelText: 'Biografía',
+                                          onSaved: (input) => biography = input,
+                                        ),
+                                        SimpleTextField(
+                                          textCapitalization:
+                                              TextCapitalization.words,
+                                          maxLength: null,
+                                          enabled: edition_enabled,
+                                          initValue: mail,
+                                          icon: Icons.mail_outline,
+                                          label: 'email',
+                                          labelText: 'Correo',
+                                          onSaved: (input) => mail = input,
                                         ),
                                         TextFormField(
                                           initialValue: password,
