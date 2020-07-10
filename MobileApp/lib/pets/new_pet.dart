@@ -4,6 +4,7 @@ import 'package:wuoof/extras/globals.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
+import 'package:wuoof/general/formField.dart';
 import 'package:wuoof/general/main-appbar.dart';
 import 'dart:async';
 import 'package:multi_image_picker/multi_image_picker.dart';
@@ -22,7 +23,7 @@ class NewPet extends StatefulWidget {
 
 class _NewPet extends State<NewPet> {
   bool filling_form = false;
-  final _editProfileForm = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   String dummy = "hey";
@@ -104,7 +105,7 @@ class _NewPet extends State<NewPet> {
   }
 
   _saveForm() {
-    var form = _editProfileForm.currentState;
+    var form = _formKey.currentState;
     if (form.validate()) {
       form.save();
       setState(() {
@@ -308,48 +309,52 @@ class _NewPet extends State<NewPet> {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              /* RaisedButton(
-                          onPressed: loadAssets,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
-                          padding: EdgeInsets.all(0.0),
-                          child: Ink(
-                            decoration: BoxDecoration(
-                                color: primary_green,
-                                borderRadius: BorderRadius.circular(5.0)),
-                            child: Container(
-                              constraints: BoxConstraints(
-                                  maxWidth: double.infinity, minHeight: 40.0),
-                              alignment: Alignment.center,
-                              child: Text(
-                                "Fotos de mi mascota",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 300,
-                          height: 100,
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.black12,
-                          ),
-                          child: images.isEmpty
-                              ? Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Icon(Icons.photo_library),
-                                    Text("Toca agregar imágenes de tu mascota")
-                                  ],
-                                )
-                              : Align(
-                                  child: buildGridView(),
+                              RaisedButton(
+                                onPressed: loadAssets,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.0)),
+                                padding: EdgeInsets.all(0.0),
+                                child: Ink(
+                                  decoration: BoxDecoration(
+                                      color: primary_green,
+                                      borderRadius: BorderRadius.circular(5.0)),
+                                  child: Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth: double.infinity,
+                                        minHeight: 40.0),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "Fotos de mi mascota",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
                                 ),
-                        ), */
+                              ),
+                              Container(
+                                width: 300,
+                                height: 100,
+                                padding: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Colors.black12,
+                                ),
+                                child: images.isEmpty
+                                    ? Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          Icon(Icons.photo_library),
+                                          Text(
+                                              "Toca agregar imágenes de tu mascota")
+                                        ],
+                                      )
+                                    : Align(
+                                        child: buildGridView(),
+                                      ),
+                              ),
                               Container(
                                 child: Container(
                                   child: Padding(
@@ -357,427 +362,112 @@ class _NewPet extends State<NewPet> {
                                     child: Column(
                                       children: <Widget>[
                                         Form(
-                                          key: _editProfileForm,
+                                          key: _formKey,
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: <Widget>[
-                                              TextFormField(
-                                                initialValue: pet_name,
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                                //initialValue: "prueba@prueba.com",
-                                                decoration:
-                                                    const InputDecoration(
-                                                  suffixIcon: Icon(
-                                                    Icons.pets,
-                                                    color: Colors.green,
-                                                  ),
-                                                  hintText: 'Nombre',
-                                                  hintStyle: TextStyle(
-                                                    color: Colors.black38,
-                                                  ),
-                                                  labelText: 'Nombre',
-                                                  labelStyle: TextStyle(
-                                                    color: Colors.black,
-                                                  ),
-                                                  enabledBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.green),
-                                                  ),
-                                                  focusedBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.blue),
-                                                  ),
-                                                  errorBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.red),
-                                                  ),
-                                                  errorStyle: TextStyle(
-                                                      color: Colors.red),
-                                                  focusedErrorBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.red),
-                                                  ),
-                                                ),
-                                                validator: (value) {
-                                                  if (value.isEmpty) {
-                                                    return 'Ingresa el nombre de tu mascota';
-                                                  } else {
-                                                    setState(() {
-                                                      pet_name = value;
-                                                    });
-                                                  }
-                                                  return null;
-                                                },
+                                              SimpleTextField(
+                                                enabled: true,
+                                                textCapitalization:
+                                                    TextCapitalization.words,
+                                                maxLength: null,
+                                                icon: Icons.pets,
+                                                label: 'petName',
+                                                labelText: 'Nombre',
+                                                onSaved: (input) =>
+                                                    pet_name = input,
                                               ),
-                                              TextFormField(
-                                                initialValue: nationality,
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                                //initialValue: "prueba@prueba.com",
-
-                                                decoration:
-                                                    const InputDecoration(
-                                                  suffixIcon: Icon(
-                                                    Icons.pets,
-                                                    color: Colors.green,
-                                                  ),
-                                                  hintText: 'Nacionalidad',
-                                                  hintStyle: TextStyle(
-                                                    color: Colors.black38,
-                                                  ),
-                                                  labelText: 'Nacionalidad',
-                                                  labelStyle: TextStyle(
-                                                    color: Colors.black,
-                                                  ),
-                                                  enabledBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.green),
-                                                  ),
-                                                  focusedBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.blue),
-                                                  ),
-                                                  errorBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.red),
-                                                  ),
-                                                  errorStyle: TextStyle(
-                                                      color: Colors.red),
-                                                  focusedErrorBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.red),
-                                                  ),
-                                                ),
-                                                validator: (value) {
-                                                  if (value.isEmpty) {
-                                                    return 'Ingresa la Nacionalidad de tu mascota';
-                                                  } else {
-                                                    setState(() {
-                                                      nationality = value;
-                                                    });
-                                                  }
-                                                  return null;
-                                                },
+                                              SimpleTextField(
+                                                enabled: true,
+                                                textCapitalization:
+                                                    TextCapitalization.words,
+                                                label: 'nationality',
+                                                // maxLength: null,
+                                                icon: Icons.pets,
+                                                helperText: '',
+                                                labelText: 'Nacionalidad',
+                                                onSaved: (input) =>
+                                                    nationality = input,
                                               ),
-                                              TextFormField(
-                                                initialValue: birth_date,
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                                //initialValue: "prueba@prueba.com",
-
-                                                decoration:
-                                                    const InputDecoration(
-                                                  suffixIcon: Icon(
-                                                    Icons.pets,
-                                                    color: Colors.green,
-                                                  ),
-                                                  hintText:
-                                                      'Fecha de nacimiento',
-                                                  hintStyle: TextStyle(
-                                                    color: Colors.black38,
-                                                  ),
-                                                  labelText:
-                                                      'Fecha de nacimiento',
-                                                  labelStyle: TextStyle(
-                                                    color: Colors.black,
-                                                  ),
-                                                  enabledBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.green),
-                                                  ),
-                                                  focusedBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.blue),
-                                                  ),
-                                                  errorBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.red),
-                                                  ),
-                                                  errorStyle: TextStyle(
-                                                      color: Colors.red),
-                                                  focusedErrorBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.red),
-                                                  ),
-                                                ),
-                                                validator: (value) {
-                                                  if (value.isEmpty) {
-                                                    return 'Ingresa la Fecha de nacimiento de tu mascota';
-                                                  } else {
-                                                    setState(() {
-                                                      birth_date = value;
-                                                    });
-                                                  }
-                                                  return null;
-                                                },
+                                              Container(
+                                                width: double.infinity,
+                                                margin:
+                                                    EdgeInsets.only(top: 15),
+                                                padding: EdgeInsets.all(
+                                                    small_padding),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.grey[200],
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            small_border_radius)),
+                                                child: InkWell(
+                                                    onTap: () {},
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Text(
+                                                            "Fecha de nacimiento"),
+                                                        Text(
+                                                          '02/08/20',
+                                                          // birthdate_string.toString(),
+                                                          style: TextStyle(
+                                                              color:
+                                                                  common_grey,
+                                                              fontSize: 15),
+                                                        )
+                                                      ],
+                                                    )),
                                               ),
-                                              TextFormField(
-                                                initialValue: biography,
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                                //initialValue: "prueba@prueba.com",
+                                              SimpleTextField(
+                                                enabled: true,
+                                                textCapitalization:
+                                                    TextCapitalization
+                                                        .sentences,
+                                                label: 'bio',
+                                                maxLength: 150,
+                                                maxLines: 5,
+                                                icon: Icons.pets,
+                                                helperText: '',
+                                                labelText: 'Biografía',
+                                                onSaved: (input) =>
+                                                    biography = input,
+                                              ),
+                                              SimpleTextField(
+                                                enabled: true,
+                                                textCapitalization:
+                                                    TextCapitalization
+                                                        .sentences,
+                                                label: 'train',
+                                                maxLength: 50,
                                                 maxLines: 2,
-                                                textInputAction:
-                                                    TextInputAction.done,
-                                                decoration:
-                                                    const InputDecoration(
-                                                  suffixIcon: Icon(
-                                                    Icons.pets,
-                                                    color: Colors.green,
-                                                  ),
-                                                  hintText: 'Biografía',
-                                                  hintStyle: TextStyle(
-                                                    color: Colors.black38,
-                                                  ),
-                                                  labelText: 'Biografía',
-                                                  labelStyle: TextStyle(
-                                                    color: Colors.black,
-                                                  ),
-                                                  enabledBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.green),
-                                                  ),
-                                                  focusedBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.blue),
-                                                  ),
-                                                  errorBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.red),
-                                                  ),
-                                                  errorStyle: TextStyle(
-                                                      color: Colors.red),
-                                                  focusedErrorBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.red),
-                                                  ),
-                                                ),
-                                                validator: (value) {
-                                                  if (value.isEmpty) {
-                                                    return 'Ingresa la Biografía de tu mascota';
-                                                  } else {
-                                                    setState(() {
-                                                      biography = value;
-                                                    });
-                                                  }
-                                                  return null;
-                                                },
+                                                icon: Icons.pets,
+                                                helperText: '',
+                                                labelText: 'Entrenamiento',
+                                                onSaved: (input) =>
+                                                    training = input,
                                               ),
-                                              TextFormField(
-                                                initialValue:
-                                                    allergies_and_treatment,
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                                //initialValue: "prueba@prueba.com",
+                                              SimpleTextField(
+                                                enabled: true,
+                                                textCapitalization:
+                                                    TextCapitalization
+                                                        .sentences,
+                                                label: 'diet',
+                                                maxLength: 50,
                                                 maxLines: 2,
-                                                textInputAction:
-                                                    TextInputAction.done,
-                                                decoration:
-                                                    const InputDecoration(
-                                                  suffixIcon: Icon(
-                                                    Icons.pets,
-                                                    color: Colors.green,
-                                                  ),
-                                                  helperText:
-                                                      "Describe si tiene algún tipo de alergia ó si requiere de cuidados médicos especiales",
-                                                  helperMaxLines: 3,
-                                                  hintText:
-                                                      'Alergias y cuidados',
-                                                  hintStyle: TextStyle(
-                                                    color: Colors.black38,
-                                                  ),
-                                                  labelText:
-                                                      'Alergias y cuidados',
-                                                  labelStyle: TextStyle(
-                                                    color: Colors.black,
-                                                  ),
-                                                  enabledBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.green),
-                                                  ),
-                                                  focusedBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.blue),
-                                                  ),
-                                                  errorBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.red),
-                                                  ),
-                                                  errorStyle: TextStyle(
-                                                      color: Colors.red),
-                                                  focusedErrorBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.red),
-                                                  ),
-                                                ),
-                                                validator: (value) {
-                                                  if (value.isEmpty) {
-                                                    return 'Es necesario completar este campo';
-                                                  } else {
-                                                    setState(() {
-                                                      allergies_and_treatment =
-                                                          value;
-                                                    });
-                                                  }
-                                                  return null;
-                                                },
+                                                icon: Icons.pets,
+                                                helperText: '',
+                                                labelText: 'Dieta',
+                                                onSaved: (input) =>
+                                                    diet = input,
                                               ),
-                                              TextFormField(
-                                                initialValue: training,
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                                //initialValue: "prueba@prueba.com",
-                                                maxLines: 2,
-                                                textInputAction:
-                                                    TextInputAction.done,
-                                                decoration:
-                                                    const InputDecoration(
-                                                  suffixIcon: Icon(
-                                                    Icons.pets,
-                                                    color: Colors.green,
-                                                  ),
-                                                  helperText:
-                                                      "Describe si tiene algún tipo de entrenamiento, como sentarse, hacer del baño, etc.",
-                                                  helperMaxLines: 3,
-                                                  hintText: 'Entrenamiento',
-                                                  hintStyle: TextStyle(
-                                                    color: Colors.black38,
-                                                  ),
-                                                  labelText: 'Entrenamiento',
-                                                  labelStyle: TextStyle(
-                                                    color: Colors.black,
-                                                  ),
-                                                  enabledBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.green),
-                                                  ),
-                                                  focusedBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.blue),
-                                                  ),
-                                                  errorBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.red),
-                                                  ),
-                                                  errorStyle: TextStyle(
-                                                      color: Colors.red),
-                                                  focusedErrorBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.red),
-                                                  ),
-                                                ),
-                                                validator: (value) {
-                                                  if (value.isEmpty) {
-                                                    return 'Es necesario completar este campo';
-                                                  } else {
-                                                    setState(() {
-                                                      training = value;
-                                                    });
-                                                  }
-                                                  return null;
-                                                },
-                                              ),
-                                              TextFormField(
-                                                initialValue: diet,
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                                //initialValue: "prueba@prueba.com",
-                                                maxLines: 2,
-                                                textInputAction:
-                                                    TextInputAction.done,
-                                                decoration:
-                                                    const InputDecoration(
-                                                  suffixIcon: Icon(
-                                                    Icons.pets,
-                                                    color: Colors.green,
-                                                  ),
-                                                  helperText:
-                                                      "Describe si lleva alguna dieta en especial o si debe comer ciertos alimentos.",
-                                                  helperMaxLines: 3,
-                                                  hintText: 'Dieta',
-                                                  hintStyle: TextStyle(
-                                                    color: Colors.black38,
-                                                  ),
-                                                  labelText: 'Dieta',
-                                                  labelStyle: TextStyle(
-                                                    color: Colors.black,
-                                                  ),
-                                                  enabledBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.green),
-                                                  ),
-                                                  focusedBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.blue),
-                                                  ),
-                                                  errorBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.red),
-                                                  ),
-                                                  errorStyle: TextStyle(
-                                                      color: Colors.red),
-                                                  focusedErrorBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.red),
-                                                  ),
-                                                ),
-                                                validator: (value) {
-                                                  if (value.isEmpty) {
-                                                    return 'Es necesario completar este campo';
-                                                  } else {
-                                                    setState(() {
-                                                      diet = value;
-                                                    });
-                                                  }
-                                                  return null;
-                                                },
-                                              ),
-                                              DropdownButtonFormField<String>(
-                                                value: pet_sociable,
-                                                decoration: InputDecoration(
-                                                  labelText:
-                                                      "¿Sociable con otros perros?",
-                                                  labelStyle: TextStyle(
-                                                      color: Colors.black),
-                                                ),
-                                                isExpanded: true,
-                                                onChanged: (String newValue) {
-                                                  setState(() {
-                                                    pet_sociable = newValue;
-                                                  });
-                                                },
-                                                items: <String>[
-                                                  'Sí',
+                                              DropDownField(
+                                                labelText:
+                                                    '¿Sociable con otros perros?',
+                                                itemsList: <String>[
+                                                  'Si',
                                                   'No'
                                                 ].map<DropdownMenuItem<String>>(
                                                     (String value) {
@@ -787,33 +477,16 @@ class _NewPet extends State<NewPet> {
                                                     value: value,
                                                   );
                                                 }).toList(),
-                                                validator: (value) {
-                                                  if (value.isEmpty) {
-                                                    return 'Es necesario completar este campo';
-                                                  } else {
-                                                    setState(() {
-                                                      pet_sociable = value;
-                                                    });
-                                                  }
-                                                  return null;
-                                                },
+                                                enabled: true,
+                                                onChanged: (input) =>
+                                                    pet_sociable = input,
                                               ),
-                                              DropdownButtonFormField<String>(
-                                                value: kid_sociable,
-                                                decoration: InputDecoration(
-                                                  labelText:
-                                                      "¿Sociable con niños?",
-                                                  labelStyle: TextStyle(
-                                                      color: Colors.black),
-                                                ),
-                                                isExpanded: true,
-                                                onChanged: (String newValue) {
-                                                  setState(() {
-                                                    kid_sociable = newValue;
-                                                  });
-                                                },
-                                                items: <String>[
-                                                  'Sí',
+                                              DropDownField(
+                                                enabled: true,
+                                                labelText:
+                                                    '¿Sociable con otros perros?',
+                                                itemsList: <String>[
+                                                  'Si',
                                                   'No'
                                                 ].map<DropdownMenuItem<String>>(
                                                     (String value) {
@@ -823,22 +496,15 @@ class _NewPet extends State<NewPet> {
                                                     value: value,
                                                   );
                                                 }).toList(),
+                                                onChanged: (input) =>
+                                                    pet_sociable = input,
                                               ),
-                                              DropdownButtonFormField<String>(
-                                                value: vaccines,
-                                                decoration: InputDecoration(
-                                                  labelText: "¿Vacunas al día?",
-                                                  labelStyle: TextStyle(
-                                                      color: Colors.black),
-                                                ),
-                                                isExpanded: true,
-                                                onChanged: (String newValue) {
-                                                  setState(() {
-                                                    vaccines = newValue;
-                                                  });
-                                                },
-                                                items: <String>[
-                                                  'Sí',
+                                              DropDownField(
+                                                enabled: true,
+                                                labelText:
+                                                    '¿Sociable con niños?',
+                                                itemsList: <String>[
+                                                  'Si',
                                                   'No'
                                                 ].map<DropdownMenuItem<String>>(
                                                     (String value) {
@@ -848,23 +514,14 @@ class _NewPet extends State<NewPet> {
                                                     value: value,
                                                   );
                                                 }).toList(),
+                                                onChanged: (input) =>
+                                                    kid_sociable = input,
                                               ),
-                                              DropdownButtonFormField<String>(
-                                                value: sterilized,
-                                                decoration: InputDecoration(
-                                                  labelText:
-                                                      "¿Está esterilizado?",
-                                                  labelStyle: TextStyle(
-                                                      color: Colors.black),
-                                                ),
-                                                isExpanded: true,
-                                                onChanged: (String newValue) {
-                                                  setState(() {
-                                                    sterilized = newValue;
-                                                  });
-                                                },
-                                                items: <String>[
-                                                  'Sí',
+                                              DropDownField(
+                                                enabled: true,
+                                                labelText: '¿Vacunas al día?',
+                                                itemsList: <String>[
+                                                  'Si',
                                                   'No'
                                                 ].map<DropdownMenuItem<String>>(
                                                     (String value) {
@@ -874,79 +531,46 @@ class _NewPet extends State<NewPet> {
                                                     value: value,
                                                   );
                                                 }).toList(),
+                                                onChanged: (input) =>
+                                                    vaccines = input,
                                               ),
-                                              TextFormField(
-                                                initialValue: extra_info,
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                                //initialValue: "prueba@prueba.com",
+                                              DropDownField(
+                                                enabled: true,
+                                                labelText:
+                                                    '¿Está esterilizado?',
+                                                itemsList: <String>[
+                                                  'Si',
+                                                  'No'
+                                                ].map<DropdownMenuItem<String>>(
+                                                    (String value) {
+                                                  return DropdownMenuItem<
+                                                      String>(
+                                                    child: Text(value),
+                                                    value: value,
+                                                  );
+                                                }).toList(),
+                                                onChanged: (input) =>
+                                                    sterilized = input,
+                                              ),
+                                              SimpleTextField(
+                                                enabled: true,
+                                                textCapitalization:
+                                                    TextCapitalization
+                                                        .sentences,
+                                                label: 'extra',
+                                                maxLength: 50,
                                                 maxLines: 2,
-                                                textInputAction:
-                                                    TextInputAction.done,
-                                                decoration:
-                                                    const InputDecoration(
-                                                  suffixIcon: Icon(
-                                                    Icons.pets,
-                                                    color: Colors.green,
-                                                  ),
-                                                  hintText:
-                                                      'Información adicional',
-                                                  hintStyle: TextStyle(
-                                                    color: Colors.black38,
-                                                  ),
-                                                  labelText:
-                                                      'Información adicional',
-                                                  labelStyle: TextStyle(
-                                                    color: Colors.black,
-                                                  ),
-                                                  enabledBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.green),
-                                                  ),
-                                                  focusedBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.blue),
-                                                  ),
-                                                  errorBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.red),
-                                                  ),
-                                                  errorStyle: TextStyle(
-                                                      color: Colors.red),
-                                                  focusedErrorBorder:
-                                                      UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.red),
-                                                  ),
-                                                ),
-                                                validator: (value) {
-                                                  if (value.isEmpty) {
-                                                    return 'Es necesario completar este campo';
-                                                  } else {
-                                                    setState(() {
-                                                      extra_info = value;
-                                                    });
-                                                  }
-                                                  return null;
-                                                },
+                                                icon: Icons.pets,
+                                                helperText: '',
+                                                labelText:
+                                                    'Información adicional',
+                                                onSaved: (input) =>
+                                                    extra_info = input,
                                               ),
-                                              DropdownButtonFormField<String>(
-                                                value: size,
-                                                decoration: InputDecoration(
-                                                  labelText: "Tamaño",
-                                                  labelStyle: TextStyle(
-                                                      color: Colors.black),
-                                                ),
-                                                isExpanded: true,
-                                                onChanged: (String newValue) {
-                                                  setState(() {
-                                                    size = newValue;
-                                                  });
-                                                },
-                                                items: <String>[
+                                              DropDownField(
+                                                enabled: true,
+                                                labelText: 'Tamaño',
+                                                itemsList: <String>[
                                                   'Pequeño',
                                                   'Mediano',
                                                   'Grande'
@@ -958,21 +582,13 @@ class _NewPet extends State<NewPet> {
                                                     value: value,
                                                   );
                                                 }).toList(),
+                                                onChanged: (input) =>
+                                                    size = input,
                                               ),
-                                              DropdownButtonFormField<String>(
-                                                value: breed,
-                                                decoration: InputDecoration(
-                                                  labelText: "Raza",
-                                                  labelStyle: TextStyle(
-                                                      color: Colors.black),
-                                                ),
-                                                isExpanded: true,
-                                                onChanged: (String newValue) {
-                                                  setState(() {
-                                                    breed = newValue;
-                                                  });
-                                                },
-                                                items: <String>[
+                                              DropDownField(
+                                                enabled: true,
+                                                labelText: 'Raza',
+                                                itemsList: <String>[
                                                   'Chihuahua',
                                                   'Ratón de praga',
                                                   'Pastor alemán',
@@ -985,21 +601,13 @@ class _NewPet extends State<NewPet> {
                                                     value: value,
                                                   );
                                                 }).toList(),
+                                                onChanged: (input) =>
+                                                    breed = input,
                                               ),
-                                              DropdownButtonFormField<String>(
-                                                value: gender,
-                                                decoration: InputDecoration(
-                                                  labelText: "Sexo",
-                                                  labelStyle: TextStyle(
-                                                      color: Colors.black),
-                                                ),
-                                                isExpanded: true,
-                                                onChanged: (String newValue) {
-                                                  setState(() {
-                                                    gender = newValue;
-                                                  });
-                                                },
-                                                items: <String>[
+                                              DropDownField(
+                                                enabled: true,
+                                                labelText: 'Sexo',
+                                                itemsList: <String>[
                                                   'Hembra',
                                                   'Macho'
                                                 ].map<DropdownMenuItem<String>>(
@@ -1010,90 +618,98 @@ class _NewPet extends State<NewPet> {
                                                     value: value,
                                                   );
                                                 }).toList(),
+                                                onChanged: (input) =>
+                                                    gender = input,
                                               ),
-                                              Container(
-                                                child: MultiSelectFormField(
-                                                  autovalidate: false,
-                                                  titleText:
-                                                      '¿Cómo es tu mascota?',
-                                                  validator: (value) {
-                                                    if (value == null ||
-                                                        value.length == 0) {
-                                                      return 'Please select one or more options';
-                                                    }
-                                                    return null;
+                                              MultiSelectFormField(
+                                                autovalidate: false,
+                                                titleText:
+                                                    '¿Cómo es tu mascota?',
+                                                validator: (value) {
+                                                  if (value == null ||
+                                                      value.length == 0) {
+                                                    return 'Debes escoger al menos una opción';
+                                                  }
+                                                  return null;
+                                                },
+                                                dataSource: [
+                                                  {
+                                                    "display": "Amigable",
+                                                    "value": "Amigable",
                                                   },
-                                                  dataSource: [
-                                                    {
-                                                      "display": "Amigable",
-                                                      "value": "Amigable",
-                                                    },
-                                                    {
-                                                      "display": "Juguetón",
-                                                      "value": "Juguetón",
-                                                    },
-                                                    {
-                                                      "display": "Travieso",
-                                                      "value": "Travieso",
-                                                    },
-                                                    {
-                                                      "display": "Reservado",
-                                                      "value": "Reservado",
-                                                    },
-                                                    {
-                                                      "display": "Tranquilo",
-                                                      "value": "Tranquilo",
-                                                    },
-                                                    {
-                                                      "display": "Solitario",
-                                                      "value": "Solitario",
-                                                    },
-                                                    {
-                                                      "display": "Obediente",
-                                                      "value": "Obediente",
-                                                    },
-                                                    {
-                                                      "display": "Territorial",
-                                                      "value": "Territorial",
-                                                    },
-                                                    {
-                                                      "display":
-                                                          "Dominante con otros perros",
-                                                      "value":
-                                                          "Dominante con otros perros",
-                                                    },
-                                                    {
-                                                      "display":
-                                                          "Líder de la manada",
-                                                      "value":
-                                                          "Líder de la manada",
-                                                    },
-                                                    {
-                                                      "display": "Activo",
-                                                      "value": "Activo",
-                                                    },
-                                                    {
-                                                      "display": "Pasivo",
-                                                      "value": "Pasivo",
-                                                    },
-                                                  ],
-                                                  textField: 'display',
-                                                  valueField: 'value',
-                                                  okButtonLabel: 'Wuoof!',
-                                                  cancelButtonLabel: 'Grrr!',
-                                                  errorText:
-                                                      "Debes escoger al menos una opción",
-                                                  // required: true,
-                                                  hintText:
-                                                      'Escoge las características',
-                                                  initialValue: _myActivities,
-                                                  onSaved: (value) {
-                                                    if (value == null) return;
-                                                    setState(() {
-                                                      _myActivities = value;
-                                                    });
+                                                  {
+                                                    "display": "Juguetón",
+                                                    "value": "Juguetón",
                                                   },
-                                                ),
+                                                  {
+                                                    "display": "Travieso",
+                                                    "value": "Travieso",
+                                                  },
+                                                  {
+                                                    "display": "Reservado",
+                                                    "value": "Reservado",
+                                                  },
+                                                  {
+                                                    "display": "Tranquilo",
+                                                    "value": "Tranquilo",
+                                                  },
+                                                  {
+                                                    "display": "Solitario",
+                                                    "value": "Solitario",
+                                                  },
+                                                  {
+                                                    "display": "Obediente",
+                                                    "value": "Obediente",
+                                                  },
+                                                  {
+                                                    "display": "Territorial",
+                                                    "value": "Territorial",
+                                                  },
+                                                  {
+                                                    "display":
+                                                        "Dominante con otros perros",
+                                                    "value":
+                                                        "Dominante con otros perros",
+                                                  },
+                                                  {
+                                                    "display":
+                                                        "Líder de la manada",
+                                                    "value":
+                                                        "Líder de la manada",
+                                                  },
+                                                  {
+                                                    "display": "Activo",
+                                                    "value": "Activo",
+                                                  },
+                                                  {
+                                                    "display": "Pasivo",
+                                                    "value": "Pasivo",
+                                                  },
+                                                ],
+                                                textField: 'display',
+                                                valueField: 'value',
+                                                okButtonLabel: 'Wuoof!',
+                                                cancelButtonLabel: 'Grrr!',
+                                                errorText:
+                                                    "Debes escoger al menos una opción",
+                                                // required: true,
+                                                hintText:
+                                                    'Escoge las características',
+                                                onSaved: (value) {
+                                                  if (value == null) return;
+                                                  setState(() {
+                                                    _myActivities = value;
+                                                  });
+                                                },
+                                              ),
+                                              SimpleTextField(
+                                                enabled: true,
+                                                textCapitalization:
+                                                    TextCapitalization.none,
+                                                maxLines: 1,
+                                                label: 'passwordConfirm',
+                                                helperText: '',
+                                                labelText: 'Contraseña',
                                               ),
                                               Padding(
                                                 padding: EdgeInsets.only(
@@ -1101,8 +717,7 @@ class _NewPet extends State<NewPet> {
                                                 child: RaisedButton(
                                                   onPressed: () {
                                                     //printIt();
-                                                    if (_editProfileForm
-                                                        .currentState
+                                                    if (_formKey.currentState
                                                         .validate()) {
                                                       profile_pic_base64 !=
                                                                   null &&

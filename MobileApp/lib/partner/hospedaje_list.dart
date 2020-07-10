@@ -35,7 +35,7 @@ class _HospedajeList extends State<HospedajeList> {
       body: jsonEncode(<String, String>{
         'action': "get_available_partners_list",
         "pet_id": "pet_kzxw5zSiqHF",
-        "service_id": "service_k2wCdG3ZmCe"
+        "service_id": "service_cbrM81nTLW4"
       }),
     );
 

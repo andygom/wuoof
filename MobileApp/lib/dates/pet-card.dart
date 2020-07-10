@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../extras/globals.dart';
 
 Widget petCard(BuildContext context, controller, pet_data) {
@@ -24,12 +25,15 @@ Widget petCard(BuildContext context, controller, pet_data) {
       width: 30,
       height: 30,
       decoration: BoxDecoration(
-          color: Colors.pink, borderRadius: BorderRadius.circular(50)),
+          color: pet_gender == 'Hembra' ? Colors.pink : Colors.blue, borderRadius: BorderRadius.circular(50)),
       child: Icon(
-        Icons.search,
+        pet_gender == 'Hembra' ?
+        FontAwesomeIcons.venus: FontAwesomeIcons.mars,
         color: Colors.white,
       ),
     );
+
+
 
     if (pet_gender == "macho") {
       icon = Container(
@@ -120,13 +124,13 @@ Widget petCard(BuildContext context, controller, pet_data) {
                   children: <Widget>[
                     Text(
                       pet_biography,
-                      textAlign: TextAlign.left,
+                      textAlign: TextAlign.justify,
                       style: TextStyle(
                         color: Colors.white,
                       ),
                     ),
                     SizedBox(
-                      height: 5,
+                      height: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -140,9 +144,10 @@ Widget petCard(BuildContext context, controller, pet_data) {
                               "Mi dueño",
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 20,
+                                  fontSize: 17,
                                   fontWeight: FontWeight.w500),
                             ),
+                            SizedBox(height: 3,),
                             CircleAvatar(
                               radius: 30,
                               backgroundImage: NetworkImage(dummy_user_image),
@@ -178,7 +183,7 @@ Widget petCard(BuildContext context, controller, pet_data) {
                                     width: 50,
                                     height: 50,
                                     child:
-                                        Icon(Icons.close, color: primary_red),
+                                        Icon(FontAwesomeIcons.times, color: primary_red),
                                   ),
                                 ),
                               ),
@@ -209,7 +214,7 @@ Widget petCard(BuildContext context, controller, pet_data) {
                                     width: 50,
                                     height: 50,
                                     child:
-                                        Icon(Icons.check, color: primary_green),
+                                        Icon(FontAwesomeIcons.check, color: primary_green),
                                   ),
                                 ),
                               ),

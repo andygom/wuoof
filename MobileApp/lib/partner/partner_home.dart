@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wuoof/extras/globals.dart';
 import 'package:wuoof/general/inbox.dart';
 import 'package:wuoof/general/main-appbar.dart';
+import 'package:wuoof/general/view_photo.dart';
 import 'package:wuoof/partner/home_hospedaje_item_card.dart';
 import 'package:wuoof/partner/home_host_item_card.dart';
 import 'package:wuoof/partner/home_walk_item_card.dart';
@@ -14,6 +15,7 @@ import 'package:wuoof/partner/partner_login.dart';
 import 'package:wuoof/partner/partner_offered_services.dart';
 import 'package:wuoof/partner/partner_payment_details.dart';
 import 'package:wuoof/partner/partner_profile.dart';
+import 'package:wuoof/partner/partner_reviews.dart';
 import '../dates/date_item_card.dart';
 import '../partner/walk_item_card.dart';
 import '../partner/host_item_card.dart';
@@ -115,7 +117,7 @@ class _PartnerHome extends State<PartnerHome> {
               context, categoria_electricidad, serviciosElectricidad, "walks"),
       modelListGenerator(
           context, categoria_especiales, serviciosEspeciales, "hosts"),
-          modelListGenerator(
+      modelListGenerator(
           context, categoria_especiales, serviciosEspeciales, "hospedaje"),
     ]);
   }
@@ -141,7 +143,7 @@ class _PartnerHome extends State<PartnerHome> {
         case "hosts":
           card_model = homeHostItemListCard(context, history);
           break;
-        
+
         case "hospedaje":
           card_model = homeHospedajeItemListCard(context, history);
           break;
@@ -255,6 +257,19 @@ class _PartnerHome extends State<PartnerHome> {
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => OfferedServices()));
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.pets,
+                color: primary_green,
+              ),
+              title: Text('Mis reviews'),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PartnerReview()));
               },
             ),
             ListTile(
@@ -388,6 +403,33 @@ class _PartnerHome extends State<PartnerHome> {
                               Column(
                                 children: <Widget>[
                                   Card(
+                              elevation: 5.0,
+                              shape: CircleBorder(),
+                              clipBehavior: Clip.antiAlias,
+                              child: InkWell(
+                                onTap: () {
+                                  photoView(context,  'partner',dummy_net_partner, primary_green, 'PartnerPhoto', user_id);
+                                },
+                                child: Hero(
+                                  placeholderBuilder: (context, Size, child) {
+                                    return CircleAvatar(
+                                      backgroundColor: common_grey,
+                                      radius: 60,
+                                      backgroundImage:
+                                          NetworkImage(dummy_net_partner),
+                                    );
+                                  },
+                                  tag: 'PartnerPhoto',
+                                  child: CircleAvatar(
+                                    backgroundColor: common_grey,
+                                    radius: 60,
+                                    backgroundImage:
+                                        NetworkImage(dummy_net_partner),
+                                  ),
+                                ),
+                              ),
+                            ),
+                                  /* Card(
                                     elevation: 5.0,
                                     shape: CircleBorder(),
                                     clipBehavior: Clip.antiAlias,
@@ -397,11 +439,11 @@ class _PartnerHome extends State<PartnerHome> {
                                       backgroundImage:
                                           NetworkImage(dummy_net_partner),
                                     ),
-                                  ),
+                                  ), */
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  Text("¡Hola, " + dummy_partner_name,
+                                  Text("¡Hola, " + dummy_partner_name + '!',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 19,
@@ -514,12 +556,12 @@ class _PartnerHome extends State<PartnerHome> {
                         ],
                       )),
                   Container(
-                    constraints: BoxConstraints.expand(height: 50),
+                    constraints: BoxConstraints.expand(height: 55),
                     child: TabBar(
                         isScrollable: false,
                         tabs: [
                           Tab(
-                             icon: Column(
+                              icon: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Image.asset(
@@ -527,7 +569,7 @@ class _PartnerHome extends State<PartnerHome> {
                                 width: 30,
                               ),
                               SizedBox(
-                                width: 4,
+                                height: 2,
                               ),
                               Text("Paseos", style: TextStyle(fontSize: 10))
                             ],
@@ -541,23 +583,24 @@ class _PartnerHome extends State<PartnerHome> {
                                 width: 30,
                               ),
                               SizedBox(
-                                width: 4,
+                                height: 2,
                               ),
                               Text("Cuidados", style: TextStyle(fontSize: 10))
                             ],
                           )),
                           Tab(
-                             icon: Column(
+                              icon: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Image.asset(
                                 "images/hospedaje-btn.png",
-                                width: 30,
+                                width: 28,
                               ),
-                              /*    SizedBox(
-                                width: 4,
-                              ), */
-                              Text("Hospedajes", style: TextStyle(fontSize: 10)),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              Text("Hospedajes",
+                                  style: TextStyle(fontSize: 10)),
                             ],
                           )),
                         ],

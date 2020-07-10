@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:wuoof/extras/globals.dart';
 import 'package:wuoof/owner/checkout.dart';
 import 'package:wuoof/partner/partner_hospedaje_service_details.dart';
@@ -60,33 +61,19 @@ class _PublicNewPartnerProfile extends State<PublicNewPartnerProfile> {
       partner_img = widget.partnerData["img_url"];
     }
 
-/*     if (widget.service == "paseo") {
-      tabServiceName = "Paseo";
-      print('paseo');
-    } else if (widget.service == "cuidado") {
-      tabServiceName = "Cuidado";
-      print('cuidado');
-    } else if (widget.service == "noche") {
-      tabServiceName = "Hospedaje";
-      print('hospedaje');
-    } */
-
     return Scaffold(
-      body: NestedScrollView(
-        physics: BouncingScrollPhysics(),
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              expandedHeight: 200.0,
-              floating: false,
-              pinned: true,
-              primary: true,
-              backgroundColor: primary_yellow,
-              automaticallyImplyLeading: true,
-              flexibleSpace: FlexibleSpaceBar(
-                  collapseMode: CollapseMode.parallax,
-                  centerTitle: false,
-                  title: Row(
+
+      body: CustomScrollView(
+      slivers: <Widget>[
+  SliverAppBar(
+    expandedHeight: 250.0,
+    floating: false,
+    pinned: true,
+    backgroundColor: primary_yellow,
+    flexibleSpace: FlexibleSpaceBar(
+        centerTitle: true,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(name,
                           style: TextStyle(
@@ -124,13 +111,27 @@ class _PublicNewPartnerProfile extends State<PublicNewPartnerProfile> {
                       )
                     ],
                   ),
-                  background: setImage("network", partner_img, false)),
-            ),
-          ];
-        },
-        body: ListView(
-          padding: EdgeInsets.only(top: 0),
-          children: <Widget>[
+        background: Swiper(
+          itemCount: 5,
+          itemBuilder: (BuildContext context, int index) => 
+          
+            Image.network(partner_img, 
+            fit: BoxFit.cover,),
+          autoplay: false,
+          scrollDirection: Axis.horizontal,
+          pagination: new SwiperPagination(
+             margin: new EdgeInsets.all(50.0),
+             alignment: Alignment.topCenter
+    ),
+    
+            
+        )),
+  ),
+
+  SliverList(
+    delegate: SliverChildListDelegate(
+      [
+        
             Container(
               padding: EdgeInsets.all(normal_padding),
               child: setService(context, widget.service, widget.partnerData),
@@ -142,9 +143,14 @@ class _PublicNewPartnerProfile extends State<PublicNewPartnerProfile> {
               padding: EdgeInsets.all(normal_padding),
               child: partnerInfoCard(context, widget.partnerData),
             )
-          ],
-        ),
-      ),
+      ]
+    )
+    )
+
+
+]
+    ),
+
       bottomNavigationBar: Container(
           color: primary_green,
 

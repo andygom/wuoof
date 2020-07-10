@@ -1,7 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:wuoof/extras/globals.dart';
+import 'package:wuoof/general/formField.dart';
+import 'package:wuoof/general/validation.dart';
 import 'package:wuoof/owner/user_login.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,7 +15,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 const greencolor = const Color(0xFF4FB961);
 
 class RegisterOwnerform extends StatefulWidget {
-
   @override
   _RegisterOwnerform createState() => _RegisterOwnerform();
 }
@@ -20,6 +23,8 @@ class _RegisterOwnerform extends State<RegisterOwnerform> {
   bool filling_form = false;
   final _myForm = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final requiredValidator =
+      RequiredValidator(errorText: 'this field is required');
 
   String name;
   String first_lastname;
@@ -34,6 +39,11 @@ class _RegisterOwnerform extends State<RegisterOwnerform> {
 
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
+        fieldLabelText: 'Ingresa la fecha',
+        locale: const Locale("es", "MX"),
+        helpText: 'selecciona tu fecha de nacimiento',
+        cancelText: 'Cancelar',
+        confirmText: 'Ok',
         context: context,
         initialDate: birthdate,
         firstDate: DateTime(1930, 8),
@@ -71,7 +81,7 @@ class _RegisterOwnerform extends State<RegisterOwnerform> {
         "gender": " ",
         "mail": mail,
         "password": password,
-        "type":"client"
+        "type": "client"
       }),
     );
     var jsonResponse = jsonDecode(response.body);
@@ -120,12 +130,11 @@ class _RegisterOwnerform extends State<RegisterOwnerform> {
                 ))
             : Container(
                 decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('images/white-bg.png'),
-                          fit: BoxFit.cover,
-                          colorFilter: ColorFilter.mode(
-                              Colors.black.withOpacity(0.6),
-                              BlendMode.dstATop))),
+                    image: DecorationImage(
+                        image: AssetImage('images/white-bg.png'),
+                        fit: BoxFit.cover,
+                        colorFilter: ColorFilter.mode(
+                            Colors.black.withOpacity(0.6), BlendMode.dstATop))),
                 child: ListView(
                   children: <Widget>[
                     Padding(
@@ -166,134 +175,35 @@ class _RegisterOwnerform extends State<RegisterOwnerform> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
-                                  TextFormField(
-                                    initialValue: name,
-                                    style: TextStyle(color: Colors.black),
-                                    decoration: const InputDecoration(
-                                      suffixIcon: Icon(Icons.person_outline,
-                                          color: Colors.green),
-                                      hintText: 'Nombre',
-                                      hintStyle: TextStyle(
-                                        color: Colors.black,
-                                      ),
-                                      labelText: 'Nombre',
-                                      labelStyle: TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.grey),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: greencolor),
-                                      ),
-                                      errorBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.red),
-                                      ),
-                                      errorStyle: TextStyle(color: Colors.red),
-                                      focusedErrorBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.red),
-                                      ),
-                                    ),
-                                    validator: (value) {
-                                      if (value.isEmpty) {
-                                        return 'Ingresa tu nombre';
-                                      } else {
-                                        setState(() {
-                                          name = value;
-                                        });
-                                      }
-                                      return null;
-                                    },
+                                  SimpleTextField(
+                                    textCapitalization: TextCapitalization.words,
+                                    label: 'name',
+                                    // maxLength: null,
+                                    enabled: true,
+                                    icon: Icons.person_outline,
+                                    hintText: 'Nombre',
+                                    labelText: 'Nombre',
+                                    onSaved: (input) => name = input,
                                   ),
-                                  TextFormField(
-                                    initialValue: first_lastname,
-                                    style: TextStyle(color: Colors.black),
-                                    decoration: const InputDecoration(
-                                      suffixIcon: Icon(Icons.people_outline,
-                                          color: Colors.green),
-                                      hintText: 'Apellido Paterno',
-                                      hintStyle: TextStyle(
-                                        color: Colors.black,
-                                      ),
-                                      labelText: 'Apellido Paterno',
-                                      labelStyle: TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.grey),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: greencolor),
-                                      ),
-                                      errorBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.red),
-                                      ),
-                                      errorStyle: TextStyle(color: Colors.red),
-                                      focusedErrorBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.red),
-                                      ),
-                                    ),
-                                    validator: (value) {
-                                      if (value.isEmpty) {
-                                        return 'Ingresa tu apellido paterno';
-                                      } else {
-                                        setState(() {
-                                          first_lastname = value;
-                                        });
-                                      }
-                                      return null;
-                                    },
+                                  SimpleTextField(
+                                    textCapitalization: TextCapitalization.words,
+                                    label: 'lastName',
+                                    // maxLength: null,
+                                    enabled: true,
+                                    icon: Icons.people_outline,
+                                    hintText: 'Apellido Paterno',
+                                    labelText: 'Apellido Paterno',
+                                    onSaved: (input) => first_lastname = input,
                                   ),
-                                  TextFormField(
-                                    initialValue: second_lastname,
-                                    style: TextStyle(color: Colors.black),
-                                    decoration: const InputDecoration(
-                                      suffixIcon: Icon(Icons.people_outline,
-                                          color: Colors.green),
-                                      hintText: 'Apellido Materno',
-                                      hintStyle: TextStyle(
-                                        color: Colors.black,
-                                      ),
-                                      labelText: 'Apellido Materno',
-                                      labelStyle: TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.grey),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: greencolor),
-                                      ),
-                                      errorBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.red),
-                                      ),
-                                      errorStyle: TextStyle(color: Colors.red),
-                                      focusedErrorBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.red),
-                                      ),
-                                    ),
-                                    validator: (value) {
-                                      if (value.isEmpty) {
-                                        return 'Ingresa tu apellido materno';
-                                      } else {
-                                        setState(() {
-                                          second_lastname = value;
-                                        });
-                                      }
-                                      return null;
-                                    },
+                                  SimpleTextField(
+                                    textCapitalization: TextCapitalization.words,
+                                    label: 'lastName',
+                                    // maxLength: null,
+                                    enabled: true,
+                                    icon: Icons.people_outline,
+                                    hintText: 'Apellido Materno',
+                                    labelText: 'Apellido Materno',
+                                    onSaved: (input) => second_lastname = input,
                                   ),
                                   Container(
                                     width: double.infinity,
@@ -321,183 +231,36 @@ class _RegisterOwnerform extends State<RegisterOwnerform> {
                                           ],
                                         )),
                                   ),
-                                  TextFormField(
-                                    initialValue: phone,
-                                    style: TextStyle(color: Colors.black),
-                                    decoration: const InputDecoration(
-                                      suffixIcon: Icon(Icons.phone_android,
-                                          color: Colors.green),
-                                      hintText: 'Teléfono',
-                                      hintStyle: TextStyle(
-                                        color: Colors.black,
-                                      ),
-                                      labelText: 'Teléfono',
-                                      labelStyle: TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.grey),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: greencolor),
-                                      ),
-                                      errorBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.red),
-                                      ),
-                                      errorStyle: TextStyle(color: Colors.red),
-                                      focusedErrorBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.red),
-                                      ),
-                                    ),
-                                    validator: (value) {
-                                      if (value.isEmpty) {
-                                        return 'Ingresa tu teléfono';
-                                      } else {
-                                        setState(() {
-                                          phone = value;
-                                        });
-                                      }
-                                      return null;
-                                    },
+                                  SimpleTextField(
+                                    textCapitalization: TextCapitalization.none,
+                                    label: 'phone',
+                                    // maxLength: null,
+                                    enabled: true,
+                                    icon: Icons.phone_android,
+                                    hintText: 'Teléfono',
+                                    labelText: 'Teléfono',
+                                    onSaved: (input) => phone = input,
                                   ),
-                                  TextFormField(
-                                    initialValue: mail,
-                                    style: TextStyle(color: Colors.black),
-                                    decoration: const InputDecoration(
-                                      suffixIcon: Icon(Icons.mail_outline,
-                                          color: Colors.green),
-                                      hintText: 'Correo',
-                                      hintStyle: TextStyle(
-                                        color: Colors.black,
-                                      ),
-                                      labelText: 'Correo',
-                                      labelStyle: TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.grey),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: greencolor),
-                                      ),
-                                      errorBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.red),
-                                      ),
-                                      errorStyle: TextStyle(color: Colors.red),
-                                      focusedErrorBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.red),
-                                      ),
-                                    ),
-                                    validator: (value) {
-                                      if (value.isEmpty) {
-                                        return 'Ingresa tu correo';
-                                      } else {
-                                        setState(() {
-                                          mail = value;
-                                        });
-                                      }
-                                      return null;
-                                    },
+                                  SimpleTextField(
+                                    textCapitalization: TextCapitalization.none,
+                                    label: 'email',
+                                    // maxLength: null,
+                                    enabled: true,
+                                    icon: Icons.mail_outline,
+                                    hintText: 'Correo',
+                                    labelText: 'Correo',
+                                    onSaved: (input) => mail = input,
                                   ),
-                                  TextFormField(
-                                    initialValue: password,
-                                    style: TextStyle(color: Colors.black),
-                                    obscureText: true,
-                                    //enabled: edition_enabled ? true : false,
-                                    decoration: const InputDecoration(
-                                      suffixIcon: Icon(Icons.lock_outline,
-                                          color: Colors.green),
-                                      hintText: 'Contraseña',
-                                      hintStyle: TextStyle(
-                                        color: Colors.black38,
-                                      ),
-                                      labelText: 'Contraseña',
-                                      labelStyle: TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.grey),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: greencolor),
-                                      ),
-                                      errorBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.red),
-                                      ),
-                                      errorStyle: TextStyle(color: Colors.red),
-                                      focusedErrorBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.red),
-                                      ),
-                                    ),
-                                    validator: (value) {
-                                      if (value.isEmpty) {
-                                        return 'Ingresa tu contraseña';
-                                      } else {
-                                        setState(() {
-                                          password = value;
-                                        });
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                  TextFormField(
-                                    //initialValue: password,
-                                    style: TextStyle(color: Colors.black),
-                                    obscureText: true,
-                                    //enabled: edition_enabled ? true : false,
-                                    decoration: const InputDecoration(
-                                      suffixIcon: Icon(Icons.lock_outline,
-                                          color: Colors.green),
-                                      hintText: 'Confirmar contraseña',
-                                      hintStyle: TextStyle(
-                                        color: Colors.black38,
-                                      ),
-                                      labelText: 'Confirmar contraseña',
-                                      labelStyle: TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.grey),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: greencolor),
-                                      ),
-                                      errorBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.red),
-                                      ),
-                                      errorStyle: TextStyle(color: Colors.red),
-                                      focusedErrorBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.red),
-                                      ),
-                                    ),
-                                    validator: (value) {
-                                      if (value != password)
-                                        return 'La contraseña no coincide';
-                                      if (value.isEmpty) {
-                                        return 'La contraseña no coincide';
-                                      } else {
-                                        setState(() {
-                                          password = value;
-                                        });
-                                      }
-                                      return null;
-                                    },
+                                  SimpleTextField(
+                                    textCapitalization: TextCapitalization.none,
+                                    maxLines: 1,
+                                    label: 'password',
+                                    // maxLength: null,
+                                    enabled: true,
+                                    // icon: Icons.lock_outline,
+                                    hintText: 'Contraseña',
+                                    labelText: 'Contraseña',
+                                    onSaved: (input) => password = input,
                                   ),
                                   Padding(
                                     padding:

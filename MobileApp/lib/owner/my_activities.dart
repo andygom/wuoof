@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -6,6 +7,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wuoof/extras/globals.dart';
 import 'package:wuoof/general/main-appbar.dart';
+import 'package:wuoof/general/validation.dart';
 import '../dates/date_item_card.dart';
 import '../partner/walk_item_card.dart';
 import '../partner/host_item_card.dart';
@@ -16,6 +18,11 @@ var categoria_electricidad = "2";
 var categoria_especiales = "3";
 var categoria_hospedaje = "3";
 
+
+
+
+
+
 class UserActivities extends StatefulWidget {
   final int tabIndex;
 
@@ -25,6 +32,7 @@ class UserActivities extends StatefulWidget {
 }
 
 class _UserActivities extends State<UserActivities> {
+  bool filling_form = false;
   bool loading_lists = true;
   bool fetch_error = false;
   bool logged = false;
@@ -46,6 +54,13 @@ class _UserActivities extends State<UserActivities> {
     super.initState();
     loadServicesList(context);
   }
+
+  //String mail = "prueba@prueba.com";
+  //String password = "12345678";
+
+
+
+
 
   Future<http.Response> loadServicesList(BuildContext context) async {
     final http.Response response = await http.post(
@@ -155,7 +170,7 @@ class _UserActivities extends State<UserActivities> {
     return new Padding(
       padding: EdgeInsets.all(small_padding),
       child: StaggeredGridView.countBuilder(
-        padding: EdgeInsets.all(7),
+        padding: EdgeInsets.all(5),
         crossAxisCount: 1,
         itemCount: listLength,
         itemBuilder: (BuildContext context, int index) => setModel(false),
@@ -186,7 +201,7 @@ class _UserActivities extends State<UserActivities> {
               child: Column(
                 children: <Widget>[
                   Container(
-                    constraints: BoxConstraints.expand(height: 50),
+                    constraints: BoxConstraints.expand(height: 60),
                     child: TabBar(
                         isScrollable: false,
                         tabs: [
@@ -201,7 +216,10 @@ class _UserActivities extends State<UserActivities> {
                               /*  SizedBox(
                                 width: 4,
                               ), */
-                              Text("Citas", style: TextStyle(fontSize: 10)),
+                              Container(
+                                  padding: EdgeInsets.only(top: 2),
+                                  child: Text("Citas",
+                                      style: TextStyle(fontSize: 10))),
                             ],
                           )),
                           Tab(
@@ -215,7 +233,10 @@ class _UserActivities extends State<UserActivities> {
                               /* SizedBox(
                                 width: 4,
                               ), */
-                              Text("Paseos", style: TextStyle(fontSize: 10)),
+                              Container(
+                                  padding: EdgeInsets.only(top: 2),
+                                  child: Text("Paseos",
+                                      style: TextStyle(fontSize: 10))),
                             ],
                           )),
                           Tab(
@@ -226,24 +247,29 @@ class _UserActivities extends State<UserActivities> {
                                 "images/host-btn.png",
                                 width: 30,
                               ),
-                              /*  SizedBox(
-                                width: 4,
-                              ), */
-                              Text("Cuidados", style: TextStyle(fontSize: 10)),
+                              Container(
+                                  padding: EdgeInsets.only(top: 2),
+                                  child: Text("Cuidados",
+                                      style: TextStyle(fontSize: 10))),
                             ],
                           )),
                           Tab(
                               icon: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Image.asset(
-                                "images/hospedaje-btn.png",
-                                width: 30,
+                              Container(
+                                child: Image.asset(
+                                  "images/hospedaje-btn.png",
+                                  width: 28,
+                                ),
                               ),
                               /*    SizedBox(
                                 width: 4,
                               ), */
-                              Text("Hospedaje", style: TextStyle(fontSize: 10)),
+                              Container(
+                                  padding: EdgeInsets.only(top: 2),
+                                  child: Text("Hospedaje",
+                                      style: TextStyle(fontSize: 10))),
                             ],
                           )),
                         ],
@@ -261,11 +287,10 @@ class _UserActivities extends State<UserActivities> {
                                     Colors.black.withOpacity(0.5),
                                     BlendMode.dstATop))),
                         // color: Colors.grey[300],
-                      
+
                         child: !fetch_error ? showLists(context) : null,
                       ),
                     ),
-                
                   )
                 ],
               ),
@@ -273,3 +298,7 @@ class _UserActivities extends State<UserActivities> {
     );
   }
 }
+
+
+
+

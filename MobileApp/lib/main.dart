@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:wuoof/gestureDetector.dart';
 import 'package:wuoof/owner/checkout.dart';
 import 'package:wuoof/owner/my_activities.dart';
@@ -15,7 +16,6 @@ import 'partner/partner_signup.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-     home: UserHome("")
+      home: UserHome(""),
+      localizationsDelegates: [GlobalMaterialLocalizations.delegate],
+      supportedLocales: [
+        const Locale('es'), // Español//
+      ],
     );
   }
 }

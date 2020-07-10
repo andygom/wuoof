@@ -3,6 +3,8 @@ import 'package:wuoof/general/chat.dart';
 import '../extras/globals.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+import 'partner_rate.dart';
+
 Widget hospedajeItemListCard(BuildContext context, history) {
   return Container(
     width: 130,
@@ -215,29 +217,33 @@ Widget hospedajeItemListCard(BuildContext context, history) {
             ),
           ],
         ),
-        SizedBox(
-          height: 10,
-        ),
-        RatingBar(
-          ignoreGestures: false,
-          initialRating: 4,
-          itemSize: 35,
-          minRating: 1,
-          direction: Axis.horizontal,
-          allowHalfRating: true,
-          itemCount: 5,
-          itemPadding: EdgeInsets.symmetric(horizontal: 0.0),
-          itemBuilder: (context, _) => Icon(
-            Icons.star,
-            color: Colors.amber,
-          ),
-          onRatingUpdate: (rating) {
-            print(rating);
+        SizedBox(height: 15,),
+        InkWell(
+          onTap: (){
+            rateDialog(context, dummy_partner_name);
           },
+                  child: Container(
+            child: Text( "Calificar a " + dummy_partner_name,style: TextStyle(fontSize: 17, color: primary_blue),),
+          ),
         ),
-        SizedBox(
-          height: 10,
-        ),
+        SizedBox(height: 10,),
+        // RatingBar(
+        //   ignoreGestures: false,
+        //   initialRating: 4,
+        //   itemSize: 35,
+        //   minRating: 1,
+        //   direction: Axis.horizontal,
+        //   allowHalfRating: true,
+        //   itemCount: 5,
+        //   itemPadding: EdgeInsets.symmetric(horizontal: 0.0),
+        //   itemBuilder: (context, _) => Icon(
+        //     Icons.star,
+        //     color: Colors.amber,
+        //   ),
+        //   onRatingUpdate: (rating) {
+        //     print(rating);
+        //   },
+        // ),
         Container(
           margin: EdgeInsets.only(bottom: small_padding),
           decoration: BoxDecoration(

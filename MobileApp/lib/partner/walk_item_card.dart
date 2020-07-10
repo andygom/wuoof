@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wuoof/general/chat.dart';
+import 'package:wuoof/partner/partner_rate.dart';
 import '../extras/globals.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -214,29 +215,99 @@ Widget walkItemListCard(BuildContext context, history) {
             ),
           ],
         ),
-        SizedBox(
-          height: 10,
-        ),
-        RatingBar(
-          ignoreGestures: false,
-          initialRating: 4,
-          itemSize: 25,
-          minRating: 1,
-          direction: Axis.horizontal,
-          allowHalfRating: true,
-          itemCount: 5,
-          itemPadding: EdgeInsets.symmetric(horizontal: 0.0),
-          itemBuilder: (context, _) => Icon(
-            Icons.star,
-            color: Colors.amber,
-          ),
-          onRatingUpdate: (rating) {
-            print(rating);
+        // SizedBox(
+        //   height: 10,
+        // ),
+        // Row(
+        //   children: <Widget>[
+        //     Expanded(
+        //       child: Container(
+        //         child: Column(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           children: <Widget>[
+        //           Icon(Icons.star),
+        //           Text('Calificar')
+        //         ],),
+        //       )),
+        //     Expanded(
+        //       child: Container(
+        //         child: Column(
+                  
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           children: <Widget>[
+        //           Icon(Icons.call),
+        //           Text('Llamar')
+        //         ],),
+        //       )),
+        //     Expanded(
+        //       child: Container(
+        //         child: Column(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           children: <Widget>[
+        //           Icon(Icons.message),
+        //           Text('Chat')
+        //         ],),
+        //       )),
+        //   ],
+        // ),
+        SizedBox(height: 15,),
+        InkWell(
+          onTap: (){
+            rateDialog(context, dummy_partner_name);
           },
+                  child: Container(
+            child: Text( "Calificar a " + dummy_partner_name,style: TextStyle(fontSize: 17, color: primary_blue),),
+          ),
         ),
-        SizedBox(
-          height: 10,
-        ),
+        SizedBox(height: 10,),
+        // Container(
+        //   margin: EdgeInsets.only(bottom: small_padding),
+        //   decoration: BoxDecoration(
+        //     borderRadius: BorderRadius.circular(small_border_radius),
+        //     boxShadow: [
+        //       BoxShadow(
+        //         color: Color.fromRGBO(0, 0, 0, 0.1),
+        //         blurRadius: 5.0, // soften the shadow
+        //         spreadRadius: 1.0, //extend the shadow
+        //         offset: Offset(
+        //           0.0, // Move to right 10  horizontally
+        //           3.0, // Move to bottom 10 Vertically
+        //         ),
+        //       )
+        //     ],
+        //   ),
+        //   child: new Material(
+        //     color: Colors.transparent,
+        //     child: new InkWell(
+        //       onTap: () {},
+        //       child: new Container(
+        //         padding: EdgeInsets.all(small_padding),
+        //         decoration: BoxDecoration(
+        //           borderRadius: BorderRadius.circular(small_border_radius),
+        //           color: primary_blue,
+        //         ),
+        //         child: Row(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           children: <Widget>[
+        //             // Icon(
+        //             //   Icons.star,
+        //             //   color: Colors.white,
+        //             //   size: 16,
+        //             // ),
+        //             SizedBox(
+        //               width: 5,
+        //             ),
+        //             Text(
+        //               "Calificar a " + dummy_partner_name,
+        //               style: TextStyle(color: Colors.white, fontSize: 17),
+        //             )
+        //           ],
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        
         Container(
           margin: EdgeInsets.only(bottom: small_padding),
           decoration: BoxDecoration(

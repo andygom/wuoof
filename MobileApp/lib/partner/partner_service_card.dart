@@ -1,29 +1,38 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:wuoof/partner/partner_offeredHost.dart';
+import 'package:wuoof/partner/partner_offeredHotel.dart';
 import '../extras/globals.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../partner/public_partner_profile.dart';
+import 'partner_offeredWalk.dart';
 
 Widget partnerServiceCard(BuildContext context, service, service_price) {
-
   String service_name;
   String service_image;
   String service_description;
+  String serviceOfferedTag;
+  Widget service_route;
 
-  if(service == "host"){
+  if (service == "host") {
     service_name = "Cuidador";
     service_image = "images/cuidador.png";
-    service_description = dummy_partner_bio;
-  }  else if (service == "walk" ){
+    serviceOfferedTag = "hostOffered";
+    service_description = "Toca para editar la información de tu servicio.";
+    service_route = PartnerOfferedHost();
+  } else if (service == "walk") {
     service_name = "Paseador";
     service_image = "images/paseador.png";
-    service_description = dummy_service_description;
-  }
-   else if (service == "hospedaje" ){
+    serviceOfferedTag = "walkOffered";
+    service_description = "Toca para editar la información de tu servicio.";
+    service_route = PartnerOfferedWalk();
+  } else if (service == "hospedaje") {
     service_name = "Hospedaje";
     service_image = "images/hospedaje.png";
-    service_description = dummy_service_description;
+    serviceOfferedTag = "hotelOffered";
+    service_description = "Toca para editar la información de tu servicio.";
+    service_route = PartnerOfferedHotel();
   }
 
   return Container(
@@ -77,37 +86,42 @@ Widget partnerServiceCard(BuildContext context, service, service_price) {
                     height: 10,
                   ),
                   Container(
-                  padding: EdgeInsets.all(3),
-                  decoration: BoxDecoration(
-                      color: Colors.green,
-                      borderRadius: BorderRadius.circular(1)),
-                  child: RichText(
-                    text: TextSpan(
-                      style: new TextStyle(
-                        fontSize: 14.0,
-                        color: Colors.white,
+                    padding: EdgeInsets.all(3),
+                    decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(1)),
+                    child: RichText(
+                      text: TextSpan(
+                        style: new TextStyle(
+                          fontSize: 14.0,
+                          color: Colors.white,
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: '\$' + service_price,
+                              style: TextStyle(fontWeight: FontWeight.w700)),
+                          TextSpan(text: '/evento'),
+                        ],
                       ),
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: '\$'+service_price,
-                            style: TextStyle(fontWeight: FontWeight.w700)),
-                        TextSpan(text: '/evento'),
-                      ],
                     ),
-                  ),
-                )
+                  )
                 ],
               ),
             ),
             SizedBox(width: normal_margin),
-            Container(
-                child: Image.asset(service_image),
-                height: 100,
-                alignment: Alignment.topRight),
+            Hero(
+              tag: serviceOfferedTag,
+              child: Container(
+                  child: Image.asset(service_image),
+                  height: service == "hospedaje" ? 90 : 100,
+                  alignment: Alignment.topRight),
+            ),
           ],
         ),
       ),
       onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => service_route));
       },
     ),
   );

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wuoof/extras/globals.dart';
 import 'package:wuoof/owner/my_activities.dart';
 import '../extras/globals.dart';
@@ -39,6 +40,7 @@ class _DatesScreen extends State<DatesScreen> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     loadList(context);
+    WidgetsBinding.instance.addPostFrameCallback((_) => dateInit(context));
   }
 
   Future<http.Response> loadList(BuildContext context) async {
@@ -81,97 +83,183 @@ class _DatesScreen extends State<DatesScreen> with TickerProviderStateMixin {
   }
 
   Future<String> checkForMatch(context, index) async {
-    return showDialog<String>(
-      context: context,
-      barrierDismissible:
-          false, // dialog is dismissible with a tap on the barrier
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-            builder: (BuildContext context, StateSetter setState) {
-          return AlertDialog(
-            title: Text(
-              "¡Match con " + listaDePerros[index]["pet_name"].toString() + "!",
-              textAlign: TextAlign.center,
-            ),
-            contentPadding:
-                EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 0),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                SizedBox(
-                  height: 5,
+    return showGeneralDialog(
+        context: context,
+        barrierColor: Colors.black12.withOpacity(0.8),
+        barrierDismissible: false,
+        barrierLabel: "Dialog",
+        transitionDuration: Duration(milliseconds: 400),
+        pageBuilder: (context, _, __) {
+          return Scaffold(
+              backgroundColor: Colors.black12.withOpacity(0.1),
+              body: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            '¡Hiciste Match!',
+                            style: TextStyle(color: Colors.white, fontSize: 40),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "Tienes un match con " +
+                                listaDePerros[index]["pet_name"].toString(),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 17, color: Colors.white),
+                          ),
+                          SizedBox(
+                            height: 70,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              _petMatch(dummy_net_img),
+                              Transform.rotate(
+                                angle: 180,
+                                child: IconButton(
+                                  icon: Icon(
+                                    FontAwesomeIcons.bone,
+                                    color: Colors.green[200],
+                                  ),
+                                  onPressed: null,
+                                ),
+                              ),
+                              _petMatch(dummy_pet_img_2),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 70,
+                          ),
+                          Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).pop();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            UserActivities(0)));
+                              },
+                              child: Container(
+                                width: 300,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 0, vertical: 10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                      small_border_radius),
+                                  color: primary_green,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    // Icon(
+                                    //   Icons.message,
+                                    //   color: Colors.white,
+                                    //   size: 16,
+                                    // ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "Enviar mensaje a " +
+                                          listaDePerros[index]["pet_name"]
+                                              .toString(),
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 17),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () {
+                                setState(() {});
+                                Navigator.of(context).pop();
+                              },
+                              child: Container(
+                                width: 300,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 0, vertical: 10),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: primary_green),
+                                  borderRadius: BorderRadius.circular(
+                                      small_border_radius),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    // Icon(
+                                    //   Icons.pets,
+                                    //   color: Colors.white,
+                                    //   size: 16,
+                                    // ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      'Seguir',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 17),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ])
+                  ],
                 ),
-                Text(
-                  "Hiciste un match con " +
-                      listaDePerros[index]["pet_name"].toString(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 13,
-                  ),
-                ),
-                Container(
-                  height: 110,
-                  padding: EdgeInsets.all(small_padding),
+              ));
+        });
+  }
+
+  Future<String> dateInit(context) async {
+    return showGeneralDialog(
+        context: context,
+        barrierColor: Colors.black12.withOpacity(0.3),
+        barrierDismissible: false,
+        barrierLabel: "Dialog",
+        transitionDuration: Duration(milliseconds: 400),
+        pageBuilder: (context, _, __) {
+          return GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Scaffold(
+                backgroundColor: Colors.black12.withOpacity(0.3),
+                body: Container(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Container(
-                        height: 65,
-                        width: 65,
-                        padding: EdgeInsets.all(small_padding),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          image: DecorationImage(
-                            image: NetworkImage(dummy_net_img),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 65,
-                        width: 65,
-                        transform: Matrix4.translationValues(-5.0, 0.0, 0.0),
-                        decoration: BoxDecoration(
-                          border: Border.all(width: 3, color: Colors.white),
-                          borderRadius: BorderRadius.circular(50),
-                          image: DecorationImage(
-                            image: NetworkImage(dummy_pet_img_2),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          SizedBox(width: 10,),
+                          Text('Desliza a la izquierda para decartar a la mascota', style: TextStyle(color: Colors.white),),
+                          SizedBox(width: 10,),
+                          Text(' y a la derecha para buscar un match', style: TextStyle(color: Colors.white)),
+                        ],
+                      )
                     ],
                   ),
-                ),
-              ],
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: Text(
-                  'Grrr!',
-                //  'Seguir',
-                  style: TextStyle(color: primary_green),
-                ),
-                onPressed: () {
-                  setState(() {});
-                  Navigator.of(context).pop();
-                },
-              ),
-              FlatButton(
-                child: Text('Wuoof!'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => UserActivities(0)));
-                },
-              ),
-            ],
+                )),
           );
         });
-      },
-    );
   }
 
   _displaySnackBar(context, String message) {
@@ -219,21 +307,21 @@ class _DatesScreen extends State<DatesScreen> with TickerProviderStateMixin {
                     padding: EdgeInsets.all(small_padding),
                     child: Column(
                       children: <Widget>[
+                        // Container(
+                        //   padding: EdgeInsets.all(small_padding),
+                        //   margin: EdgeInsets.only(bottom: small_padding),
+                        //   decoration: BoxDecoration(
+                        //       color: primary_green,
+                        //       borderRadius:
+                        //           BorderRadius.circular(small_border_radius)),
+                        //   child: Text(
+                        //     "Deslizar hacia la izquierda es decartar a la mascota, y a la derecha es para buscar un match",
+                        //     textAlign: TextAlign.center,
+                        //     style: TextStyle(color: Colors.white),
+                        //   ),
+                        // ),
                         Container(
-                          padding: EdgeInsets.all(small_padding),
-                          margin: EdgeInsets.only(bottom: small_padding),
-                          decoration: BoxDecoration(
-                              color: primary_green,
-                              borderRadius:
-                                  BorderRadius.circular(small_border_radius)),
-                          child: Text(
-                            "Deslizar hacia la izquierda es decartar a la mascota, y a la derecha es para buscar un match",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                        Container(
-                            height: 550,
+                            height: 600,
                             child: lastItem
                                 ? Center(
                                     child: Container(
@@ -310,4 +398,20 @@ class _DatesScreen extends State<DatesScreen> with TickerProviderStateMixin {
                       ],
                     )));
   }
+}
+
+Widget _petMatch(petimg) {
+  return Container(
+    height: 120,
+    width: 120,
+    //   transform: Matrix4.translationValues(7.0, 0.0, 0.0),
+    decoration: BoxDecoration(
+      border: Border.all(width: 2, color: Colors.white),
+      borderRadius: BorderRadius.circular(100),
+      image: DecorationImage(
+        image: NetworkImage(petimg),
+        fit: BoxFit.cover,
+      ),
+    ),
+  );
 }

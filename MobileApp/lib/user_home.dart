@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wuoof/pets/new_pet.dart';
 import 'extras/globals.dart';
+import 'general/view_photo.dart';
 import 'partner/home-card.dart';
 import 'partner/walker_list.dart';
 import 'partner/host_list.dart';
@@ -113,7 +114,7 @@ class _UserHome extends State<UserHome> {
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-    Future<http.Response> loadHotelList(BuildContext context) async {
+  Future<http.Response> loadHotelList(BuildContext context) async {
     final http.Response response = await http.post(
       api_url,
       headers: <String, String>{
@@ -152,7 +153,7 @@ class _UserHome extends State<UserHome> {
       _displaySnackBar(context, "No se ha podido cargar la lista de servicios");
       //throw Exception('Failed to load list.');
     }
-  } 
+  }
 
   Future<http.Response> loadHostList(BuildContext context) async {
     final http.Response response = await http.post(
@@ -571,8 +572,7 @@ class _UserHome extends State<UserHome> {
                                   child: new Container(
                                     width: 40,
                                     height: 40,
-                                    child:
-                                        Icon(Icons.pets, color: primary_green),
+                                    child: Icon(Icons.pets, color: Colors.grey),
                                   ),
                                 ),
                               ),
@@ -593,11 +593,27 @@ class _UserHome extends State<UserHome> {
                               elevation: 5.0,
                               shape: CircleBorder(),
                               clipBehavior: Clip.antiAlias,
-                              child: CircleAvatar(
-                                backgroundColor: common_grey,
-                                radius: 60,
-                                backgroundImage:
-                                    NetworkImage(pet_featured_image),
+                              child: InkWell(
+                                onTap: () {
+                                  photoView(context, 'dog',pet_featured_image, primary_yellow, 'DogPhoto', user_id);
+                                },
+                                child: Hero(
+                                  placeholderBuilder: (context, Size, child) {
+                                    return CircleAvatar(
+                                      backgroundColor: common_grey,
+                                      radius: 60,
+                                      backgroundImage:
+                                          NetworkImage(pet_featured_image),
+                                    );
+                                  },
+                                  tag: 'DogPhoto',
+                                  child: CircleAvatar(
+                                    backgroundColor: common_grey,
+                                    radius: 60,
+                                    backgroundImage:
+                                        NetworkImage(pet_featured_image),
+                                  ),
+                                ),
                               ),
                             ),
                             SizedBox(
@@ -643,7 +659,7 @@ class _UserHome extends State<UserHome> {
                                     width: 40,
                                     height: 40,
                                     child: Icon(Icons.swap_horiz,
-                                        color: primary_green),
+                                        color: Colors.grey),
                                   ),
                                 ),
                               ),
@@ -958,7 +974,7 @@ Widget serviceCards(context, servicioIcon, servicio, serviciofound,
               },
               color: Colors.green,
               child: Text(
-                "Ver más",
+                "Ver todos",
                 style: TextStyle(color: Colors.white),
               ),
             ),

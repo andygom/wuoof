@@ -71,34 +71,34 @@ Widget hostServiceDetailsCard(BuildContext context, partnerData) {
                 fontSize: 15,
               ),
             ),
-            Container(
-                margin: EdgeInsets.only(top: 10),
-                color: Colors.black,
-                height: 300,
-                child: PhotoViewGallery.builder(
-                  backgroundDecoration:
-                      BoxDecoration(color: Colors.transparent),
-                  scrollPhysics: const BouncingScrollPhysics(),
-                  builder: (BuildContext context, int index) {
-                    return PhotoViewGalleryPageOptions(
-                      imageProvider: NetworkImage(house_img),
-                      initialScale: PhotoViewComputedScale.contained * 0.9,
-                    );
-                  },
-                  itemCount: 5,
-                  loadingBuilder: (context, event) => Center(
-                    child: Container(
-                      width: 20.0,
-                      height: 20.0,
-                      child: CircularProgressIndicator(
-                        value: event == null
-                            ? 0
-                            : event.cumulativeBytesLoaded /
-                                event.expectedTotalBytes,
-                      ),
-                    ),
-                  ),
-                )),
+            // Container(
+            //     margin: EdgeInsets.only(top: 10),
+            //     color: Colors.black,
+            //     height: 300,
+            //     child: PhotoViewGallery.builder(
+            //       backgroundDecoration:
+            //           BoxDecoration(color: Colors.transparent),
+            //       scrollPhysics: const BouncingScrollPhysics(),
+            //       builder: (BuildContext context, int index) {
+            //         return PhotoViewGalleryPageOptions(
+            //           imageProvider: NetworkImage(house_img),
+            //           initialScale: PhotoViewComputedScale.contained * 0.9,
+            //         );
+            //       },
+            //       itemCount: 5,
+            //       loadingBuilder: (context, event) => Center(
+            //         child: Container(
+            //           width: 20.0,
+            //           height: 20.0,
+            //           child: CircularProgressIndicator(
+            //             value: event == null
+            //                 ? 0
+            //                 : event.cumulativeBytesLoaded /
+            //                     event.expectedTotalBytes,
+            //           ),
+            //         ),
+            //       ),
+            //     )),
           ],
         ),
       ),

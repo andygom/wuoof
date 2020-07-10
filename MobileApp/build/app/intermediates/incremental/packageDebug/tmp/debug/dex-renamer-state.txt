@@ -1,4 +1,4 @@
-#Tue Jun 30 14:47:16 CDT 2020
-base.0=C\:\\Users\\Andy Sandoval\\Desktop\\appwuoof\\app\\MobileApp\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
+#Fri Jul 10 13:29:28 CDT 2020
+base.0=/home/ambar/wuoof/MobileApp/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

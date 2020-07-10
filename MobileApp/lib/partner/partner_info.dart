@@ -101,9 +101,9 @@ Widget partnerInfoCard(BuildContext context, partnerData) {
                 direction: Axis.horizontal,
                 allowHalfRating: true,
                 itemCount: 5,
-                itemPadding: EdgeInsets.symmetric(horizontal: 0.0),
+                itemPadding: EdgeInsets.symmetric(horizontal: 0.5),
                 itemBuilder: (context, _) => Icon(
-                  Icons.star,
+                  Icons.pets,
                   color: Colors.amber,
                 ),
                 onRatingUpdate: (rating) {
