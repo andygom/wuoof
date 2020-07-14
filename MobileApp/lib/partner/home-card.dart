@@ -7,7 +7,7 @@ import '../partner/public_partner_profile.dart';
 import '../partner/publicnew_partner_profile.dart';
 
 
-Widget partnerHomeCard(BuildContext context, partnerData, service) {
+Widget partnerHomeCard(BuildContext context, partnerData, service, payService) {
   String name = "N/D";
   String city = "N/D";
   String description = "N/D";

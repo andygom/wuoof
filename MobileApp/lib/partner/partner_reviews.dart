@@ -67,14 +67,14 @@ class _PartnerReviewState extends State<PartnerReview> {
                     height: 50,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
-                        color: Colors.grey[200]),
+                        color: Colors.grey[100]),
                     child: Align(
                       alignment: Alignment.center,
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Icon(Icons.pets,
-                                size: 20, color: Colors.black.withOpacity(0.5)),
+                                size: 20, color: Colors.amber),
                             SizedBox(
                               width: 5,
                             ),
@@ -151,11 +151,11 @@ Widget reviewCard(BuildContext context) {
                 boxShadow: [
                   BoxShadow(
                     color: Color.fromRGBO(0, 0, 0, 0.1),
-                    blurRadius: 5.0, // soften the shadow
+                    blurRadius: 2.0, // soften the shadow
                     spreadRadius: 1.0, //extend the shadow
                     offset: Offset(
                       0.0, // Move to right 10  horizontally
-                      3.0, // Move to bottom 10 Vertically
+                      1.0, // Move to bottom 10 Vertically
                     ),
                   )
                 ]),

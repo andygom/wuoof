@@ -113,7 +113,7 @@ Widget profileServiceDetailsCard(BuildContext context, partnerData) {
                       TextSpan(
                           text: '\$'+service_price,
                           style: TextStyle(fontWeight: FontWeight.w700)),
-                      TextSpan(text: '/evento'),
+                      TextSpan(text: '/hora'),
                     ],
                   ),
                 ),

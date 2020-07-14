@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:wuoof/extras/globals.dart';
+import 'package:wuoof/general/formField.dart';
 import 'dart:io';
 import 'dart:convert';
 
@@ -265,62 +266,17 @@ class _PartnerOfferedWalkState extends State<PartnerOfferedWalk> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: <Widget>[
-                                        SizedBox(
-                                          height: 160.0,
-                                          child: TextFormField(
-                                            maxLength: 150,
-                                            maxLines: 100,
-                                            initialValue: biography,
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                            enabled:
-                                                edition_enabled ? true : false,
-                                            decoration: const InputDecoration(
-                                              suffixIcon: Icon(
-                                                Icons.person_outline,
-                                                color: Colors.green,
-                                              ),
-                                              hintText: 'Biografía',
-                                              hintStyle: TextStyle(
-                                                color: Colors.black38,
-                                              ),
-                                              labelText: 'Biografía',
-                                              labelStyle: TextStyle(
-                                                color: Colors.black,
-                                              ),
-                                              enabledBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.green),
-                                              ),
-                                              focusedBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.blue),
-                                              ),
-                                              errorBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.red),
-                                              ),
-                                              errorStyle:
-                                                  TextStyle(color: Colors.red),
-                                              focusedErrorBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.red),
-                                              ),
-                                            ),
-                                            validator: (value) {
-                                              if (value.isEmpty) {
-                                                return 'Ingresa tu biografía';
-                                              } else {
-                                                setState(() {
-                                                  biography = value;
-                                                });
-                                              }
-                                              return null;
-                                            },
-                                          ),
+                                          SimpleTextField(
+                                          textCapitalization: TextCapitalization.sentences,
+                                          label: 'bio',
+                                          initValue: biography,
+                                          maxLength: 150,
+                                          maxLines: 5,
+                                          enabled: edition_enabled,
+                                          icon: Icons.person_outline,
+                                          helperText: '',
+                                          labelText: 'Biografía',
+                                          onSaved: (input) => biography = input,
                                         ),
                                         TextFormField(
                                           keyboardType: TextInputType.number,

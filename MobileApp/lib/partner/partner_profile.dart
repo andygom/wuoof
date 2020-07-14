@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wuoof/extras/globals.dart';
 import 'package:wuoof/general/formField.dart';
@@ -7,6 +8,7 @@ import 'dart:convert';
 
 import 'package:wuoof/general/main-appbar.dart';
 import 'package:wuoof/general/partner-appbar.dart';
+import 'package:wuoof/general/validation.dart';
 
 class PartnerProfile extends StatefulWidget {
   @override
@@ -14,6 +16,7 @@ class PartnerProfile extends StatefulWidget {
 }
 
 class _PartnerProfile extends State<PartnerProfile> {
+  bool newPasswordPressed = true;
   bool filling_form = false;
   final _editProfileForm = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -202,94 +205,229 @@ class _PartnerProfile extends State<PartnerProfile> {
                                           labelText: 'Correo',
                                           onSaved: (input) => mail = input,
                                         ),
-                                        TextFormField(
-                                          initialValue: password,
-                                          style: TextStyle(color: Colors.black),
-                                          obscureText: true,
-                                          enabled:
-                                              edition_enabled ? true : false,
-                                          decoration: const InputDecoration(
-                                            suffixIcon: Icon(Icons.lock_outline,
-                                                color: Colors.green),
-                                            hintText: 'Contraseña actual',
-                                            hintStyle: TextStyle(
-                                              color: Colors.black38,
-                                            ),
-                                            labelText: 'Contraseña actual',
-                                            labelStyle: TextStyle(
-                                              color: Colors.black,
-                                            ),
-                                            enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.green),
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.blue),
-                                            ),
-                                            errorBorder: UnderlineInputBorder(
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                            errorStyle:
-                                                TextStyle(color: Colors.red),
-                                            focusedErrorBorder:
-                                                UnderlineInputBorder(
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                          ),
-                                          validator: (value) {
-                                            if (value.isEmpty) {
-                                              return 'Ingresa tu contraseña actual';
-                                            } else {
-                                              setState(() {
-                                                password = value;
-                                              });
-                                            }
-                                            return null;
-                                          },
-                                        ),
-                                        TextFormField(
-                                          initialValue: password,
-                                          style: TextStyle(color: Colors.black),
-                                          obscureText: true,
-                                          enabled:
-                                              edition_enabled ? true : false,
-                                          decoration: const InputDecoration(
-                                            suffixIcon: Icon(Icons.lock_outline,
-                                                color: Colors.green),
-                                            hintText:
-                                                'Nueva contraseña (Opcional)',
-                                            hintStyle: TextStyle(
-                                              color: Colors.black38,
-                                            ),
-                                            labelText:
-                                                'Nueva contraseña (Opcional)',
-                                            labelStyle: TextStyle(
-                                              color: Colors.black,
-                                            ),
-                                            enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.green),
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.blue),
-                                            ),
-                                            errorBorder: UnderlineInputBorder(
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                            errorStyle:
-                                                TextStyle(color: Colors.red),
-                                            focusedErrorBorder:
-                                                UnderlineInputBorder(
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                          ),
-                                        ),
+                                         edition_enabled
+                                            ? TextFormField(
+                                                enabled: edition_enabled
+                                                    ? true
+                                                    : false,
+                                                initialValue: '',
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                                obscureText: true,
+                                                decoration:
+                                                    const InputDecoration(
+                                                  suffixIcon: Icon(
+                                                      Icons.lock_outline,
+                                                      color: Colors.green),
+                                                  hintText: 'Contraseña actual',
+                                                  hintStyle: TextStyle(
+                                                    color: Colors.black38,
+                                                  ),
+                                                  labelText:
+                                                      'Contraseña actual',
+                                                  labelStyle: TextStyle(
+                                                    color: Colors.black38,
+                                                  ),
+                                                  enabledBorder:
+                                                      UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: Colors.green),
+                                                  ),
+                                                  focusedBorder:
+                                                      UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: Colors.blue),
+                                                  ),
+                                                  errorBorder:
+                                                      UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: Colors.red),
+                                                  ),
+                                                  errorStyle: TextStyle(
+                                                      color: Colors.red),
+                                                  focusedErrorBorder:
+                                                      UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: Colors.red),
+                                                  ),
+                                                ),
+                                                validator:
+                                                    passwordDataBaseValidator,
+                                                onChanged: (val) =>
+                                                    password = val,
+                                              )
+                                            : Container(),
+                                        edition_enabled && newPasswordPressed
+                                            ? Container(
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                      top: 20, bottom: 5),
+                                                  child: RaisedButton(
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        newPasswordPressed =
+                                                            false;
+                                                      });
+                                                    },
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0)),
+                                                    padding:
+                                                        EdgeInsets.all(0.0),
+                                                    child: Ink(
+                                                      decoration: BoxDecoration(
+                                                          color: primary_blue,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      5.0)),
+                                                      child: Container(
+                                                        constraints:
+                                                            BoxConstraints(
+                                                                maxWidth: double
+                                                                    .infinity,
+                                                                minHeight:
+                                                                    40.0),
+                                                        alignment:
+                                                            Alignment.center,
+                                                        child: Text(
+                                                          'Cambiar contraseña',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            : Container(),
+                                        // _newPassword(context, edition_enabled,
+                                        //     newpasword, newPasswordPressed),
+                                        newPasswordPressed
+                                            ? Container()
+                                            : Column(
+                                                children: <Widget>[
+                                                  TextFormField(
+                                                    initialValue: '',
+                                                    style: TextStyle(
+                                                        color: Colors.black),
+                                                    obscureText: true,
+                                                    enabled: edition_enabled
+                                                        ? true
+                                                        : false,
+                                                    decoration:
+                                                        const InputDecoration(
+                                                      suffixIcon: Icon(
+                                                          Icons.lock_outline,
+                                                          color: Colors.green),
+                                                      hintText:
+                                                          'Nueva contraseña',
+                                                      hintStyle: TextStyle(
+                                                        color: Colors.black38,
+                                                      ),
+                                                      labelText:
+                                                          'Nueva contraseña ',
+                                                      labelStyle: TextStyle(
+                                                        color: Colors.black38,
+                                                      ),
+                                                      enabledBorder:
+                                                          UnderlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color:
+                                                                Colors.green),
+                                                      ),
+                                                      focusedBorder:
+                                                          UnderlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: Colors.blue),
+                                                      ),
+                                                      errorBorder:
+                                                          UnderlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: Colors.red),
+                                                      ),
+                                                      errorStyle: TextStyle(
+                                                          color: Colors.red),
+                                                      focusedErrorBorder:
+                                                          UnderlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: Colors.red),
+                                                      ),
+                                                    ),
+                                                    onChanged: (val) =>
+                                                        password = val,
+                                                    validator:
+                                                        passwordValidator,
+                                                    textInputAction:
+                                                        TextInputAction.next,
+                                                    onFieldSubmitted: (_) =>
+                                                        FocusScope.of(context)
+                                                            .nextFocus(),
+                                                  ),
+                                                  TextFormField(
+                                                    initialValue: '',
+                                                    style: TextStyle(
+                                                        color: Colors.black),
+                                                    obscureText: true,
+                                                    enabled: edition_enabled
+                                                        ? true
+                                                        : false,
+                                                    decoration:
+                                                        const InputDecoration(
+                                                      suffixIcon: Icon(
+                                                          Icons.lock_outline,
+                                                          color: Colors.green),
+                                                      hintText:
+                                                          'Confirma nueva contraseña',
+                                                      hintStyle: TextStyle(
+                                                        color: Colors.black38,
+                                                      ),
+                                                      labelText:
+                                                          'Confirma nueva contraseña',
+                                                      labelStyle: TextStyle(
+                                                        color: Colors.black38,
+                                                      ),
+                                                      enabledBorder:
+                                                          UnderlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color:
+                                                                Colors.green),
+                                                      ),
+                                                      focusedBorder:
+                                                          UnderlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: Colors.blue),
+                                                      ),
+                                                      errorBorder:
+                                                          UnderlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: Colors.red),
+                                                      ),
+                                                      errorStyle: TextStyle(
+                                                          color: Colors.red),
+                                                      focusedErrorBorder:
+                                                          UnderlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: Colors.red),
+                                                      ),
+                                                    ),
+                                                    onChanged: (val) =>
+                                                        password = val,
+                                                    validator: (val) =>
+                                                        MatchValidator(
+                                                                errorText:
+                                                                    'Las contraseñas no coinciden')
+                                                            .validateMatch(
+                                                                val, password),
+                                                  ),
+                                                ],
+                                              ),
                                         Padding(
                                           padding: EdgeInsets.only(
                                               top: 20, bottom: 5),

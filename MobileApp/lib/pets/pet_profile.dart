@@ -243,23 +243,20 @@ class _PetProfile extends State<PetProfile> {
               children: <Widget>[
                 Column(
                   children: <Widget>[
-                    InkWell(
-                      onTap: getImage,
-                      child: Hero(
-                        tag: "profile_picture",
-                        child: Container(
-                          width: 120,
-                          height: 120,
-                          margin: EdgeInsets.only(top: 0, bottom: 10),
-                          decoration: new BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            border: Border.all(width: 3, color: Colors.white),
-                            image: DecorationImage(
-                              image: _image == null
-                                  ? NetworkImage(dummy_net_img)
-                                  : FileImage(_image), // <-- BACKGROUND IMAGE
-                              fit: BoxFit.cover,
-                            ),
+                    Hero(
+                      tag: "profile_picture",
+                      child: Container(
+                        width: 120,
+                        height: 120,
+                        margin: EdgeInsets.only(top: 0, bottom: 10),
+                        decoration: new BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          border: Border.all(width: 3, color: Colors.white),
+                          image: DecorationImage(
+                            image: _image == null
+                                ? NetworkImage(dummy_net_img)
+                                : FileImage(_image), // <-- BACKGROUND IMAGE
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),

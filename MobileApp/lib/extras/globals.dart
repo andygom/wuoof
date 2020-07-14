@@ -2,6 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+
+String payHost  = 'hora';
+String payWalk  = 'hora';
+String payHotel = 'día';
+
+
 var primary_yellow = Color(0xfffaca5e);
 var primary_green = Colors.green;
 var primary_red = Colors.red;

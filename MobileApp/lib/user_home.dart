@@ -817,7 +817,7 @@ class _UserHome extends State<UserHome> {
                   serviceCards(
                       context,
                       "images/walker-btn.png",
-                      'walk',
+                      'paseo',
                       'paseador',
                       loading_walkers_list,
                       listaDePaseadores,
@@ -962,7 +962,7 @@ Widget serviceCards(context, servicioIcon, servicio, serviciofound,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (BuildContext context, int index) {
                           return partnerHomeCard(
-                              context, listaDePartners[index], servicio);
+                              context, listaDePartners[index], servicio, payService);
                         }),
           ),
           Container(

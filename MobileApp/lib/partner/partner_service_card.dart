@@ -13,21 +13,25 @@ Widget partnerServiceCard(BuildContext context, service, service_price) {
   String service_image;
   String service_description;
   String serviceOfferedTag;
+  String payConcept;
   Widget service_route;
 
   if (service == "host") {
+    payConcept = payHost;
     service_name = "Cuidador";
     service_image = "images/cuidador.png";
     serviceOfferedTag = "hostOffered";
     service_description = "Toca para editar la información de tu servicio.";
     service_route = PartnerOfferedHost();
   } else if (service == "walk") {
+    payConcept = payWalk;
     service_name = "Paseador";
     service_image = "images/paseador.png";
     serviceOfferedTag = "walkOffered";
     service_description = "Toca para editar la información de tu servicio.";
     service_route = PartnerOfferedWalk();
   } else if (service == "hospedaje") {
+    payConcept = payHotel;
     service_name = "Hospedaje";
     service_image = "images/hospedaje.png";
     serviceOfferedTag = "hotelOffered";
@@ -100,7 +104,7 @@ Widget partnerServiceCard(BuildContext context, service, service_price) {
                           TextSpan(
                               text: '\$' + service_price,
                               style: TextStyle(fontWeight: FontWeight.w700)),
-                          TextSpan(text: '/evento'),
+                          TextSpan(text: '/$payConcept'),
                         ],
                       ),
                     ),
